@@ -1,18 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'app/app.dart';
 
 void main() {
   runApp(const ProviderScope(child: MindTrapApp()));
-}
-
-class MindTrapApp extends StatelessWidget {
-  const MindTrapApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'MindTrap AI',
-      home: Scaffold(body: Center(child: Text('MindTrap AI'))),
-    );
-  }
 }

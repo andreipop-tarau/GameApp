@@ -1,11 +1,38 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mindtrap_ai/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mindtrap_ai/app/app.dart';
 
 void main() {
-  testWidgets('shows app name', (WidgetTester tester) async {
-    await tester.pumpWidget(const MindTrapApp());
+  Future<void> pumpApp(WidgetTester tester) {
+    return tester.pumpWidget(const ProviderScope(child: MindTrapApp()));
+  }
 
-    expect(find.text('MindTrap AI'), findsOneWidget);
+  testWidgets('navigates to Play and returns Home', (
+    WidgetTester tester,
+  ) async {
+    await pumpApp(tester);
+
+    expect(find.text('Play'), findsOneWidget);
+    expect(find.text('Profile'), findsOneWidget);
+
+    await tester.tap(find.text('Play'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Play coming soon'), findsOneWidget);
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+
+    expect(find.text('MindTrap AI'), findsNWidgets(2));
+  });
+
+  testWidgets('navigates to Profile', (WidgetTester tester) async {
+    await pumpApp(tester);
+
+    await tester.tap(find.text('Profile'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Profile coming soon'), findsOneWidget);
   });
 }
