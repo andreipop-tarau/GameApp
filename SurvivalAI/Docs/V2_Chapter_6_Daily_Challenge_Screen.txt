@@ -1,0 +1,68 @@
+MindTrap AI
+
+Volume 2 - Chapter 6
+
+Daily Challenge Screen
+
+6.1 Purpose
+
+The Daily Challenge provides a shared experience where every player
+receives the same challenge for the day. It encourages daily engagement
+and friendly competition.
+
+6.2 Design Goals
+
+-   Encourage daily logins.
+-   Showcase global competition.
+-   Reward consistent participation.
+-   Make today’s challenge immediately visible.
+
+6.3 Layout
+
+Top: - Daily Challenge title - Countdown until reset - Reward preview
+
+Center: - Challenge description - Difficulty - Play button
+
+Bottom: - Personal best - Global rank - Friends rank - Reward summary
+
+6.4 Challenge Rules
+
+-   One challenge per day.
+-   Same challenge for all players.
+-   Server-controlled configuration.
+-   Automatic reset every 24 hours.
+
+6.5 Rewards
+
+Possible rewards: - XP - Brain Chips - Cosmetic items - Event points -
+Achievement progress
+
+6.6 Leaderboards
+
+Display: - Global - Country - Friends
+
+Tie-breaking uses completion time, then score.
+
+6.7 History
+
+Players may review: - Previous daily scores - Best streak - Longest
+streak - Rewards earned
+
+6.8 Countdown
+
+A live countdown shows time remaining until the next Daily Challenge.
+
+6.9 Error Handling
+
+If offline: - Show cached information. - Disable challenge start. -
+Retry synchronization automatically.
+
+Acceptance Criteria
+
+-   Daily challenge resets automatically.
+-   Countdown remains accurate.
+-   Rewards are granted once validated.
+-   Rankings update securely.
+-   UI remains responsive.
+
+End of Volume 2 - Chapter 6.

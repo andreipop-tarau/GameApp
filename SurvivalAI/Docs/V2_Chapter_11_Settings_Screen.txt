@@ -1,0 +1,84 @@
+MindTrap AI
+
+Volume 2 - Chapter 11
+
+Settings Screen
+
+11.1 Purpose
+
+The Settings Screen allows players to customize their experience, manage
+their account, configure accessibility, and control privacy without
+affecting gameplay.
+
+11.2 Design Goals
+
+-   Simple organization
+-   Fast access
+-   Clear labels
+-   Immediate feedback
+-   Safe account management
+
+11.3 Sections
+
+-   Account
+-   Audio
+-   Graphics
+-   Gameplay
+-   Accessibility
+-   Notifications
+-   Privacy
+-   Language
+-   Support
+-   About
+
+11.4 Account
+
+Players can: - Sign in/out - Link providers - Restore purchases - View
+account ID - Delete account (server-confirmed)
+
+11.5 Audio
+
+Controls: - Master Volume - Music Volume - Sound Effects - Haptics -
+Mute All
+
+Changes apply immediately.
+
+11.6 Graphics
+
+Options: - Reduce Motion - High Performance Mode - Battery Saver - FPS
+Display (Developer)
+
+11.7 Gameplay
+
+Options: - Left/Right handed preferences - Tutorial replay -
+Auto-confirm dialogs - Practice defaults
+
+11.8 Accessibility
+
+Support: - Large Text - High Contrast - Colorblind Mode - Haptic
+Toggle - Screen Reader Labels
+
+11.9 Notifications
+
+Players control: - Daily Challenge - Events - Friend Challenges - Shop
+Refresh - Seasonal Alerts
+
+11.10 Privacy
+
+Options: - Public Profile - Friend Requests - Leaderboard Visibility -
+Analytics Consent - Personalized Offers
+
+11.11 Support
+
+Provide: - FAQ - Contact Support - Report Bug - Terms of Service -
+Privacy Policy
+
+Acceptance Criteria
+
+-   Settings synchronize across devices where applicable.
+-   Changes apply immediately.
+-   Sensitive actions require confirmation.
+-   Accessibility is available from first launch.
+-   Screen remains responsive and organized.
+
+End of Volume 2 - Chapter 11.

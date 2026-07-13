@@ -1,0 +1,76 @@
+MindTrap AI
+
+Volume 1 - Chapter 2
+
+Core Gameplay
+
+2.1 Gameplay Loop
+
+The gameplay loop is designed around speed and repetition.
+
+Open App → Tap Play → Challenge Starts → Win or Lose → Results (<1
+second) → Instant Restart
+
+The complete loop should feel frictionless.
+
+2.2 Round Structure
+
+Each round contains: 1. Challenge initialization. 2. Active gameplay. 3.
+Immediate evaluation. 4. Rewards and statistics. 5. Restart.
+
+Rounds should last between 5 and 30 seconds.
+
+2.3 Controls
+
+Supported interactions: - Tap - Double Tap - Hold - Swipe - Drag -
+Multi-touch (future)
+
+Controls must be responsive with minimal latency.
+
+2.4 Challenge Duration
+
+The AI selects a target duration based on player skill: - Easy: 5–10
+seconds - Medium: 10–20 seconds - Hard: 20–30 seconds
+
+2.5 Win Conditions
+
+Examples: - Survive until timer ends. - Remember the correct sequence. -
+Tap the correct object. - Ignore misleading instructions. - Solve a
+logic task. - Predict movement.
+
+Every challenge clearly defines success.
+
+2.6 Lose Conditions
+
+Examples: - Wrong selection. - Time expires. - Touching hazards. -
+Following deceptive instructions. - Missing required actions.
+
+Failure should always feel understandable and fair.
+
+2.7 Feedback System
+
+Winning: - Positive sound. - Haptic feedback. - XP gained. - Brain
+Profile updated. - Progress animations.
+
+Losing: - Immediate explanation when appropriate. - Highlight mistake. -
+Encourage instant replay.
+
+2.8 Restart System
+
+Restart must require one tap.
+
+No loading screen.
+
+Target restart time: Less than 500 milliseconds.
+
+The player should always be able to start another round immediately.
+
+Acceptance Criteria
+
+-   Gameplay starts within 2 seconds of pressing Play.
+-   Restart is nearly instant.
+-   Controls remain responsive at 60 FPS.
+-   Every round can be completed with one hand.
+-   No unnecessary menus interrupt the gameplay loop.
+
+End of Chapter 2.

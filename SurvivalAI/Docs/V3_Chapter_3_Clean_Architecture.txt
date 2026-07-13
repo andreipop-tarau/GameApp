@@ -1,0 +1,37 @@
+MindTrap AI
+
+Volume 3 - Chapter 3
+
+Clean Architecture
+
+Purpose
+
+Separate UI, business logic and infrastructure.
+
+Layers
+
+Presentation Application Domain Data Infrastructure
+
+Rules
+
+-   UI depends on application only.
+-   Domain has no framework dependencies.
+-   Data implements domain repositories.
+-   Infrastructure contains external services.
+
+Dependency Rule
+
+Outer layers depend inward only.
+
+Benefits
+
+-   Testability
+-   Maintainability
+-   Replaceable services
+-   Independent development
+
+Acceptance Criteria
+
+-   No business logic in widgets.
+-   Domain remains framework independent.
+-   Repository interfaces live in Domain. End of Chapter 3.

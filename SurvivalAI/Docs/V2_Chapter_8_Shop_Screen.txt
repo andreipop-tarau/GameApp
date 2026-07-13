@@ -1,0 +1,88 @@
+MindTrap AI
+
+Volume 2 - Chapter 8
+
+Shop Screen
+
+8.1 Purpose
+
+The Shop Screen allows players to purchase optional cosmetics, Brain
+Chips, bundles and convenience items. It must remain simple, transparent
+and never feel mandatory.
+
+8.2 Design Goals
+
+-   Fast browsing
+-   Clear prices
+-   Large previews
+-   Minimal purchase friction
+-   No misleading offers
+
+8.3 Layout
+
+Top: - Brain Chips balance - Featured offer banner
+
+Center: - Featured - Daily Shop - Themes - Frames - Particles - Badges -
+Bundles - Founder (when active) - Seasonal
+
+Bottom: - Navigation bar
+
+8.4 Product Cards
+
+Each card displays: - Preview image - Item name - Price - Rarity -
+Limited tag (if applicable) - Owned indicator
+
+8.5 Product Details
+
+Selecting an item opens: - Large preview - Description - Collection -
+Price - Purchase button - Preview animation
+
+8.6 Purchase Flow
+
+Browse → Preview → Confirm → Payment → Success Animation → Inventory
+Updated
+
+Purchases should complete in only a few seconds.
+
+8.7 Daily Shop
+
+Refresh every 24 hours.
+
+Contains: - Common cosmetics - Rare cosmetics - Featured bundle -
+Discounted item
+
+8.8 Founder Section
+
+Visible only during the Founder Event.
+
+Displays: - Countdown - Founder Bundle - Founder cosmetics - Bonus Chip
+promotion
+
+8.9 Lucky Spin
+
+One free spin each day.
+
+Extra spins require Brain Chips.
+
+Rewards: - Chips - Themes - Frames - Particles - Badges - Rare cosmetics
+
+8.10 Inventory
+
+Purchased items appear immediately.
+
+Players can: - Equip - Preview - Filter - Favorite
+
+8.11 Error Handling
+
+If purchase fails: - Show clear error. - Retry safely. - Never duplicate
+purchases.
+
+Acceptance Criteria
+
+-   Shop loads quickly.
+-   Purchases are secure.
+-   Inventory updates instantly.
+-   Daily shop refreshes automatically.
+-   Cosmetics never affect gameplay.
+
+End of Volume 2 - Chapter 8.

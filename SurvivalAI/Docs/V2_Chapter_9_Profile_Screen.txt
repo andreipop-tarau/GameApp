@@ -1,0 +1,73 @@
+MindTrap AI
+
+Volume 2 - Chapter 9
+
+Profile Screen
+
+9.1 Purpose
+
+The Profile Screen is the player’s personal hub. It showcases
+progression, Brain Profile statistics, cosmetics, achievements and
+collections while giving quick access to account-related features.
+
+9.2 Design Goals
+
+-   Present player identity
+-   Visualize progression
+-   Encourage long-term goals
+-   Make cosmetics easy to manage
+-   Support profile sharing
+
+9.3 Layout
+
+Top: - Avatar - Username - Level - XP Progress - Brain Type
+
+Center: - Brain Profile - Statistics - Achievement Summary -
+Collections - Equipped Cosmetics
+
+Bottom: - Inventory - Purchase History - Settings shortcut
+
+9.4 Brain Profile
+
+Display: - Reaction - Memory - Attention - Logic - Prediction -
+Reading - Risk - Adaptability
+
+Charts should show recent improvements.
+
+9.5 Statistics
+
+Track: - Games Played - Wins - Highest Score - Average Score - Daily
+Streak - Longest Streak - Favorite Challenge Type - Total Play Time
+
+9.6 Achievements
+
+Show: - Completed - In Progress - Hidden - Seasonal - Founder
+
+Progress bars should update automatically.
+
+9.7 Inventory
+
+Players can: - Equip cosmetics - Preview cosmetics - Filter by
+category - Mark favorites - View rarity
+
+9.8 Profile Sharing
+
+Players may share: - Brain Type - Statistics - Achievements - Cosmetic
+setup
+
+Generate an optimized social image.
+
+9.9 Privacy
+
+Players control: - Public profile visibility - Brain Profile sharing -
+Friend visibility - Leaderboard visibility
+
+Acceptance Criteria
+
+-   Profile synchronizes across devices.
+-   Statistics update automatically.
+-   Cosmetic changes apply instantly.
+-   Sharing is completed in a few taps.
+-   Privacy settings are respected.
+
+End of Volume 2 - Chapter 9.

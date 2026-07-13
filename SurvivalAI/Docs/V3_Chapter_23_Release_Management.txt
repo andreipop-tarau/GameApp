@@ -1,0 +1,31 @@
+MindTrap AI
+
+Volume 3 - Chapter 23
+
+Release Management
+
+Purpose
+
+Define a predictable release process.
+
+Release Types
+
+-   Hotfix
+-   Patch
+-   Minor
+-   Major
+
+Process
+
+Development → QA → Internal Testing → Beta → Production
+
+Rules
+
+-   Semantic versioning.
+-   Release notes required.
+-   Rollback plan for every release.
+
+Acceptance Criteria
+
+-   Every release is reproducible.
+-   Rollback is documented. End of Chapter 23.

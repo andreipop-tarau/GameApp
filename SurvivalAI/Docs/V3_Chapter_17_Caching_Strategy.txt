@@ -1,0 +1,31 @@
+MindTrap AI
+
+Volume 3 - Chapter 17
+
+Caching Strategy
+
+Purpose
+
+Reduce latency and improve responsiveness.
+
+Cached Data
+
+-   Player profile
+-   Cosmetics
+-   Settings
+-   Daily challenge metadata
+-   Leaderboards (temporary)
+
+Rules
+
+-   Cache invalidation by version and TTL.
+-   Background refresh.
+-   Never cache sensitive tokens insecurely.
+
+Acceptance Criteria
+
+-   Faster startup.
+-   Reduced network usage.
+-   Consistent cache updates.
+
+End of Chapter 17.

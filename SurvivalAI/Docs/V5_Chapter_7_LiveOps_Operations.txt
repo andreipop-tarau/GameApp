@@ -1,0 +1,25 @@
+MindTrap AI
+
+Volume 5 - Chapter 7
+
+LiveOps Operations
+
+Purpose
+
+Operate recurring events safely after launch.
+
+Responsibilities
+
+-   Schedule events
+-   Rotate shop inventory
+-   Configure rewards
+-   Enable feature flags
+-   Monitor event health
+
+Acceptance Criteria
+
+-   Events launch on schedule.
+-   Rollback available.
+-   Changes audited.
+
+End of Chapter 7.

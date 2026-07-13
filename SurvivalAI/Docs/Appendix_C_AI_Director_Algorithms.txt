@@ -1,0 +1,24 @@
+Appendix C - AI Director Algorithms
+
+Decision Inputs
+
+-   Brain Profile
+-   Recent wins/losses
+-   Fatigue
+-   Session length
+-   Challenge history
+
+Selection Flow
+
+Evaluate player → Score challenge candidates → Remove recent duplicates
+→ Apply difficulty → Validate → Start round
+
+Rules
+
+-   Avoid repetition
+-   Prefer variety
+-   Inject recovery rounds after repeated failures
+
+Acceptance Criteria
+
+Deterministic, configurable and testable behavior.

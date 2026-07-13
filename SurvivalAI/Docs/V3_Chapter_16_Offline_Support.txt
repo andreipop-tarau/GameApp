@@ -1,0 +1,32 @@
+MindTrap AI
+
+Volume 3 - Chapter 16
+
+Offline Support
+
+Purpose
+
+Allow limited gameplay without internet.
+
+Offline Features
+
+-   Practice Mode
+-   Cached profile
+-   Cached cosmetics
+-   Settings
+-   Statistics history
+
+Synchronization
+
+Reconnect automatically and upload pending data safely.
+
+Rules
+
+-   Competitive modes require connectivity.
+-   Prevent duplicate synchronization.
+
+Acceptance Criteria
+
+-   Offline gameplay functions correctly.
+-   Data synchronizes safely.
+-   Conflicts are resolved consistently. End of Chapter 16.

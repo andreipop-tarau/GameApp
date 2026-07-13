@@ -1,0 +1,34 @@
+MindTrap AI
+
+Volume 3 - Chapter 5
+
+GoRouter Navigation
+
+Purpose
+
+Provide centralized, declarative routing.
+
+Route Groups
+
+-   Splash
+-   Auth
+-   Home
+-   Gameplay
+-   Results
+-   Daily Challenge
+-   Shop
+-   Profile
+-   Settings
+
+Rules
+
+-   Typed routes.
+-   Deep link support.
+-   Route guards for authentication.
+-   Minimal navigation side effects.
+
+Acceptance Criteria
+
+-   Predictable navigation.
+-   Deep links supported.
+-   Back stack managed correctly. End of Chapter 5.

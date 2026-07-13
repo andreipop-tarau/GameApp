@@ -1,0 +1,25 @@
+MindTrap AI
+
+Volume 4 - Chapter 5
+
+Analytics Backend
+
+Purpose
+
+Collect, process and expose gameplay, economy and technical analytics.
+
+Responsibilities
+
+-   Event ingestion
+-   Aggregation
+-   Dashboard data
+-   KPI calculations
+-   Data retention
+
+Acceptance Criteria
+
+-   Reliable event processing.
+-   Privacy compliant.
+-   Scalable aggregation.
+
+End of Chapter 5.

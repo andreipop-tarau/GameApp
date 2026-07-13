@@ -1,0 +1,36 @@
+MindTrap AI
+
+Volume 3 - Chapter 11
+
+Database Schema
+
+Purpose
+
+Define the core relational data model.
+
+Core Tables
+
+-   profiles
+-   brain_profiles
+-   challenges
+-   challenge_results
+-   achievements
+-   inventories
+-   purchases
+-   leaderboards
+-   friendships
+-   referrals
+-   seasons
+
+Rules
+
+-   UUID primary keys.
+-   Foreign keys enforced.
+-   Soft deletes where appropriate.
+-   Audit timestamps on all tables.
+
+Acceptance Criteria
+
+-   Normalized schema.
+-   Indexed frequently queried fields.
+-   Supports future expansion. End of Chapter 11.

@@ -1,0 +1,29 @@
+MindTrap AI
+
+Volume 4 - Chapter 8
+
+Backup & Disaster Recovery
+
+Purpose
+
+Ensure data durability and rapid recovery.
+
+Strategy
+
+-   Automated database backups
+-   Point-in-time recovery
+-   Storage backups
+-   Configuration backups
+
+Recovery Goals
+
+-   RPO: <15 minutes
+-   RTO: <1 hour
+
+Acceptance Criteria
+
+-   Backups verified.
+-   Recovery procedures documented.
+-   Regular restore tests.
+
+End of Chapter 8.

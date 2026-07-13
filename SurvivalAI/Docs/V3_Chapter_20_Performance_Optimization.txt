@@ -1,0 +1,32 @@
+MindTrap AI
+
+Volume 3 - Chapter 20
+
+Performance Optimization
+
+Purpose
+
+Maintain a smooth, responsive experience across supported devices.
+
+Targets
+
+-   Startup under 2 seconds
+-   Stable 60 FPS
+-   Low memory usage
+-   Efficient battery consumption
+
+Techniques
+
+-   Lazy loading
+-   Image caching
+-   Object pooling
+-   Efficient animations
+-   Minimize rebuilds
+
+Acceptance Criteria
+
+-   Meets performance targets.
+-   No unnecessary frame drops.
+-   Assets load efficiently.
+
+End of Chapter 20.

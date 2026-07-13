@@ -1,0 +1,27 @@
+MindTrap AI
+
+Volume 5 - Chapter 6
+
+Post-Launch Operations
+
+Activities
+
+-   Monitor crashes
+-   Review analytics
+-   Balance gameplay
+-   Rotate LiveOps events
+-   Respond to player feedback
+
+Success Metrics
+
+-   Retention
+-   Revenue
+-   Stability
+-   Store rating
+
+Acceptance Criteria
+
+-   Weekly review cadence.
+-   Continuous improvement process.
+
+End of Chapter 6.

@@ -1,0 +1,31 @@
+MindTrap AI
+
+Volume 4 - Chapter 4
+
+LiveOps Backend
+
+Purpose
+
+Control events, rewards, balancing and content remotely.
+
+Features
+
+-   Event scheduling
+-   Remote configuration
+-   Reward multipliers
+-   Shop rotation
+-   Feature flags
+
+Rules
+
+-   Changes without app update.
+-   Audit configuration changes.
+-   Rollback support.
+
+Acceptance Criteria
+
+-   Remote updates propagate safely.
+-   Events activate automatically.
+-   Configuration is versioned.
+
+End of Chapter 4.

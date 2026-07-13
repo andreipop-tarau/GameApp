@@ -1,0 +1,31 @@
+MindTrap AI
+
+Volume 5 - Chapter 1
+
+Development Workflow
+
+Purpose
+
+Define the day-to-day engineering workflow.
+
+Workflow
+
+-   Plan feature
+-   Create branch
+-   Implement
+-   Unit test
+-   Code review
+-   QA
+-   Merge
+-   Release
+
+Rules
+
+-   Small pull requests
+-   Feature flags for unfinished work
+-   Keep main branch deployable
+
+Acceptance Criteria
+
+-   Repeatable workflow.
+-   Code reviewed before merge. End of Chapter 1.

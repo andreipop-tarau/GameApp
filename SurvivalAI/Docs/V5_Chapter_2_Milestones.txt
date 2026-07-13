@@ -1,0 +1,26 @@
+MindTrap AI
+
+Volume 5 - Chapter 2
+
+Project Milestones
+
+Milestone 1
+
+Core gameplay MVP
+
+Milestone 2
+
+Progression, shop and profile
+
+Milestone 3
+
+Social systems and LiveOps
+
+Milestone 4
+
+Polish, testing and launch
+
+Acceptance Criteria
+
+-   Each milestone produces a playable build.
+-   Regression testing completed. End of Chapter 2.

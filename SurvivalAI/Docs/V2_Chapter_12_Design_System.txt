@@ -1,0 +1,96 @@
+MindTrap AI
+
+Volume 2 - Chapter 12
+
+Design System
+
+12.1 Purpose
+
+The Design System establishes a consistent visual language across the
+application. Every screen, component and animation must follow these
+standards.
+
+12.2 Design Principles
+
+-   Consistency
+-   Simplicity
+-   Readability
+-   Accessibility
+-   Premium appearance
+-   Mobile-first
+
+12.3 Color Palette
+
+Primary: - Neon Blue - Neon Purple
+
+Secondary: - Cyan - Magenta
+
+Neutral: - Dark Background - Surface - Glass Overlay - White Text - Gray
+Text
+
+Semantic: - Success - Warning - Error - Information
+
+12.4 Typography
+
+Use a modern sans-serif font.
+
+Hierarchy: - Display - Heading 1 - Heading 2 - Heading 3 - Body -
+Caption - Button
+
+Maintain consistent line heights and spacing.
+
+12.5 Spacing
+
+Base spacing unit: 8dp.
+
+Recommended scale: 4, 8, 12, 16, 24, 32, 48, 64.
+
+12.6 Grid
+
+Use responsive layouts.
+
+Margins: 16–24dp.
+
+Components align to an 8dp grid.
+
+12.7 Components
+
+Standardize: - Buttons - Cards - Dialogs - Chips - Badges - Progress
+Bars - Text Fields - Navigation Bars - Bottom Sheets - Snackbars
+
+12.8 Buttons
+
+Types: - Primary - Secondary - Tertiary - Destructive - Icon
+
+Touch target: minimum 48dp.
+
+12.9 Cards
+
+Cards use rounded corners, subtle shadows and glassmorphism styling
+where appropriate.
+
+12.10 Icons
+
+Use a single icon family throughout the application.
+
+Icons should be visually balanced and easily recognizable.
+
+12.11 Motion
+
+Animations: - 150–300ms - Smooth easing - Consistent transitions
+
+Avoid excessive motion.
+
+12.12 Accessibility
+
+Maintain: - WCAG-compliant contrast - Large touch targets - Readable
+typography - Color-independent status indicators
+
+Acceptance Criteria
+
+-   Every screen follows the design system.
+-   Components are reusable.
+-   Colors and typography remain consistent.
+-   Accessibility standards are met.
+
+End of Volume 2 - Chapter 12.

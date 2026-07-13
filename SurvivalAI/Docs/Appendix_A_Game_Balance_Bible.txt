@@ -1,0 +1,31 @@
+Appendix A - Game Balance Bible
+
+Purpose
+
+Define numerical balancing guidelines.
+
+XP
+
+-   Easy: 10 XP
+-   Medium: 20 XP
+-   Hard: 35 XP
+-   Daily Challenge: 50 XP
+
+Brain Chips
+
+Earn from: - Daily login - Events - Achievements - Referrals
+
+Never award unlimited premium currency.
+
+Shop Pricing
+
+Common: 10–30 Chips Rare: 40–80 Chips Epic: 100–200 Chips Legendary:
+250+ Chips
+
+Difficulty Targets
+
+Player success rate: 60–70% Average round: 5–30 seconds.
+
+Acceptance Criteria
+
+Economy remains fair and configurable.

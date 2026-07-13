@@ -1,0 +1,93 @@
+MindTrap AI
+
+Volume 2 - Chapter 2
+
+Navigation & User Flow
+
+2.1 Purpose
+
+This chapter defines how players move through the application.
+Navigation must be fast, predictable, and require the fewest possible
+taps.
+
+2.2 Design Goals
+
+-   Reach gameplay in under 2 taps.
+-   Never interrupt the player unnecessarily.
+-   Keep navigation consistent across all screens.
+-   Support one-handed use.
+
+2.3 Primary Navigation
+
+Bottom navigation bar:
+
+-   Play
+-   Daily
+-   Leaderboards
+-   Shop
+-   Profile
+
+The currently selected tab is clearly highlighted.
+
+2.4 Launch Flow
+
+First launch:
+
+Splash → Optional Sign In / Continue as Guest → Home → Play
+
+Returning users:
+
+Splash → Home
+
+2.5 Gameplay Flow
+
+Home → Play → Challenge → Results → Play Again
+
+Restart should always be one tap.
+
+2.6 Secondary Navigation
+
+Accessible from Profile:
+
+-   Settings
+-   Inventory
+-   Achievements
+-   Statistics
+-   Purchases
+-   Help
+
+2.7 Back Navigation
+
+The back action should:
+
+-   Return to the previous screen.
+-   Never lose progress without confirmation.
+-   Avoid unnecessary confirmation dialogs.
+
+2.8 Deep Links
+
+Support direct links to:
+
+-   Friend challenge
+-   Daily challenge
+-   Shop offer
+-   Seasonal event
+-   Referral invitation
+
+2.9 Error Handling
+
+If loading fails:
+
+-   Show a friendly message.
+-   Offer Retry.
+-   Preserve player progress whenever possible.
+
+Acceptance Criteria
+
+-   Gameplay reachable within two taps.
+-   Navigation remains consistent across the app.
+-   Back behavior is predictable.
+-   Deep links open the correct destination.
+-   Navigation remains responsive at 60 FPS.
+
+End of Volume 2 - Chapter 2.

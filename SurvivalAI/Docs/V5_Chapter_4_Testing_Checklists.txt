@@ -1,0 +1,28 @@
+MindTrap AI
+
+Volume 5 - Chapter 4
+
+Testing Checklists
+
+Purpose
+
+Provide repeatable validation before every release.
+
+Checklist
+
+-   Authentication
+-   Gameplay
+-   Daily Challenge
+-   Shop
+-   Purchases
+-   Leaderboards
+-   Notifications
+-   Offline Mode
+-   Performance
+
+Acceptance Criteria
+
+-   All critical scenarios verified.
+-   No release blockers remain.
+
+End of Chapter 4.

@@ -1,0 +1,29 @@
+MindTrap AI
+
+Volume 3 - Chapter 7
+
+Domain Layer
+
+Purpose
+
+Contain business rules independent of Flutter.
+
+Contents
+
+-   Entities
+-   Value Objects
+-   Repository Interfaces
+-   Use Cases
+-   Domain Exceptions
+
+Rules
+
+-   No UI imports.
+-   No database imports.
+-   Pure business logic only.
+
+Acceptance Criteria
+
+-   Framework independent.
+-   Fully unit testable.
+-   Stable public interfaces. End of Chapter 7.

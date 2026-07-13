@@ -1,0 +1,66 @@
+MindTrap AI
+
+Volume 2 - Chapter 10
+
+Friends and Social
+
+10.1 Purpose
+
+The Friends & Social screen helps players connect, compete, and share
+their progress while maintaining privacy and fair competition.
+
+10.2 Design Goals
+
+-   Simple friend management
+-   Friendly competition
+-   Fast challenge sharing
+-   Secure privacy controls
+-   Cross-platform synchronization
+
+10.3 Layout
+
+Top: - Search friends - Friend requests - Invite friends
+
+Center: - Friends list - Online status (future) - Recent activity
+
+Bottom: - Challenge history - Referral shortcut
+
+10.4 Friend Requests
+
+Players can: - Send requests - Accept - Decline - Cancel pending
+requests - Block users
+
+10.5 Friend Profiles
+
+Display: - Avatar - Username - Level - Brain Type - Favorite cosmetics -
+Personal best - Public achievements
+
+10.6 Challenges
+
+Players may: - Send challenge links - Compare scores - View challenge
+history - Rematch completed challenges
+
+10.7 Referrals
+
+Display: - Personal referral code - Share button - Invited friends -
+Rewards earned
+
+10.8 Privacy
+
+Configurable options: - Public profile - Accept friend requests - Show
+online status - Share Brain Profile - Appear on friend leaderboard
+
+10.9 Error Handling
+
+If synchronization fails: - Show cached friends. - Retry
+automatically. - Never lose pending requests.
+
+Acceptance Criteria
+
+-   Friends sync across devices.
+-   Challenge links open correctly.
+-   Referral rewards validate server-side.
+-   Privacy settings are enforced.
+-   UI remains responsive.
+
+End of Volume 2 - Chapter 10.

@@ -1,0 +1,28 @@
+MindTrap AI
+
+Volume 3 - Chapter 9
+
+Presentation Layer
+
+Purpose
+
+Render UI and react to state changes.
+
+Components
+
+-   Screens
+-   Widgets
+-   Controllers/ViewModels
+-   Providers
+
+Rules
+
+-   No business logic.
+-   Stateless widgets where possible.
+-   Reusable UI components.
+
+Acceptance Criteria
+
+-   Reactive UI.
+-   Consistent design.
+-   Testable presentation logic. End of Chapter 9.

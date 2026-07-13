@@ -1,0 +1,33 @@
+MindTrap AI
+
+Volume 3 - Chapter 6
+
+Dependency Injection
+
+Purpose
+
+Manage object creation and lifecycle cleanly.
+
+Principles
+
+-   Constructor injection.
+-   No service locators inside UI.
+-   Replaceable implementations.
+
+Register
+
+-   Repositories
+-   Services
+-   Controllers
+-   Data sources
+
+Benefits
+
+-   Testability
+-   Loose coupling
+-   Mock-friendly architecture
+
+Acceptance Criteria
+
+-   Dependencies injected centrally.
+-   Features remain independent. End of Chapter 6.

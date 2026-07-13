@@ -1,0 +1,27 @@
+MindTrap AI
+
+Volume 3 - Chapter 18
+
+Security & Anti-Cheat
+
+Purpose
+
+Protect player accounts, purchases and competitive integrity.
+
+Measures
+
+-   Server-authoritative scores
+-   Input validation
+-   Rate limiting
+-   RLS policies
+-   Secure storage
+-   Purchase verification
+-   Cheat detection logs
+
+Acceptance Criteria
+
+-   Invalid scores rejected.
+-   Purchases verified.
+-   Sensitive data encrypted where applicable.
+
+End of Chapter 18.

@@ -1,0 +1,31 @@
+MindTrap AI
+
+Volume 4 - Chapter 3
+
+Challenge Generation
+
+Purpose
+
+Generate unique gameplay sessions from reusable challenge modules.
+
+Pipeline
+
+-   Select category
+-   Choose mechanic
+-   Apply difficulty
+-   Randomize parameters
+-   Validate playability
+
+Rules
+
+-   No impossible combinations.
+-   High replayability.
+-   Deterministic from configuration.
+
+Acceptance Criteria
+
+-   Challenges are valid.
+-   Minimal repetition.
+-   Supports future modules.
+
+End of Chapter 3.

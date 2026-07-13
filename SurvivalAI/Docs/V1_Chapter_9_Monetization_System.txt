@@ -1,0 +1,82 @@
+MindTrap AI
+
+Volume 1 - Chapter 9
+
+Monetization System
+
+9.1 Purpose
+
+Monetization must support long-term development while preserving player
+trust. All purchases are optional and must never provide competitive
+advantages.
+
+9.2 Core Principles
+
+-   Unlimited free gameplay
+-   No Pay-to-Win
+-   Cosmetics first
+-   Low-friction purchases
+-   High perceived value
+-   Transparent pricing
+
+9.3 Purchase Psychology
+
+The shop should encourage many small purchases rather than a few
+expensive ones.
+
+Goals: - Affordable entry point - Frequent cosmetic releases - Valuable
+bundles - Limited-time offers
+
+9.4 Founder Event
+
+Duration: 30 days after launch.
+
+Benefits: - 100% Bonus Brain Chips - Founder Badge - Founder Theme -
+Founder Avatar Frame - Founder Particle Effect
+
+The event countdown should be visible throughout the application.
+
+9.5 Starter Offers
+
+New players receive: - Starter Bundle - Limited introductory pricing -
+One-time purchase
+
+Starter offers disappear after purchase or expiration.
+
+9.6 Battle Pass
+
+Cosmetics only.
+
+Contains: - Themes - Frames - Particles - Titles - Badges
+
+No gameplay advantages.
+
+9.7 Limited-Time Offers
+
+Examples: - Weekend bundles - Holiday collections - Anniversary
+cosmetics - Seasonal bundles
+
+Offers rotate automatically through LiveOps.
+
+9.8 Revenue Metrics
+
+Track: - Conversion rate - Average revenue per paying user - Average
+revenue per active user - Bundle popularity - Purchase frequency -
+Cosmetic ownership
+
+9.9 Player Trust
+
+Never: - Sell power - Hide prices - Manipulate difficulty - Force
+purchases - Lock gameplay behind payment
+
+Maintain a fair competitive environment.
+
+Acceptance Criteria
+
+-   Every purchase is optional.
+-   Cosmetic purchases update instantly.
+-   Founder Event is configurable remotely.
+-   Battle Pass remains cosmetic-only.
+-   Revenue systems do not affect gameplay balance.
+
+End of Chapter 9.

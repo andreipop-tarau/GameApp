@@ -1,0 +1,73 @@
+MindTrap AI
+
+Volume 2 - Chapter 4
+
+Gameplay Screen
+
+4.1 Purpose
+
+The Gameplay Screen is where every challenge is played. It must
+eliminate distractions and maximize responsiveness so the player can
+focus entirely on the current challenge.
+
+4.2 Design Goals
+
+-   Full-screen gameplay
+-   One-handed interaction
+-   Instant readability
+-   Zero unnecessary UI
+-   Immediate feedback
+
+4.3 Layout
+
+Top: - Pause button - Timer - Optional challenge progress
+
+Center: - Active challenge area - Dynamic game objects - Instructions
+(when required)
+
+Bottom: - Reserved for gesture interactions when applicable
+
+4.4 HUD
+
+The HUD should remain minimal and include only: - Timer - Pause -
+Optional score - Challenge indicator (if needed)
+
+4.5 Challenge Presentation
+
+Instructions should appear briefly before gameplay starts.
+
+Challenges must: - Be readable in under 2 seconds. - Use large touch
+targets. - Maintain consistent visual language.
+
+4.6 Feedback
+
+Correct action: - Haptic feedback - Sound effect - Visual confirmation
+
+Incorrect action: - Error animation - Optional explanation - Immediate
+transition to results
+
+4.7 Pause
+
+Pause is disabled in competitive timed modes unless required by
+accessibility.
+
+Practice Mode supports pausing.
+
+4.8 Performance
+
+Requirements: - Stable 60 FPS - Low input latency - Fast asset loading -
+Smooth animations under 300ms
+
+4.9 Accessibility
+
+Support: - Reduce motion - High contrast - Haptic toggle - Audio toggle
+
+Acceptance Criteria
+
+-   Gameplay remains responsive.
+-   UI never obstructs gameplay.
+-   Timer is always visible when applicable.
+-   Input latency feels immediate.
+-   Layout adapts to different screen sizes.
+
+End of Volume 2 - Chapter 4.

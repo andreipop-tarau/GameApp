@@ -1,0 +1,70 @@
+MindTrap AI
+
+Volume 2 - Chapter 13
+
+Animation and Motion Guidelines
+
+13.1 Purpose
+
+Motion enhances usability by communicating state changes, guiding
+attention, and making the experience feel polished without slowing the
+player down.
+
+13.2 Motion Principles
+
+-   Fast
+-   Purposeful
+-   Consistent
+-   Responsive
+-   Accessible
+
+Animations should support interaction rather than distract from it.
+
+13.3 Timing
+
+Recommended durations: - Micro interactions: 100–150ms - Standard
+transitions: 200–300ms - Reward animations: <600ms - Screen transitions:
+<300ms
+
+13.4 Easing
+
+Preferred easing: - Ease Out - Ease In Out
+
+Avoid elastic or exaggerated animations during gameplay.
+
+13.5 Screen Transitions
+
+Transitions should: - Preserve context - Avoid long fades - Never block
+interaction
+
+13.6 Micro-interactions
+
+Animate: - Buttons - Cards - Progress bars - Shop purchases -
+Achievement unlocks - Notifications
+
+13.7 Haptic Feedback
+
+Use haptics for: - Correct actions - Incorrect actions - Purchases -
+Achievement unlocks - Level ups
+
+Allow players to disable haptics.
+
+13.8 Loading States
+
+Prefer skeleton loaders or subtle indicators.
+
+Avoid blocking the interface whenever possible.
+
+13.9 Performance
+
+Maintain: - Stable 60 FPS - Minimal dropped frames - GPU-friendly
+animations
+
+Acceptance Criteria
+
+-   Animations remain smooth.
+-   Motion improves clarity.
+-   Gameplay is never delayed by animation.
+-   Accessibility options support reduced motion.
+
+End of Volume 2 - Chapter 13.

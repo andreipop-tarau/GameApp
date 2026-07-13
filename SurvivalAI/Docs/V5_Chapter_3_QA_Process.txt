@@ -1,0 +1,25 @@
+MindTrap AI
+
+Volume 5 - Chapter 3
+
+QA Process
+
+Scope
+
+-   Functional testing
+-   UI testing
+-   Performance testing
+-   Security validation
+-   Regression testing
+
+Bug Priority
+
+-   Critical
+-   High
+-   Medium
+-   Low
+
+Acceptance Criteria
+
+-   Critical defects resolved before release.
+-   Regression suite passes. End of Chapter 3.

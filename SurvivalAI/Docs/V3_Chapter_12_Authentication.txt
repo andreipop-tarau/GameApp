@@ -1,0 +1,35 @@
+MindTrap AI
+
+Volume 3 - Chapter 12
+
+Authentication
+
+Purpose
+
+Provide secure account management.
+
+Methods
+
+-   Email
+-   Apple Sign In
+-   Google Sign In
+-   Guest Account
+
+Features
+
+-   Account linking
+-   Password reset
+-   Session refresh
+-   Device synchronization
+
+Security
+
+-   Row Level Security
+-   JWT validation
+-   Secure token storage
+
+Acceptance Criteria
+
+-   Secure login.
+-   Guest upgrade supported.
+-   Cross-device sync. End of Chapter 12.

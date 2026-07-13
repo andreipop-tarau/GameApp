@@ -1,0 +1,71 @@
+MindTrap AI
+
+Volume 2 - Chapter 5
+
+Results Screen
+
+5.1 Purpose
+
+The Results Screen provides immediate feedback after every challenge
+while encouraging the player to begin another round as quickly as
+possible.
+
+5.2 Design Goals
+
+-   Display results instantly.
+-   Celebrate success.
+-   Explain failures when appropriate.
+-   Encourage “Play Again”.
+-   Keep total display time under 3 seconds.
+
+5.3 Layout
+
+Top: - Win / Lose banner - Challenge summary
+
+Center: - Score - XP earned - Brain Chips earned (if applicable) - Brain
+Profile updates
+
+Bottom: - Play Again (primary) - Share Result - Home
+
+5.4 Rewards
+
+Display: - XP gained - Level progress - Achievement unlocks - Mission
+progress - Cosmetic unlocks - Event rewards
+
+Reward animations should complete quickly and be skippable.
+
+5.5 Brain Profile Updates
+
+Show any changes to: - Reaction - Memory - Attention - Logic -
+Prediction
+
+Changes should be subtle and easy to understand.
+
+5.6 Social Sharing
+
+Players may share: - Personal best - Daily Challenge score - Brain
+Type - Rare achievements
+
+Generate a social-friendly image with one tap.
+
+5.7 Play Again
+
+The Play Again button is the primary action.
+
+Requirements: - Largest button on screen. - Starts next round
+immediately. - No confirmation dialog.
+
+5.8 Performance
+
+Target: - Results screen appears in under 300ms. - Reward animations
+remain smooth at 60 FPS. - Next round loads instantly.
+
+Acceptance Criteria
+
+-   Results are shown immediately.
+-   Rewards update correctly.
+-   Play Again is always prominent.
+-   Sharing works with minimal taps.
+-   Restart flow remains frictionless.
+
+End of Volume 2 - Chapter 5.

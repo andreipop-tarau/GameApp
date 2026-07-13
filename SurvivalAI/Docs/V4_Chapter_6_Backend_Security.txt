@@ -1,0 +1,31 @@
+MindTrap AI
+
+Volume 4 - Chapter 6
+
+Backend Security
+
+Purpose
+
+Protect backend services, player data and APIs.
+
+Controls
+
+-   Authentication
+-   Authorization
+-   Rate limiting
+-   Secrets management
+-   Audit logging
+
+Rules
+
+-   Least privilege.
+-   Encrypted communication.
+-   Server-side validation.
+
+Acceptance Criteria
+
+-   Unauthorized access prevented.
+-   Sensitive operations audited.
+-   Secure defaults.
+
+End of Chapter 6.

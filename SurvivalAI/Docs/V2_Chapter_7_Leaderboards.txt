@@ -1,0 +1,68 @@
+MindTrap AI
+
+Volume 2 - Chapter 7
+
+Leaderboards
+
+7.1 Purpose
+
+Leaderboards encourage healthy competition and provide long-term goals
+while remaining fair and protected against cheating.
+
+7.2 Design Goals
+
+-   Fair rankings
+-   Fast loading
+-   Multiple ranking scopes
+-   Clear player position
+-   Anti-cheat validation
+
+7.3 Leaderboard Types
+
+Supported boards: - Global - Country - Friends - Daily - Weekly -
+Monthly - Seasonal - All Time
+
+7.4 Layout
+
+Top: - Current leaderboard selector - Season indicator
+
+Center: - Ranked player list - Highlight current player - Rank movement
+indicators
+
+Bottom: - Quick jump to own position
+
+7.5 Ranking Rules
+
+Ranking is based on: - Highest validated score - Completion time (tie
+breaker) - Server-authoritative validation
+
+7.6 Player Cards
+
+Each row displays: - Rank - Avatar - Username - Score - Level - Brain
+Type (optional) - Country flag (optional)
+
+7.7 Anti-Cheat
+
+Scores are accepted only after server validation. Suspicious results are
+hidden pending review.
+
+7.8 Empty & Error States
+
+If no data: - Display friendly empty state.
+
+If offline: - Show cached rankings. - Retry automatically.
+
+7.9 Performance
+
+Leaderboards should support pagination and lazy loading for large
+datasets.
+
+Acceptance Criteria
+
+-   Rankings update securely.
+-   Current player is easy to locate.
+-   Pagination performs smoothly.
+-   Cached data is used offline.
+-   Server validation prevents score manipulation.
+
+End of Volume 2 - Chapter 7.

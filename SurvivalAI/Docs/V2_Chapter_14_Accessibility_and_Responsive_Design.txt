@@ -1,0 +1,66 @@
+MindTrap AI
+
+Volume 2 - Chapter 14
+
+Accessibility and Responsive Design
+
+14.1 Purpose
+
+Accessibility and responsive design ensure every player can enjoy the
+game regardless of device size or accessibility needs.
+
+14.2 Supported Devices
+
+Support: - Android phones - iPhones - Small screens - Large screens -
+Foldables (basic support)
+
+Portrait orientation is the primary experience.
+
+14.3 Responsive Layout
+
+Layouts should: - Scale fluidly - Respect safe areas - Avoid clipped
+content - Maintain readable spacing
+
+14.4 Typography
+
+Support: - Dynamic text scaling - Minimum readable font sizes -
+Consistent hierarchy
+
+Text should never overlap or truncate critical information.
+
+14.5 Touch Targets
+
+Minimum touch target: 48 x 48 dp
+
+Interactive controls must be reachable with one hand.
+
+14.6 Accessibility Features
+
+Provide: - Colorblind mode - High contrast mode - Reduce motion - Haptic
+toggle - Audio toggle - Large text mode - Screen reader labels
+
+14.7 Safe Areas
+
+Respect: - Notches - Dynamic Island - Camera cutouts - Rounded corners -
+System gesture areas
+
+14.8 Orientation
+
+Primary: Portrait
+
+Landscape support may be added for tablets in future versions.
+
+14.9 Testing
+
+Test across: - Multiple Android versions - Multiple iPhone sizes -
+Low-end devices - High refresh-rate displays - Offline mode
+
+14.10 Acceptance Criteria
+
+-   UI adapts to supported screen sizes.
+-   Accessibility options function correctly.
+-   Safe areas are respected.
+-   Performance remains smooth across supported devices.
+-   Critical gameplay remains usable with one hand.
+
+End of Volume 2 - Chapter 14.

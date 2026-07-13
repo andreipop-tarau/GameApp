@@ -1,0 +1,30 @@
+MindTrap AI
+
+Volume 3 - Chapter 13
+
+Storage and Media
+
+Purpose
+
+Manage user-generated and game assets.
+
+Stored Content
+
+-   Avatars
+-   Shared images
+-   Event assets
+-   Remote configuration
+-   Audio packs
+
+Rules
+
+-   Signed URLs where required.
+-   Compression before upload.
+-   CDN delivery.
+-   Cache frequently used assets.
+
+Acceptance Criteria
+
+-   Fast downloads.
+-   Secure uploads.
+-   Efficient caching. End of Chapter 13.

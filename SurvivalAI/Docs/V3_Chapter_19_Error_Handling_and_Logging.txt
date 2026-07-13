@@ -1,0 +1,32 @@
+MindTrap AI
+
+Volume 3 - Chapter 19
+
+Error Handling & Logging
+
+Purpose
+
+Provide reliable recovery and actionable diagnostics.
+
+Logging
+
+-   Application events
+-   API failures
+-   Edge Function failures
+-   Purchase events
+-   Crash reports
+
+Error Handling
+
+-   Friendly user messages
+-   Automatic retries
+-   Graceful degradation
+-   Offline fallback where possible
+
+Acceptance Criteria
+
+-   Critical errors logged.
+-   Users are never left in blocked states.
+-   Logs support debugging production issues.
+
+End of Chapter 19.

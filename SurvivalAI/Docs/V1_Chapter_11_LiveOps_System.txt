@@ -1,0 +1,65 @@
+MindTrap AI
+
+Volume 1 - Chapter 11
+
+LiveOps System
+
+11.1 Purpose
+
+The LiveOps System keeps the game fresh after launch without requiring
+frequent application updates. Most content should be configurable from
+the backend.
+
+11.2 Daily Events
+
+Daily events refresh every 24 hours and may include: - Special
+challenges - Double XP - Bonus Brain Chips - Featured cosmetics -
+Limited objectives
+
+11.3 Weekly Events
+
+Weekly events provide larger goals: - Unique challenge sets - Exclusive
+leaderboards - Higher-value rewards - Community milestones
+
+11.4 Seasons
+
+Each season introduces: - Cosmetic collections - Seasonal achievements -
+Battle Pass - Leaderboards - Missions - Event themes
+
+Expired seasonal rewards remain exclusive.
+
+11.5 Founder Event
+
+Launch period: 30 days.
+
+Features: - 100% Bonus Brain Chips - Founder cosmetics - Countdown
+timer - One-time rewards
+
+11.6 Holiday Events
+
+Examples: - Halloween - Winter Holidays - New Year - Valentine’s Day -
+Summer Event
+
+Each includes unique cosmetics and missions.
+
+11.7 Community Goals
+
+Global player progress unlocks shared rewards by completing collective
+objectives.
+
+11.8 Remote Configuration
+
+Administrators should remotely configure: - Rewards - Shop inventory -
+Event timing - Challenge weights - XP multipliers - Chip multipliers
+
+No application update should be required.
+
+Acceptance Criteria
+
+-   Events activate automatically.
+-   Rewards are configurable.
+-   Seasons rotate automatically.
+-   Live balancing requires no client update.
+-   Event failures do not interrupt gameplay.
+
+End of Chapter 11.

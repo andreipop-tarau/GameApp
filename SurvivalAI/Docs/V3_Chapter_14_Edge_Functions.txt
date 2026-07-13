@@ -1,0 +1,30 @@
+MindTrap AI
+
+Volume 3 - Chapter 14
+
+Edge Functions
+
+Purpose
+
+Implement secure server-side business logic.
+
+Responsibilities
+
+-   Validate scores
+-   Process purchases
+-   Daily challenge generation
+-   Reward distribution
+-   Referral validation
+-   Scheduled jobs
+
+Rules
+
+-   Never trust client input.
+-   Validate every reward.
+-   Log important operations.
+
+Acceptance Criteria
+
+-   Idempotent operations.
+-   Secure execution.
+-   Proper error handling. End of Chapter 14.

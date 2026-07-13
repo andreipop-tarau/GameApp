@@ -1,0 +1,33 @@
+MindTrap AI
+
+Volume 3 - Chapter 21
+
+Testing Strategy
+
+Purpose
+
+Ensure quality through automated and manual testing.
+
+Test Types
+
+-   Unit tests
+-   Widget tests
+-   Integration tests
+-   End-to-end tests
+-   Performance tests
+
+Coverage Goals
+
+-   Business logic
+-   Navigation
+-   Purchases
+-   Authentication
+-   Gameplay
+
+Acceptance Criteria
+
+-   Critical paths tested.
+-   CI executes automated tests.
+-   Regressions detected early.
+
+End of Chapter 21.

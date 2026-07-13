@@ -1,0 +1,31 @@
+MindTrap AI
+
+Volume 4 - Chapter 11
+
+Backend Data Pipeline
+
+Purpose
+
+Move gameplay events through ingestion, validation, storage and
+analytics.
+
+Pipeline
+
+-   Client Event
+-   Validation
+-   Queue
+-   Processing
+-   Database
+-   Analytics
+
+Rules
+
+-   Idempotent processing
+-   Retry transient failures
+-   Dead-letter queue for invalid events
+
+Acceptance Criteria
+
+-   Reliable processing.
+-   No duplicate event storage.
+-   Observable pipeline. End of Chapter 11.

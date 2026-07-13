@@ -1,0 +1,72 @@
+MindTrap AI
+
+Volume 1 - Chapter 7
+
+Economy System
+
+7.1 Purpose
+
+The Economy System provides long-term motivation while remaining fair.
+All economy design must support unlimited free play and avoid pay-to-win
+mechanics.
+
+7.2 Brain Chips
+
+Brain Chips are the premium currency.
+
+Sources: - Purchase - Events - Achievements - Limited gameplay rewards -
+Referrals
+
+7.3 Currency Packs
+
+Founder Event: - €1 = 300 Chips - €3 = 1100 Chips - €5 = 2100 Chips -
+€10 = 5000 Chips
+
+Standard: - €1 = 150 Chips - €3 = 550 Chips - €5 = 1050 Chips - €10 =
+2500 Chips
+
+7.4 Reward Sources
+
+Players earn free Chips through: - Daily login - Daily challenge -
+Weekly challenge - Achievements - Events - Season milestones
+
+7.5 Chip Sinks
+
+Brain Chips may purchase: - Themes - Frames - Particles - Badges - Name
+effects - Hint Tokens - Continue Tokens - Lucky Spins - Cosmetic bundles
+
+7.6 Daily Rewards
+
+Consecutive logins increase rewards. Missing one day resets the streak
+unless protected by an event.
+
+7.7 Referral Rewards
+
+Inviter and invited player both receive Brain Chips after account
+verification.
+
+7.8 Economy Rules
+
+-   Unlimited gameplay.
+-   Never sell power.
+-   Cosmetics remain the primary sink.
+-   Rare items rotate through the shop.
+
+7.9 Anti-Inflation
+
+Reward values are configurable from the backend. Events should not
+permanently inflate the economy.
+
+7.10 Founder Event
+
+Duration: 30 days. Benefits: - 100% Bonus Chips - Founder Badge -
+Founder Theme - Founder Frame - Founder Particle Effect
+
+Acceptance Criteria
+
+-   Economy is configurable.
+-   No gameplay advantages from purchases.
+-   Premium and free players compete equally.
+-   Chip earning remains balanced long-term.
+
+End of Chapter 7.

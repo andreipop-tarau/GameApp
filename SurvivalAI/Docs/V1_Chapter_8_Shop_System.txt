@@ -1,0 +1,121 @@
+MindTrap AI
+
+Volume 1 - Chapter 8
+
+Shop System
+
+8.1 Purpose
+
+The Shop is the primary monetization feature. It must feel rewarding,
+simple, and completely optional. Players should never feel forced to
+spend money.
+
+8.2 Design Principles
+
+-   No Pay-to-Win
+-   Cosmetic-first
+-   Clear pricing
+-   Fast purchasing
+-   Minimal friction
+-   Daily reasons to return
+
+8.3 Shop Categories
+
+-   Themes
+-   Avatar Frames
+-   Particle Effects
+-   Name Effects
+-   Badges
+-   Sound Packs
+-   Hint Tokens
+-   Continue Tokens
+-   Lucky Spins
+-   Bundles
+
+8.4 Shop Layout
+
+Sections: - Featured - Daily Shop - Collections - Bundles - Founder
+(during launch) - Seasonal - Owned Items
+
+8.5 Daily Shop
+
+Refreshes every 24 hours.
+
+Contains: - 4 common cosmetics - 2 rare cosmetics - 1 featured item - 1
+discounted bundle
+
+Daily shop should encourage regular visits.
+
+8.6 Bundles
+
+Starter Bundle - 200 Chips - Theme - Frame - Badge
+
+Founder Bundle - Exclusive cosmetics - Founder badge - Founder frame -
+Founder particles
+
+Season Bundle - Limited seasonal cosmetics
+
+8.7 Lucky Spin
+
+Players receive: - 1 free spin every day.
+
+Additional spins cost Brain Chips.
+
+Possible rewards: - Chips - Themes - Frames - Particles - Badges - Rare
+cosmetics
+
+8.8 Pricing Philosophy
+
+Small purchases should feel meaningful.
+
+Most cosmetics should cost between: 10–30 Brain Chips.
+
+Premium cosmetics: 40–80 Brain Chips.
+
+Bundles always provide better value.
+
+8.9 Limited-Time Items
+
+Holiday collections
+
+Weekend specials
+
+Founder exclusives
+
+Season exclusives
+
+Retired cosmetics should remain unavailable to preserve rarity.
+
+8.10 Purchase Flow
+
+Select item
+
+↓
+
+Preview
+
+↓
+
+Confirm
+
+↓
+
+Purchase
+
+↓
+
+Animation
+
+↓
+
+Inventory updated instantly
+
+Acceptance Criteria
+
+-   Purchases complete in seconds.
+-   Inventory updates immediately.
+-   Shop content is remotely configurable.
+-   Cosmetics never affect gameplay.
+-   Daily shop rotates automatically.
+
+End of Chapter 8.

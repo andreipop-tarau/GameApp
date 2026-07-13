@@ -1,0 +1,70 @@
+MindTrap AI
+
+Volume 2 - Chapter 3
+
+Home Screen
+
+3.1 Purpose
+
+The Home Screen is the primary entry point to the game. It should
+immediately encourage the player to begin playing while surfacing the
+most important daily content.
+
+3.2 Design Goals
+
+-   Highlight the Play button.
+-   Minimize distractions.
+-   Surface daily objectives.
+-   Promote active events.
+-   Display player progression.
+
+3.3 Layout
+
+Top Section: - Player avatar - Username - Level - Brain Chips balance -
+Notifications icon
+
+Center: - Large Play button - Daily Challenge card - Current event
+banner
+
+Bottom: - Quick progress summary - Active missions - Navigation bar
+
+3.4 Primary Components
+
+-   Play Button
+-   Daily Challenge
+-   Event Banner
+-   Mission Preview
+-   XP Progress Bar
+-   Brain Chips Indicator
+
+3.5 Play Button
+
+Requirements: - Largest interactive element. - Accessible with one
+hand. - Starts gameplay immediately. - Visual feedback on press.
+
+3.6 Dynamic Content
+
+The Home Screen updates automatically to display: - Daily Challenge -
+Seasonal events - Founder Event - Shop promotions - New achievements
+
+3.7 Empty States
+
+If offline: - Show Practice Mode. - Display offline notice. - Cache
+recent profile data.
+
+If no events exist: - Hide event section gracefully.
+
+3.8 Performance
+
+The Home Screen should load in under two seconds using cached profile
+data while background synchronization updates live information.
+
+Acceptance Criteria
+
+-   Play button is always visible.
+-   Daily Challenge is easily accessible.
+-   Dynamic content updates without requiring an app update.
+-   Home Screen remains responsive at 60 FPS.
+-   Layout scales across supported phone sizes.
+
+End of Volume 2 - Chapter 3.

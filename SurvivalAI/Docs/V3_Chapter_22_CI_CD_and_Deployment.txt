@@ -1,0 +1,35 @@
+MindTrap AI
+
+Volume 3 - Chapter 22
+
+CI/CD and Deployment
+
+Purpose
+
+Automate building, testing and releasing the application.
+
+Pipeline
+
+-   Lint
+-   Static analysis
+-   Unit tests
+-   Widget tests
+-   Build Android
+-   Build iOS
+-   Release artifacts
+
+Deployment
+
+-   Internal testing
+-   Beta release
+-   Production rollout
+-   Rollback support
+
+Acceptance Criteria
+
+-   Automated builds.
+-   Repeatable releases.
+-   Versioned artifacts.
+-   Rollback procedure documented.
+
+End of Chapter 22.

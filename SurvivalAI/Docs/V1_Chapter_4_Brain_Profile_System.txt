@@ -1,0 +1,106 @@
+MindTrap AI
+
+Volume 1 - Chapter 4
+
+Brain Profile System
+
+4.1 Purpose
+
+The Brain Profile is a persistent player model that represents how each
+user plays the game. It is continuously updated after every completed
+round and is used by the AI Director to personalize future challenges.
+
+The profile is informational only. It never grants gameplay advantages.
+
+4.2 Core Statistics
+
+Each player has the following tracked attributes:
+
+-   Reaction Speed
+-   Memory
+-   Attention
+-   Logic
+-   Prediction
+-   Reading Accuracy
+-   Risk Taking
+-   Patience
+-   Impulsiveness
+-   Pattern Recognition
+-   Learning Speed
+-   Adaptability
+
+Each statistic ranges from 0 to 100 and is recalculated over time using
+recent and historical performance.
+
+4.3 Data Collection
+
+Every completed challenge records:
+
+-   Completion time
+-   Success or failure
+-   Number of mistakes
+-   Hesitation time
+-   Incorrect taps
+-   Retry count
+-   Challenge category
+-   Difficulty
+-   Session timestamp
+
+These metrics update the Brain Profile.
+
+4.4 Brain Types
+
+The AI may classify players into evolving archetypes, such as:
+
+-   Observer
+-   Strategist
+-   Explorer
+-   Risk Taker
+-   Calculator
+-   Balanced
+-   Adaptive
+
+Brain Types are descriptive and may change over time as the player
+improves.
+
+4.5 Progress Tracking
+
+The Profile screen displays:
+
+-   Current statistics
+-   Weekly trend
+-   Monthly trend
+-   Personal bests
+-   Challenge completion history
+-   Favorite challenge categories
+
+Graphs should clearly show improvement over time.
+
+4.6 AI Analysis
+
+The AI can provide optional insights such as:
+
+-   Strongest skills
+-   Weakest skills
+-   Recent improvements
+-   Suggested practice categories
+-   Challenge completion patterns
+
+These insights are cosmetic and educational only.
+
+4.7 Privacy
+
+No Brain Profile information is shared publicly unless the player
+explicitly chooses to share it.
+
+Leaderboards only expose statistics required for ranking.
+
+Acceptance Criteria
+
+-   Brain Profile updates after every completed round.
+-   Statistics evolve gradually instead of changing dramatically.
+-   Historical trends are retained.
+-   Profile data is synchronized securely across devices.
+-   The system supports future expansion with additional attributes.
+
+End of Chapter 4.

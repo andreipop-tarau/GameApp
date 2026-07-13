@@ -1,0 +1,98 @@
+MindTrap AI
+
+Volume 1 - Chapter 5
+
+Difficulty System
+
+5.1 Purpose
+
+The Difficulty System dynamically adjusts every challenge to maintain
+engagement. There are no fixed levels. Difficulty is personalized based
+on player performance.
+
+5.2 Adaptive Difficulty
+
+The AI Director evaluates:
+
+-   Recent success rate
+-   Average reaction time
+-   Current streak
+-   Failure streak
+-   Brain Profile
+-   Session duration
+-   Player fatigue
+
+The goal is to keep the player in a state of challenge without
+frustration.
+
+5.3 Skill Rating
+
+Each player has an internal hidden skill rating.
+
+The rating is updated after every round using:
+
+-   Challenge difficulty
+-   Completion time
+-   Accuracy
+-   Mistakes
+-   Consistency
+
+The rating is never shown directly to the player.
+
+5.4 Fatigue Detection
+
+To prevent burnout, the system monitors:
+
+-   Increasing mistakes
+-   Slower reactions
+-   Longer hesitation
+-   Rapid consecutive failures
+
+When fatigue is detected, easier challenges are temporarily introduced.
+
+5.5 Recovery Rounds
+
+Recovery rounds:
+
+-   Reduce cognitive load
+-   Restore confidence
+-   Maintain flow
+-   Prevent player abandonment
+
+Recovery rounds should appear naturally and never feel obvious.
+
+5.6 Impossible Mode
+
+Impossible Mode removes most adaptive assistance.
+
+Characteristics: - Maximum challenge diversity - Faster pacing - Reduced
+recovery rounds - High leaderboard rewards - Intended for experienced
+players
+
+5.7 Practice Mode
+
+Practice Mode:
+
+-   No leaderboard submission
+-   No hidden skill rating updates
+-   Unlimited retries
+-   Offline support
+-   Category selection
+
+5.8 Balancing Rules
+
+Target player success rate: 60–70%
+
+Avoid: - Long losing streaks - Repetitive mechanics - Difficulty
+spikes - Predictable patterns
+
+Acceptance Criteria
+
+-   Difficulty adapts continuously.
+-   New players receive approachable challenges.
+-   Skilled players remain challenged.
+-   Recovery rounds reduce frustration.
+-   Practice mode is isolated from competitive progression.
+-   Impossible Mode remains fair while significantly harder.
+
+End of Chapter 5.

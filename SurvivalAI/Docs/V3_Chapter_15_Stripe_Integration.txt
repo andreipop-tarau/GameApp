@@ -1,0 +1,29 @@
+MindTrap AI
+
+Volume 3 - Chapter 15
+
+Stripe Integration
+
+Purpose
+
+Handle Brain Chip purchases securely.
+
+Features
+
+-   Product catalog
+-   Purchase flow
+-   Receipt validation
+-   Purchase restoration
+-   Refund handling
+
+Security
+
+-   Server-side verification
+-   Webhook processing
+-   Duplicate protection
+
+Acceptance Criteria
+
+-   Purchases complete reliably.
+-   Restores work across devices.
+-   Transactions are fully validated. End of Chapter 15.

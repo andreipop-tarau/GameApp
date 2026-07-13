@@ -1,0 +1,32 @@
+MindTrap AI
+
+Volume 3 - Chapter 10
+
+Supabase Backend
+
+Purpose
+
+Provide authentication, database, storage, realtime and server logic.
+
+Services
+
+-   Auth
+-   PostgreSQL
+-   Realtime
+-   Storage
+-   Edge Functions
+
+Responsibilities
+
+-   Player accounts
+-   Scores
+-   Brain Profiles
+-   Purchases
+-   Leaderboards
+-   Events
+
+Acceptance Criteria
+
+-   Secure APIs.
+-   Row Level Security enabled.
+-   Server-authoritative validation. End of Chapter 10.

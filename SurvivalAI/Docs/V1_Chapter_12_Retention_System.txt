@@ -1,0 +1,80 @@
+MindTrap AI
+
+Volume 1 - Chapter 12
+
+Retention System
+
+12.1 Purpose
+
+The Retention System is designed to encourage players to return
+regularly through meaningful goals, fresh content, and satisfying
+progression. It must avoid manipulative practices that create
+frustration or unfairness.
+
+12.2 Core Retention Principles
+
+-   Instant access to gameplay
+-   Short sessions
+-   Continuous progression
+-   Fair competition
+-   Frequent cosmetic rewards
+-   Fresh daily content
+
+12.3 Habit Loop
+
+The intended player loop:
+
+Open App → Play Challenge → Receive Reward → View Progress → Unlock Goal
+→ Play Again
+
+The loop should remain fast and rewarding.
+
+12.4 Variable Rewards
+
+Rewards may include: - XP - Brain Chips - Cosmetics - Achievements -
+Collection progress - Seasonal progress
+
+The timing of cosmetic rewards should remain varied to maintain
+excitement.
+
+12.5 Near-Miss Design
+
+Players should frequently experience: - Narrow victories - Narrow
+defeats - Personal best improvements
+
+Near misses should motivate another attempt without feeling unfair.
+
+12.6 Daily Motivation
+
+Players should always find: - Daily Challenge - Daily Missions - Daily
+Shop - Free Lucky Spin - Login Reward
+
+12.7 Long-Term Goals
+
+Long-term objectives include: - Complete collections - Reach higher
+levels - Finish achievements - Improve Brain Profile - Earn seasonal
+rewards
+
+12.8 Notifications
+
+Optional notifications: - Daily Challenge available - Shop refreshed -
+Event started - Friend beat your score - Season ending soon
+
+Players may disable notifications at any time.
+
+12.9 Ethical Design
+
+Avoid: - Forced waiting - Energy systems - Paywalls - Artificial
+difficulty spikes - Misleading rewards
+
+Retention should come from enjoyment rather than frustration.
+
+Acceptance Criteria
+
+-   Daily content refreshes automatically.
+-   Players always have at least one meaningful objective.
+-   Notifications remain optional.
+-   Progression supports long-term engagement.
+-   Retention systems never create pay-to-win mechanics.
+
+End of Chapter 12.

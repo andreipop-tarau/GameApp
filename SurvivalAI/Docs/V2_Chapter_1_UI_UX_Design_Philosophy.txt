@@ -1,0 +1,59 @@
+MindTrap AI
+
+Volume 2 - Chapter 1
+
+UI/UX Design Philosophy
+
+1.1 Purpose
+
+This document defines the visual and interaction principles for every
+screen in MindTrap AI. The objective is to create an interface that
+feels premium, responsive, and effortless to use.
+
+1.2 Core Principles
+
+-   Mobile-first
+-   Portrait orientation
+-   One-handed operation
+-   Minimal taps
+-   Instant feedback
+-   Consistent navigation
+-   Accessibility first
+
+1.3 Visual Style
+
+Theme: - Dark futuristic - Glassmorphism - Neon blue and purple
+accents - High contrast - Soft gradients - Smooth micro-animations
+
+1.4 Navigation
+
+Primary tabs: - Play - Daily - Leaderboards - Shop - Profile
+
+Settings accessible from Profile.
+
+1.5 Interaction Rules
+
+-   Tap targets >= 48dp
+-   Animations under 300ms
+-   Haptic feedback for important actions
+-   No unnecessary dialogs
+-   One-tap restart after every round
+
+1.6 Accessibility
+
+Support: - Large text - Colorblind-friendly palette - Reduce motion -
+Haptic toggle - Music and SFX controls
+
+1.7 Performance
+
+UI should maintain: - 60 FPS - Startup under 2 seconds - Responsive
+layouts - Smooth transitions
+
+Acceptance Criteria
+
+-   Every screen follows the same design language.
+-   Navigation is intuitive.
+-   UI remains usable on small and large phones.
+-   Accessibility options are available from launch.
+
+End of Volume 2 - Chapter 1.

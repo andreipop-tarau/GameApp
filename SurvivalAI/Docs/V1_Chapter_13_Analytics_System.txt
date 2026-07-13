@@ -1,0 +1,58 @@
+MindTrap AI
+
+Volume 1 - Chapter 13
+
+Analytics System
+
+13.1 Purpose
+
+Analytics measure player behavior, balance, retention, monetization, and
+technical health to guide data-driven improvements.
+
+13.2 Core KPIs
+
+-   DAU / WAU / MAU
+-   D1 / D7 / D30 Retention
+-   Average Session Length
+-   Sessions Per User Per Day
+-   Average Rounds Per Session
+-   Crash-Free Sessions
+
+13.3 Gameplay Analytics
+
+Track: - Challenge category - Difficulty - Win/Loss - Completion time -
+Mistakes - Retry count - Brain Profile updates
+
+13.4 Economy Analytics
+
+Track: - Brain Chips earned - Brain Chips spent - Purchases - Shop
+visits - Bundle popularity - Inventory ownership
+
+13.5 Retention Analytics
+
+Measure: - Login streaks - Daily mission completion - Weekly challenge
+completion - Event participation - Season completion
+
+13.6 Monetization Analytics
+
+Track: - Conversion Rate - ARPU - ARPPU - Lifetime Value - Purchase
+Frequency
+
+13.7 A/B Testing
+
+Support experiments for: - Rewards - Difficulty - Shop layout - Offers -
+Notifications
+
+13.8 Dashboard
+
+Provide dashboards for: - Retention - Revenue - Gameplay Balance -
+LiveOps - Stability
+
+Acceptance Criteria
+
+-   Remote analytics configuration.
+-   Privacy compliant.
+-   Minimal performance impact.
+-   Server-side aggregation.
+
+End of Chapter 13.

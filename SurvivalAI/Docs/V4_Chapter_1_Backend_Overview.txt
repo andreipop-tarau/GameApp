@@ -1,0 +1,32 @@
+MindTrap AI
+
+Volume 4 - Chapter 1
+
+Backend Overview
+
+Purpose
+
+Define the backend architecture supporting gameplay, AI, LiveOps and
+player data.
+
+Core Services
+
+-   Supabase Auth
+-   PostgreSQL
+-   Edge Functions
+-   Storage
+-   Realtime
+-   Analytics
+
+Principles
+
+-   Server-authoritative
+-   Scalable
+-   Secure
+-   Observable
+-   Configurable
+
+Acceptance Criteria
+
+-   Backend supports future expansion.
+-   Services remain loosely coupled. End of Chapter 1.

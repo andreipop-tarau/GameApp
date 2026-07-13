@@ -1,0 +1,85 @@
+MindTrap AI
+
+Volume 1 - Chapter 3
+
+Challenge Engine
+
+3.1 Purpose
+
+The Challenge Engine is the heart of MindTrap AI. Instead of handcrafted
+levels, every round is assembled from reusable challenge modules
+selected by the AI Director.
+
+3.2 Design Principles
+
+-   Modular
+-   Data-driven
+-   Expandable
+-   Predictable
+-   Fair
+-   Replayable
+
+New challenge types must be addable without modifying existing ones.
+
+3.3 Challenge Categories
+
+-   Reaction
+-   Memory
+-   Attention
+-   Logic
+-   Timing
+-   Prediction
+-   Reading
+-   Reverse Psychology
+-   Fake UI
+-   Optical Illusions
+-   Audio
+-   Multi-tasking
+
+Each category has configurable difficulty, duration and reward values.
+
+3.4 Challenge Components
+
+Every challenge contains: - Objective - Rules - Difficulty - Duration -
+Success conditions - Failure conditions - Rewards - Analytics tags
+
+3.5 AI Director Integration
+
+Before each round the AI Director evaluates: - Current player skill -
+Recent wins/losses - Brain Profile - Fatigue - Streak - Recent challenge
+history
+
+It then selects the best challenge combination.
+
+3.6 Difficulty Rules
+
+Avoid repeating identical mechanics. Mix familiar and unfamiliar
+patterns. Target roughly a 60–70% player success rate.
+
+3.7 Replayability
+
+Randomize: - colors - positions - timers - object counts -
+distractions - instruction wording
+
+The mechanic stays recognizable while each round feels unique.
+
+3.8 Configuration
+
+Challenge parameters should come from configuration rather than
+hardcoded values, allowing balancing without updating the app.
+
+3.9 Future Expansion
+
+Support: - seasonal challenge packs - event-only mechanics - community
+challenge packs - premium cosmetic themes without changing engine
+architecture.
+
+Acceptance Criteria
+
+-   New challenge modules can be added independently.
+-   Challenge generation is deterministic from configuration.
+-   No fixed level progression exists.
+-   AI Director can enable or disable categories dynamically.
+-   Every completed round sends analytics for balancing.
+
+End of Chapter 3.

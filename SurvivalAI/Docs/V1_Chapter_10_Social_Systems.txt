@@ -1,0 +1,69 @@
+MindTrap AI
+
+Volume 1 - Chapter 10
+
+Social Systems
+
+10.1 Purpose
+
+Social features increase retention by encouraging competition,
+cooperation, and friendly challenges while respecting player privacy.
+
+10.2 Friends
+
+Players may: - Search for friends - Send requests - Accept or decline
+requests - Remove friends - Block players
+
+Friend lists synchronize across devices.
+
+10.3 Friend Challenges
+
+Players can generate challenge links containing: - Personal best - Daily
+challenge score - AI Brain Profile snapshot
+
+Friends attempt to beat the shared result.
+
+10.4 Leaderboards
+
+Supported leaderboards: - Global - Country - Friends - Daily - Weekly -
+Monthly - Seasonal - All Time
+
+Scores are validated server-side.
+
+10.5 Referrals
+
+Players receive referral codes.
+
+Rewards are granted only after: - New account creation - Tutorial
+completion - Minimum gameplay requirement
+
+Both players receive rewards.
+
+10.6 Player Profiles
+
+Profiles display: - Username - Avatar - Cosmetic collection - Level -
+Brain Type - Public achievements - Leaderboard rank
+
+Sensitive Brain Profile data remains private unless shared.
+
+10.7 Sharing
+
+Players can share: - Personal records - Rare achievements - Brain Type -
+Daily challenge results - Cosmetic collections
+
+Generated images should be optimized for social media.
+
+10.8 Privacy
+
+Players control: - Public profile visibility - Friend requests -
+Leaderboard participation - Share permissions
+
+Acceptance Criteria
+
+-   Friend features work across platforms.
+-   Leaderboards update securely.
+-   Referral abuse is prevented.
+-   Social sharing requires only a few taps.
+-   Privacy settings are respected.
+
+End of Chapter 10.

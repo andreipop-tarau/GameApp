@@ -1,0 +1,39 @@
+MindTrap AI
+
+Volume 3 - Chapter 4
+
+State Management (Riverpod)
+
+Purpose
+
+Provide predictable, testable state management.
+
+Provider Types
+
+-   Provider
+-   StateProvider
+-   StateNotifierProvider
+-   AsyncNotifierProvider
+
+Rules
+
+-   UI reads providers only.
+-   Business logic belongs in controllers.
+-   Avoid global mutable state.
+-   Dispose temporary providers.
+
+State Categories
+
+-   Authentication
+-   Gameplay
+-   Shop
+-   Profile
+-   Leaderboards
+-   Settings
+
+Acceptance Criteria
+
+-   Reactive UI.
+-   Testable providers.
+-   Minimal rebuilds.
+-   Clear ownership of state. End of Chapter 4.

@@ -1,0 +1,25 @@
+Appendix B - Database & API Reference
+
+Core Tables
+
+profiles brain_profiles challenge_results leaderboards purchases
+inventories
+
+API Groups
+
+-   Authentication
+-   Gameplay
+-   Leaderboards
+-   Shop
+-   Profile
+-   LiveOps
+
+Response Rules
+
+-   Versioned APIs
+-   JSON responses
+-   Consistent error format
+
+Acceptance Criteria
+
+APIs documented and backward compatible.

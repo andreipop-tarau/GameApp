@@ -1,0 +1,74 @@
+MindTrap AI
+
+Volume 1 - Chapter 6
+
+Progression System
+
+6.1 Purpose
+
+The Progression System rewards continued play without affecting gameplay
+balance. All progression is cosmetic, social, or completion-based.
+
+6.2 Experience (XP)
+
+Players earn XP by: - Completing challenges - Winning rounds - Daily
+challenges - Weekly challenges - Achievements - Events
+
+XP is never purchasable.
+
+6.3 Player Levels
+
+Levels represent dedication rather than skill.
+
+Level rewards may include: - Themes - Avatar frames - Profile badges -
+Titles - Brain Chips - Seasonal rewards
+
+Higher levels never provide gameplay advantages.
+
+6.4 Achievements
+
+Achievement categories: - Gameplay - Challenge mastery - Daily
+participation - Weekly participation - Social - Founder - Seasonal -
+Hidden - Impossible
+
+Achievements grant XP, cosmetics or Brain Chips.
+
+6.5 Collections
+
+Players can collect: - Themes - Frames - Particles - Badges - Name
+effects - Titles - Event cosmetics
+
+Collections encourage long-term engagement.
+
+6.6 Missions
+
+Daily Missions: - Play rounds - Complete challenge categories - Reach
+streaks
+
+Weekly Missions: - Higher targets - Larger rewards
+
+Mission progress resets automatically.
+
+6.7 Seasons
+
+Each season introduces: - New cosmetics - New achievements - New
+missions - Limited rewards - Seasonal leaderboard
+
+Completed seasonal rewards remain permanently owned.
+
+6.8 Reward Philosophy
+
+Rewards should occur frequently enough to maintain motivation while
+preserving the value of rare items.
+
+Rare cosmetics should remain aspirational.
+
+Acceptance Criteria
+
+-   Progression never creates pay-to-win mechanics.
+-   XP is earned only through gameplay.
+-   Levels unlock cosmetic or social rewards only.
+-   Daily and weekly missions refresh automatically.
+-   Seasonal progression supports future expansion.
+
+End of Chapter 6.

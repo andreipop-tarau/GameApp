@@ -1,0 +1,29 @@
+MindTrap AI
+
+Volume 3 - Chapter 8
+
+Data Layer
+
+Purpose
+
+Implement repository interfaces and coordinate local/remote data.
+
+Components
+
+-   Repository Implementations
+-   Remote Data Sources
+-   Local Data Sources
+-   DTOs
+-   Mappers
+
+Rules
+
+-   Convert DTOs to domain entities.
+-   Handle caching.
+-   Never expose backend models directly.
+
+Acceptance Criteria
+
+-   Domain remains isolated.
+-   Mapping is centralized.
+-   Offline support is possible. End of Chapter 8.

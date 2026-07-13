@@ -1,0 +1,27 @@
+MindTrap AI
+
+Volume 5 - Chapter 5
+
+Store Release Process
+
+Platforms
+
+-   Apple App Store
+-   Google Play
+
+Steps
+
+-   Increment version
+-   Build release
+-   Run QA
+-   Upload binaries
+-   Complete store metadata
+-   Publish staged rollout
+
+Acceptance Criteria
+
+-   Store assets validated.
+-   Release notes published.
+-   Rollout monitored.
+
+End of Chapter 5.

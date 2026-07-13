@@ -1,0 +1,32 @@
+MindTrap AI
+
+Volume 4 - Chapter 9
+
+Backend Scaling
+
+Purpose
+
+Support growth without service degradation.
+
+Scaling Areas
+
+-   Database
+-   Edge Functions
+-   Realtime
+-   Storage
+-   Caching
+
+Techniques
+
+-   Horizontal scaling
+-   Read replicas
+-   Connection pooling
+-   CDN
+
+Acceptance Criteria
+
+-   Stable under peak load.
+-   Graceful degradation.
+-   Scalable architecture.
+
+End of Chapter 9.

@@ -1,0 +1,33 @@
+MindTrap AI
+
+Volume 4 - Chapter 2
+
+AI Director
+
+Purpose
+
+The AI Director personalizes gameplay by selecting challenges, adjusting
+difficulty, and maintaining player engagement.
+
+Inputs
+
+-   Brain Profile
+-   Recent performance
+-   Session length
+-   Streaks
+-   Fatigue indicators
+
+Responsibilities
+
+-   Select challenge category
+-   Tune difficulty
+-   Avoid repetition
+-   Schedule recovery rounds
+
+Acceptance Criteria
+
+-   Adaptive challenge selection.
+-   Fair progression.
+-   Configurable behavior.
+
+End of Chapter 2.

@@ -1,0 +1,25 @@
+MindTrap AI
+
+Volume 5 - Chapter 8
+
+Community Management
+
+Purpose
+
+Maintain a healthy player community.
+
+Activities
+
+-   Review feedback
+-   Moderate reports
+-   Publish patch notes
+-   Run community events
+-   Collect feature requests
+
+Acceptance Criteria
+
+-   Feedback reviewed regularly.
+-   Community guidelines enforced.
+-   Communication remains consistent.
+
+End of Chapter 8.

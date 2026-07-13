@@ -1,0 +1,48 @@
+MindTrap AI
+
+Volume 3 - Chapter 2
+
+Flutter Project Structure
+
+Purpose
+
+Define a scalable feature-first Flutter project structure.
+
+Root Structure
+
+-   lib/
+-   assets/
+-   test/
+-   integration_test/
+-   docs/
+
+lib/
+
+-   core/
+-   features/
+-   shared/
+-   services/
+-   config/
+
+Feature Structure
+
+Each feature contains: - presentation/ - application/ - domain/ -
+data/ - widgets/
+
+Assets
+
+-   images/
+-   audio/
+-   fonts/
+-   animations/
+
+Naming
+
+Use snake_case for files, PascalCase for classes, lowerCamelCase for
+members.
+
+Acceptance Criteria
+
+-   Feature-first organization.
+-   Shared code isolated.
+-   Easy to add new features. End of Chapter 2.
