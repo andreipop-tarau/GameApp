@@ -2,7 +2,7 @@
 
 name: ai-coding-agent
 description: Senior repository coding workflow for minimal-context investigation, surgical edits, focused verification, Serena-assisted navigation, and pausing on slow or hanging local commands so the user can run them manually.
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 # AI Coding Session
 

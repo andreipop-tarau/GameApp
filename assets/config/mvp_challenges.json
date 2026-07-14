@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": "1.0.0",
+  "modules": [
+    {
+      "id": "reaction_tap",
+      "enabled": true,
+      "difficultyBands": {
+        "easy": { "cueDelayMs": 1200, "targetSizePx": 112, "distractorCount": 0, "timeoutMs": 5000 },
+        "medium": { "cueDelayMs": 800, "targetSizePx": 72, "distractorCount": 3, "timeoutMs": 3500 },
+        "hard": { "cueDelayMs": 500, "targetSizePx": 48, "distractorCount": 6, "timeoutMs": 2200 }
+      }
+    },
+    {
+      "id": "sequence_memory",
+      "enabled": true,
+      "difficultyBands": {
+        "easy": { "sequenceLength": 3, "displayMs": 1000, "symbolCount": 3, "timeoutMs": 8000 },
+        "medium": { "sequenceLength": 6, "displayMs": 650, "symbolCount": 5, "timeoutMs": 12000 },
+        "hard": { "sequenceLength": 9, "displayMs": 350, "symbolCount": 7, "timeoutMs": 16000 }
+      }
+    },
+    {
+      "id": "selective_attention",
+      "enabled": true,
+      "difficultyBands": {
+        "easy": { "itemCount": 4, "similarity": 20, "motionSpeed": 0, "timeoutMs": 7000 },
+        "medium": { "itemCount": 9, "similarity": 55, "motionSpeed": 35, "timeoutMs": 5500 },
+        "hard": { "itemCount": 15, "similarity": 85, "motionSpeed": 70, "timeoutMs": 4000 }
+      }
+    },
+    {
+      "id": "timing_stop",
+      "enabled": true,
+      "difficultyBands": {
+        "easy": { "speed": 20, "zoneSize": 55, "directionChanges": 0 },
+        "medium": { "speed": 50, "zoneSize": 30, "directionChanges": 2 },
+        "hard": { "speed": 80, "zoneSize": 15, "directionChanges": 5 }
+      }
+    },
+    {
+      "id": "logic_choice",
+      "enabled": true,
+      "difficultyBands": {
+        "easy": { "ruleComplexity": 1, "choiceCount": 2, "timeoutMs": 10000 },
+        "medium": { "ruleComplexity": 3, "choiceCount": 4, "timeoutMs": 7000 },
+        "hard": { "ruleComplexity": 5, "choiceCount": 6, "timeoutMs": 4500 }
+      }
+    }
+  ]
+}
