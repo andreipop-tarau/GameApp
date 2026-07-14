@@ -12,6 +12,7 @@ import 'package:mindtrap_ai/features/gameplay/challenges/selective_attention/sel
 import 'package:mindtrap_ai/features/gameplay/challenges/sequence_memory/sequence_memory.dart';
 import 'package:mindtrap_ai/features/gameplay/challenges/timing_stop/timing_stop.dart';
 import 'package:mindtrap_ai/features/gameplay/game_session_controller.dart';
+import 'package:mindtrap_ai/features/progression/progression.dart';
 
 void main() {
   Future<MvpConfig> loadTestConfig() async {
@@ -107,6 +108,34 @@ void main() {
           .estimateFor(updatedSkill)
           .sampleCount,
       1,
+    );
+  });
+
+  test('abandoning an active round cannot produce a score', () async {
+    final container = createContainer();
+    addTearDown(container.dispose);
+    final controller = container.read(gameSessionControllerProvider.notifier);
+
+    await controller.startRound();
+    final firstPlan = container.read(gameSessionControllerProvider).plan!;
+    expect(
+      container.read(gameSessionControllerProvider).status,
+      GameSessionStatus.active,
+    );
+
+    expect(controller.abandonActiveRound(), isTrue);
+    expect(
+      container.read(gameSessionControllerProvider).status,
+      GameSessionStatus.idle,
+    );
+    expect(container.read(brainProfileProvider).totalSampleCount, 0);
+    expect(container.read(progressionProvider).totalXp, 0);
+    expect(controller.abandonActiveRound(), isFalse);
+
+    await controller.startRound();
+    expect(
+      container.read(gameSessionControllerProvider).plan!.seed,
+      firstPlan.seed,
     );
   });
 }

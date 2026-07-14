@@ -195,6 +195,18 @@ final class GameSessionController extends Notifier<GameSessionState> {
     );
   }
 
+  bool abandonActiveRound() {
+    if (state.status != GameSessionStatus.active) return false;
+    _lifecycle = null;
+    if (_recentHistory.isNotEmpty &&
+        _recentHistory.last.wasSuccessful == null) {
+      _recentHistory.removeLast();
+    }
+    if (_roundNumber > 0) _roundNumber--;
+    state = const GameSessionState.idle();
+    return true;
+  }
+
   void _persistCompletedOutcomes() {
     final store = ref.read(localGameSaveStoreProvider);
     if (store == null) return;

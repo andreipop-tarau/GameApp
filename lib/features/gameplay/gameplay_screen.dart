@@ -20,13 +20,15 @@ class GameplayScreen extends ConsumerStatefulWidget {
   ConsumerState<GameplayScreen> createState() => _GameplayScreenState();
 }
 
-class _GameplayScreenState extends ConsumerState<GameplayScreen> {
+class _GameplayScreenState extends ConsumerState<GameplayScreen>
+    with WidgetsBindingObserver {
   Timer? _ticker;
   final Stopwatch _stopwatch = Stopwatch();
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) _startRound();
     });
@@ -34,11 +36,17 @@ class _GameplayScreenState extends ConsumerState<GameplayScreen> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _ticker?.cancel();
     super.dispose();
   }
 
   void _startRound() {
+    final status = ref.read(gameSessionControllerProvider).status;
+    if (status == GameSessionStatus.active ||
+        status == GameSessionStatus.loading) {
+      return;
+    }
     _ticker?.cancel();
     _stopwatch
       ..reset()
@@ -56,54 +64,108 @@ class _GameplayScreenState extends ConsumerState<GameplayScreen> {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.paused:
+      case AppLifecycleState.detached:
+        _ticker?.cancel();
+        _stopwatch.stop();
+        ref.read(gameSessionControllerProvider.notifier).abandonActiveRound();
+      case AppLifecycleState.resumed:
+        if (ref.read(gameSessionControllerProvider).status ==
+            GameSessionStatus.idle) {
+          _startRound();
+        }
+      case AppLifecycleState.hidden:
+        break;
+    }
+  }
+
+  Future<void> _requestExit() async {
+    if (ref.read(gameSessionControllerProvider).status !=
+        GameSessionStatus.active) {
+      _goHome();
+      return;
+    }
+    final shouldExit = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Leave round?'),
+        content: const Text('This round will be abandoned.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Stay'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Leave'),
+          ),
+        ],
+      ),
+    );
+    if (shouldExit == true && mounted) _goHome();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final session = ref.watch(gameSessionControllerProvider);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Play'),
-        actions: [TextButton(onPressed: _goHome, child: const Text('Home'))],
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: switch (session.status) {
-            GameSessionStatus.idle || GameSessionStatus.loading => const Center(
-              child: CircularProgressIndicator(),
-            ),
-            GameSessionStatus.active => Center(
-              child: _ActiveChallenge(
-                plan: session.plan!,
-                elapsed: _stopwatch.elapsed,
-                onAction: (action) {
-                  _ticker?.cancel();
-                  _stopwatch.stop();
-                  ref
-                      .read(gameSessionControllerProvider.notifier)
-                      .submit(action, _stopwatch.elapsed);
-                },
+    return PopScope(
+      canPop: session.status != GameSessionStatus.active,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop && session.status == GameSessionStatus.active) {
+          _requestExit();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Play'),
+          actions: [
+            TextButton(onPressed: _requestExit, child: const Text('Home')),
+          ],
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: switch (session.status) {
+              GameSessionStatus.idle || GameSessionStatus.loading =>
+                const Center(child: CircularProgressIndicator()),
+              GameSessionStatus.active => Center(
+                child: _ActiveChallenge(
+                  plan: session.plan!,
+                  elapsed: _stopwatch.elapsed,
+                  onAction: (action) {
+                    _ticker?.cancel();
+                    _stopwatch.stop();
+                    ref
+                        .read(gameSessionControllerProvider.notifier)
+                        .submit(action, _stopwatch.elapsed);
+                  },
+                ),
               ),
-            ),
-            GameSessionStatus.result => ResultPanel(
-              evaluation: session.evaluation!,
-              xpDelta: session.xpDelta!,
-              onAgain: _startRound,
-              onHome: _goHome,
-            ),
-            GameSessionStatus.failure => Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text('Unable to start a round. Please try again.'),
-                  const SizedBox(height: 16),
-                  FilledButton(
-                    onPressed: _startRound,
-                    child: const Text('Try again'),
-                  ),
-                  TextButton(onPressed: _goHome, child: const Text('Home')),
-                ],
+              GameSessionStatus.result => ResultPanel(
+                evaluation: session.evaluation!,
+                xpDelta: session.xpDelta!,
+                onAgain: _startRound,
+                onHome: _goHome,
               ),
-            ),
-          },
+              GameSessionStatus.failure => Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('Unable to start a round. Please try again.'),
+                    const SizedBox(height: 16),
+                    FilledButton(
+                      onPressed: _startRound,
+                      child: const Text('Try again'),
+                    ),
+                    TextButton(onPressed: _goHome, child: const Text('Home')),
+                  ],
+                ),
+              ),
+            },
+          ),
         ),
       ),
     );

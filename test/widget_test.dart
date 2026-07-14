@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +9,7 @@ void main() {
     return tester.pumpWidget(const ProviderScope(child: MindTrapApp()));
   }
 
-  testWidgets('Play opens gameplay and Home exits safely', (
+  testWidgets('active gameplay confirms before exiting', (
     WidgetTester tester,
   ) async {
     await pumpApp(tester);
@@ -22,10 +23,36 @@ void main() {
 
     expect(find.text('Home'), findsOneWidget);
 
-    await tester.tap(find.text('Home'));
+    await tester.pageBack();
     await tester.pump();
 
+    expect(find.text('Leave round?'), findsOneWidget);
+    await tester.tap(find.text('Leave'));
+    await tester.pumpAndSettle();
+
     expect(find.text('MindTrap AI'), findsNWidgets(2));
+  });
+
+  testWidgets('gameplay restarts safely after backgrounding', (tester) async {
+    await pumpApp(tester);
+    await tester.tap(find.text('Play'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+    await tester.pump();
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(find.text('Home'), findsOneWidget);
+
+    await tester.tap(find.text('Home'));
+    await tester.pump();
+    if (find.text('Leave').evaluate().isNotEmpty) {
+      await tester.tap(find.text('Leave'));
+    }
+    await tester.pumpAndSettle();
   });
 
   testWidgets('navigates to Profile', (WidgetTester tester) async {
