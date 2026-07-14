@@ -1,10 +1,11 @@
 # Current task
 
-Implement Task 015 only.
+Repository maintenance task.
 
-Read:
+Update README.md and .gitignore only.
 
-1. `/AGENTS.md`
-2. `/planning/tasks/prompts/015-round-lifecycle.md`
+Do not modify application code.
+
+When finished, report only the changed files.
 
 Do not load the backlog or any other planning document. Stop after the prompt's verification; do not advance the task.
