@@ -1,4 +1,5 @@
 import 'challenge.dart';
+import 'challenges/reaction_tap/reaction_tap.dart';
 
 final class ChallengeCatalog {
   ChallengeCatalog(Iterable<ChallengeModule> modules)
@@ -9,6 +10,9 @@ final class ChallengeCatalog {
   }
 
   final Map<String, ChallengeModule> _modules;
+
+  factory ChallengeCatalog.reactionTap() =>
+      ChallengeCatalog([const ReactionTapModule().challengeModule]);
 
   ChallengeModule? findById(String id) => _modules[id];
 
