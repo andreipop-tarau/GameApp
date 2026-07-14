@@ -1,5 +1,6 @@
 import 'challenge.dart';
 import 'challenges/reaction_tap/reaction_tap.dart';
+import 'challenges/sequence_memory/sequence_memory.dart';
 
 final class ChallengeCatalog {
   ChallengeCatalog(Iterable<ChallengeModule> modules)
@@ -13,6 +14,9 @@ final class ChallengeCatalog {
 
   factory ChallengeCatalog.reactionTap() =>
       ChallengeCatalog([const ReactionTapModule().challengeModule]);
+
+  factory ChallengeCatalog.sequenceMemory() =>
+      ChallengeCatalog([const SequenceMemoryModule().challengeModule]);
 
   ChallengeModule? findById(String id) => _modules[id];
 

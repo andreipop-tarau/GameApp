@@ -126,6 +126,29 @@ Do not write a large implementation plan when the task is already explicit.
 
 Prefer one logical change per task.
 
+## Local Command Execution
+
+Flutter, Gradle, CocoaPods, emulator, platform build, dependency installation, and other local development commands are executed by the developer.
+
+Do not execute them yourself unless explicitly requested.
+
+Instead:
+
+1. Tell the developer the exact command.
+2. Explain why it should be run.
+3. Wait for the result.
+4. Continue implementation after the developer reports the output.
+
+Verification commands such as:
+
+- flutter pub get
+- dart format
+- flutter analyze
+- flutter test
+- flutter build
+
+should normally be delegated to the developer instead of executed by the agent.
+
 ## Long-Running Command Policy
 
 Do not remain active indefinitely while waiting for a local command.
