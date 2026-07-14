@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mindtrap_ai/core/mvp_config.dart';
 import 'package:mindtrap_ai/features/brain_profile/brain_profile_provider.dart';
 import 'package:mindtrap_ai/features/brain_profile/brain_profile_updater.dart';
+import 'package:mindtrap_ai/features/gameplay/challenge.dart';
 import 'package:mindtrap_ai/features/gameplay/challenges/logic_choice/logic_choice.dart';
 import 'package:mindtrap_ai/features/gameplay/challenges/reaction_tap/reaction_tap.dart';
 import 'package:mindtrap_ai/features/gameplay/challenges/selective_attention/selective_attention.dart';
@@ -33,12 +34,13 @@ void main() {
     addTearDown(container.dispose);
     final controller = container.read(gameSessionControllerProvider.notifier);
     final moduleIds = <String>[];
+    final plans = <RoundPlan>[];
 
     for (var index = 0; index < 5; index++) {
       await controller.startRound();
-      moduleIds.add(
-        container.read(gameSessionControllerProvider).plan!.moduleId,
-      );
+      final plan = container.read(gameSessionControllerProvider).plan!;
+      plans.add(plan);
+      moduleIds.add(plan.moduleId);
     }
 
     expect(moduleIds.toSet(), {
@@ -48,6 +50,14 @@ void main() {
       'timing_stop',
       'logic_choice',
     });
+    expect(
+      plans.every(
+        (plan) =>
+            plan.policyVersion == 'ai-director-v1' &&
+            plan.selectionReason != null,
+      ),
+      isTrue,
+    );
   });
 
   test('session preserves the first resolution', () async {

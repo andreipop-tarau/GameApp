@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/mvp_config.dart';
-import '../../core/seeded_random.dart';
+import '../ai_director/ai_director.dart';
 import '../brain_profile/brain_profile_provider.dart';
 import '../brain_profile/brain_profile_updater.dart';
 import 'challenge.dart';
@@ -64,11 +64,15 @@ final class GameSessionController extends Notifier<GameSessionState> {
     : _configLoader = configLoader ?? _loadBundledConfig;
 
   final ChallengeCatalog _catalog = ChallengeCatalog.mvp();
+  final AiDirector _director = const AiDirector();
   final GameConfigLoader _configLoader;
+  final List<AiDirectorRoundHistory> _recentHistory = [];
   RoundLifecycle? _lifecycle;
   MvpConfig? _config;
   int _roundNumber = 0;
+  int _consecutiveFailures = 0;
   static const _sessionSeed = 1009;
+  static const _historyLimit = 10;
 
   @override
   GameSessionState build() => const GameSessionState.idle();
@@ -83,6 +87,15 @@ final class GameSessionController extends Notifier<GameSessionState> {
         _lifecycle = RoundLifecycle(plan: round.plan, module: round.module)
           ..beginBriefing()
           ..beginActive();
+        if (_recentHistory.length == _historyLimit) {
+          _recentHistory.removeAt(0);
+        }
+        _recentHistory.add(
+          AiDirectorRoundHistory(
+            moduleId: round.moduleId,
+            difficulty: round.plan.difficulty,
+          ),
+        );
         _roundNumber++;
         state = GameSessionState.active(plan: round.plan, module: round.module);
         return;
@@ -103,6 +116,12 @@ final class GameSessionController extends Notifier<GameSessionState> {
       action,
       DateTime.utc(2000).add(elapsed),
     );
+    final succeeded = evaluation.outcome == ChallengeOutcome.success;
+    if (_recentHistory.isNotEmpty) {
+      _recentHistory[_recentHistory.length - 1] = _recentHistory.last
+          .withOutcome(succeeded);
+    }
+    _consecutiveFailures = succeeded ? 0 : _consecutiveFailures + 1;
     ref
         .read(brainProfileProvider.notifier)
         .applyOutcome(
@@ -127,58 +146,72 @@ final class GameSessionController extends Notifier<GameSessionState> {
 
   void exit() {
     _lifecycle = null;
+    _recentHistory.clear();
+    _consecutiveFailures = 0;
     state = const GameSessionState.idle();
   }
 
   Future<_GeneratedRound> _generateRound() async {
     final config = _config ??= await _configLoader();
-    final enabled = config.modules.where((module) => module.enabled).toList();
-    if (enabled.isEmpty) throw StateError('No challenge modules are enabled.');
-
-    final rotationStart = SeededRandom(_sessionSeed).nextInt(enabled.length);
-    final moduleConfig =
-        enabled[(rotationStart + _roundNumber) % enabled.length];
+    final seed = _sessionSeed + _roundNumber;
+    final selection = _director.select(
+      AiDirectorRequest(
+        config: config,
+        profile: ref.read(brainProfileProvider),
+        recentHistory: _recentHistory,
+        consecutiveFailures: _consecutiveFailures,
+        seed: seed,
+      ),
+    );
+    final moduleConfig = selection.module;
     final module = _catalog.findById(moduleConfig.id.value);
     if (module == null) {
       throw StateError('Enabled module is missing from the challenge catalog.');
     }
 
-    final seed = _sessionSeed + _roundNumber;
-    final plan = switch (moduleConfig.id) {
+    final generatedPlan = switch (moduleConfig.id) {
       MvpModuleId.reactionTap => const ReactionTapPlanGenerator().generate(
         config: moduleConfig,
-        difficulty: MvpDifficulty.easy,
+        difficulty: selection.difficulty,
         seed: seed,
         configVersion: config.contentVersion,
       ),
       MvpModuleId.sequenceMemory =>
         const SequenceMemoryPlanGenerator().generate(
           config: moduleConfig,
-          difficulty: MvpDifficulty.easy,
+          difficulty: selection.difficulty,
           seed: seed,
           configVersion: config.contentVersion,
         ),
       MvpModuleId.selectiveAttention =>
         const SelectiveAttentionPlanGenerator().generate(
           config: moduleConfig,
-          difficulty: MvpDifficulty.easy,
+          difficulty: selection.difficulty,
           seed: seed,
           configVersion: config.contentVersion,
         ),
       MvpModuleId.timingStop => const TimingStopPlanGenerator().generate(
         config: moduleConfig,
-        difficulty: MvpDifficulty.easy,
+        difficulty: selection.difficulty,
         seed: seed,
         configVersion: config.contentVersion,
       ),
       MvpModuleId.logicChoice => const LogicChoicePlanGenerator().generate(
         config: moduleConfig,
-        difficulty: MvpDifficulty.easy,
+        difficulty: selection.difficulty,
         seed: seed,
         configVersion: config.contentVersion,
       ),
     };
-    return _GeneratedRound(plan: plan, module: module);
+    final plan = generatedPlan.withSelectionMetadata(
+      selectionReason: selection.reason.code,
+      policyVersion: selection.policyVersion,
+    );
+    return _GeneratedRound(
+      plan: plan,
+      module: module,
+      moduleId: moduleConfig.id,
+    );
   }
 
   static Future<MvpConfig> _loadBundledConfig() async {
@@ -190,8 +223,13 @@ final class GameSessionController extends Notifier<GameSessionState> {
 }
 
 final class _GeneratedRound {
-  const _GeneratedRound({required this.plan, required this.module});
+  const _GeneratedRound({
+    required this.plan,
+    required this.module,
+    required this.moduleId,
+  });
 
   final RoundPlan plan;
   final ChallengeModule module;
+  final MvpModuleId moduleId;
 }

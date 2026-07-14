@@ -46,6 +46,8 @@ final class RoundPlan {
     required this.seed,
     required this.difficulty,
     required this.parameters,
+    this.selectionReason,
+    this.policyVersion,
   });
 
   final String moduleId;
@@ -54,6 +56,24 @@ final class RoundPlan {
   final int seed;
   final MvpDifficulty difficulty;
   final Map<String, int> parameters;
+  final String? selectionReason;
+  final String? policyVersion;
+
+  RoundPlan withSelectionMetadata({
+    required String selectionReason,
+    required String policyVersion,
+  }) {
+    return RoundPlan(
+      moduleId: moduleId,
+      moduleVersion: moduleVersion,
+      configVersion: configVersion,
+      seed: seed,
+      difficulty: difficulty,
+      parameters: parameters,
+      selectionReason: selectionReason,
+      policyVersion: policyVersion,
+    );
+  }
 }
 
 abstract class PlayerAction {
