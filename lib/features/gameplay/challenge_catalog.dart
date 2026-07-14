@@ -1,5 +1,6 @@
 import 'challenge.dart';
 import 'challenges/reaction_tap/reaction_tap.dart';
+import 'challenges/logic_choice/logic_choice.dart';
 import 'challenges/selective_attention/selective_attention.dart';
 import 'challenges/sequence_memory/sequence_memory.dart';
 import 'challenges/timing_stop/timing_stop.dart';
@@ -25,6 +26,9 @@ final class ChallengeCatalog {
 
   factory ChallengeCatalog.timingStop() =>
       ChallengeCatalog([const TimingStopModule().challengeModule]);
+
+  factory ChallengeCatalog.logicChoice() =>
+      ChallengeCatalog([const LogicChoiceModule().challengeModule]);
 
   ChallengeModule? findById(String id) => _modules[id];
 
