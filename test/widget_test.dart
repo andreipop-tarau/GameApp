@@ -8,7 +8,7 @@ void main() {
     return tester.pumpWidget(const ProviderScope(child: MindTrapApp()));
   }
 
-  testWidgets('navigates to Play and returns Home', (
+  testWidgets('Play opens gameplay and Home exits safely', (
     WidgetTester tester,
   ) async {
     await pumpApp(tester);
@@ -17,12 +17,13 @@ void main() {
     expect(find.text('Profile'), findsOneWidget);
 
     await tester.tap(find.text('Play'));
-    await tester.pumpAndSettle();
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
 
-    expect(find.text('Play coming soon'), findsOneWidget);
+    expect(find.text('Home'), findsOneWidget);
 
-    await tester.pageBack();
-    await tester.pumpAndSettle();
+    await tester.tap(find.text('Home'));
+    await tester.pump();
 
     expect(find.text('MindTrap AI'), findsNWidgets(2));
   });

@@ -30,6 +30,14 @@ final class ChallengeCatalog {
   factory ChallengeCatalog.logicChoice() =>
       ChallengeCatalog([const LogicChoiceModule().challengeModule]);
 
+  factory ChallengeCatalog.mvp() => ChallengeCatalog([
+    const ReactionTapModule().challengeModule,
+    const SequenceMemoryModule().challengeModule,
+    const SelectiveAttentionModule().challengeModule,
+    const TimingStopModule().challengeModule,
+    const LogicChoiceModule().challengeModule,
+  ]);
+
   ChallengeModule? findById(String id) => _modules[id];
 
   Iterable<ChallengeModule> get modules => _modules.values;
