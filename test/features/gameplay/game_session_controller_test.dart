@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mindtrap_ai/core/mvp_config.dart';
+import 'package:mindtrap_ai/features/brain_profile/brain_profile_provider.dart';
+import 'package:mindtrap_ai/features/brain_profile/brain_profile_updater.dart';
 import 'package:mindtrap_ai/features/gameplay/challenges/logic_choice/logic_choice.dart';
 import 'package:mindtrap_ai/features/gameplay/challenges/reaction_tap/reaction_tap.dart';
 import 'package:mindtrap_ai/features/gameplay/challenges/selective_attention/selective_attention.dart';
@@ -75,14 +77,26 @@ void main() {
       ),
       _ => throw StateError('Unexpected module.'),
     };
+    final updatedSkill = brainSkillForChallengeCategory(
+      container.read(gameSessionControllerProvider).module!.metadata.category,
+    );
 
     controller.submit(action, Duration.zero);
     final first = container.read(gameSessionControllerProvider).evaluation;
+    final firstProfile = container.read(brainProfileProvider);
     controller.submit(action, Duration.zero);
 
     expect(
       container.read(gameSessionControllerProvider).evaluation,
       same(first),
+    );
+    expect(firstProfile.estimateFor(updatedSkill).sampleCount, 1);
+    expect(
+      container
+          .read(brainProfileProvider)
+          .estimateFor(updatedSkill)
+          .sampleCount,
+      1,
     );
   });
 }

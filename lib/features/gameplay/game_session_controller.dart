@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/mvp_config.dart';
 import '../../core/seeded_random.dart';
+import '../brain_profile/brain_profile_provider.dart';
+import '../brain_profile/brain_profile_updater.dart';
 import 'challenge.dart';
 import 'challenge_catalog.dart';
 import 'challenges/logic_choice/logic_choice.dart';
@@ -101,6 +103,21 @@ final class GameSessionController extends Notifier<GameSessionState> {
       action,
       DateTime.utc(2000).add(elapsed),
     );
+    ref
+        .read(brainProfileProvider.notifier)
+        .applyOutcome(
+          BrainProfileOutcome(
+            id: 'classic:$_sessionSeed:${lifecycle.plan.seed}',
+            category: state.module!.metadata.category,
+            performance: evaluation.outcome == ChallengeOutcome.success
+                ? 100
+                : 0,
+            status: BrainProfileOutcomeStatus.completed,
+            isValid:
+                !evaluation.metrics.responseTime.isNegative &&
+                evaluation.metrics.actionCount > 0,
+          ),
+        );
     state = GameSessionState.result(
       plan: lifecycle.plan,
       module: state.module!,

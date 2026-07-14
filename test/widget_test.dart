@@ -34,6 +34,7 @@ void main() {
     await tester.tap(find.text('Profile'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Profile coming soon'), findsOneWidget);
+    expect(find.text('Brain Profile'), findsOneWidget);
+    expect(find.text('Not enough data yet'), findsOneWidget);
   });
 }
