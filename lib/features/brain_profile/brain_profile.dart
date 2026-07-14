@@ -73,6 +73,24 @@ final class BrainProfile {
   bool hasAppliedOutcome(String outcomeId) =>
       _appliedOutcomeIds.contains(outcomeId);
 
+  Set<String> get appliedOutcomeIds => _appliedOutcomeIds;
+
+  factory BrainProfile.restored({
+    required BrainSkillEstimate reaction,
+    required BrainSkillEstimate memory,
+    required BrainSkillEstimate attention,
+    required BrainSkillEstimate logic,
+    required BrainSkillEstimate timing,
+    required Set<String> appliedOutcomeIds,
+  }) => BrainProfile._(
+    reaction: reaction,
+    memory: memory,
+    attention: attention,
+    logic: logic,
+    timing: timing,
+    appliedOutcomeIds: appliedOutcomeIds,
+  );
+
   BrainProfile withAppliedOutcome({
     required String outcomeId,
     required BrainSkill skill,

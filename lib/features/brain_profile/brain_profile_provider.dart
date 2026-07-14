@@ -8,13 +8,17 @@ final brainProfileProvider =
       BrainProfileController.new,
     );
 
+final initialBrainProfileProvider = Provider<BrainProfile>(
+  (ref) => const BrainProfile.initial(),
+);
+
 final class BrainProfileController extends Notifier<BrainProfile> {
   BrainProfileController([this._updater = const BrainProfileUpdater()]);
 
   final BrainProfileUpdater _updater;
 
   @override
-  BrainProfile build() => const BrainProfile.initial();
+  BrainProfile build() => ref.read(initialBrainProfileProvider);
 
   BrainProfileUpdateResult applyOutcome(BrainProfileOutcome outcome) {
     final result = _updater.apply(state, outcome);

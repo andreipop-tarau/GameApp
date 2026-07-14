@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/local_game_save.dart';
 import '../../core/mvp_config.dart';
 import '../ai_director/ai_director.dart';
 import '../brain_profile/brain_profile_provider.dart';
@@ -20,6 +23,12 @@ final gameSessionControllerProvider =
     );
 
 typedef GameConfigLoader = Future<MvpConfig> Function();
+
+final initialLocalGameSaveProvider = Provider<LocalGameSave>(
+  (ref) => const LocalGameSave.empty(),
+);
+
+final localGameSaveStoreProvider = Provider<LocalGameSaveStore?>((ref) => null);
 
 enum GameSessionStatus { idle, loading, active, result, failure }
 
@@ -71,11 +80,31 @@ final class GameSessionController extends Notifier<GameSessionState> {
   MvpConfig? _config;
   int _roundNumber = 0;
   int _consecutiveFailures = 0;
+  bool _hasRestoredSave = false;
+  Future<void> _saveChain = Future.value();
   static const _sessionSeed = 1009;
   static const _historyLimit = 10;
 
   @override
-  GameSessionState build() => const GameSessionState.idle();
+  GameSessionState build() {
+    if (!_hasRestoredSave) {
+      final save = ref.read(initialLocalGameSaveProvider);
+      _recentHistory.addAll(
+        save.recentOutcomes.map(
+          (outcome) => AiDirectorRoundHistory(
+            moduleId: MvpModuleId.fromValue(outcome.moduleId)!,
+            difficulty: MvpDifficulty.values.byName(outcome.difficulty),
+            outcomeId: outcome.id,
+            wasSuccessful: outcome.wasSuccessful,
+          ),
+        ),
+      );
+      _consecutiveFailures = _trailingFailures(_recentHistory);
+      _roundNumber = save.brainProfile.totalSampleCount;
+      _hasRestoredSave = true;
+    }
+    return const GameSessionState.idle();
+  }
 
   Future<void> startRound() async {
     if (state.status == GameSessionStatus.loading) return;
@@ -94,6 +123,7 @@ final class GameSessionController extends Notifier<GameSessionState> {
           AiDirectorRoundHistory(
             moduleId: round.moduleId,
             difficulty: round.plan.difficulty,
+            outcomeId: 'classic:$_sessionSeed:${round.plan.seed}',
           ),
         );
         _roundNumber++;
@@ -122,7 +152,7 @@ final class GameSessionController extends Notifier<GameSessionState> {
           .withOutcome(succeeded);
     }
     _consecutiveFailures = succeeded ? 0 : _consecutiveFailures + 1;
-    ref
+    final profileUpdate = ref
         .read(brainProfileProvider.notifier)
         .applyOutcome(
           BrainProfileOutcome(
@@ -137,11 +167,48 @@ final class GameSessionController extends Notifier<GameSessionState> {
                 evaluation.metrics.actionCount > 0,
           ),
         );
+    if (profileUpdate.wasApplied) {
+      _persistCompletedOutcomes();
+    }
     state = GameSessionState.result(
       plan: lifecycle.plan,
       module: state.module!,
       evaluation: evaluation,
     );
+  }
+
+  void _persistCompletedOutcomes() {
+    final store = ref.read(localGameSaveStoreProvider);
+    if (store == null) return;
+    final outcomes = _recentHistory
+        .where((round) => round.wasSuccessful != null)
+        .map(
+          (round) => LocalRoundOutcome(
+            id: round.outcomeId!,
+            moduleId: round.moduleId.value,
+            difficulty: round.difficulty.name,
+            wasSuccessful: round.wasSuccessful!,
+          ),
+        )
+        .toList();
+    final save = LocalGameSave(
+      brainProfile: ref.read(brainProfileProvider),
+      recentOutcomes: outcomes,
+    );
+    unawaited(
+      _saveChain = _saveChain.then((_) async {
+        await store.save(save);
+      }),
+    );
+  }
+
+  static int _trailingFailures(Iterable<AiDirectorRoundHistory> history) {
+    var failures = 0;
+    for (final round in history.toList().reversed) {
+      if (round.wasSuccessful != false) break;
+      failures++;
+    }
+    return failures;
   }
 
   void exit() {

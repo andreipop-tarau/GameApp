@@ -25,17 +25,20 @@ final class AiDirectorRoundHistory {
   const AiDirectorRoundHistory({
     required this.moduleId,
     required this.difficulty,
+    this.outcomeId,
     this.wasSuccessful,
   });
 
   final MvpModuleId moduleId;
   final MvpDifficulty difficulty;
+  final String? outcomeId;
   final bool? wasSuccessful;
 
   AiDirectorRoundHistory withOutcome(bool succeeded) {
     return AiDirectorRoundHistory(
       moduleId: moduleId,
       difficulty: difficulty,
+      outcomeId: outcomeId,
       wasSuccessful: succeeded,
     );
   }
