@@ -1,5 +1,6 @@
 import 'challenge.dart';
 import 'challenges/reaction_tap/reaction_tap.dart';
+import 'challenges/selective_attention/selective_attention.dart';
 import 'challenges/sequence_memory/sequence_memory.dart';
 
 final class ChallengeCatalog {
@@ -17,6 +18,9 @@ final class ChallengeCatalog {
 
   factory ChallengeCatalog.sequenceMemory() =>
       ChallengeCatalog([const SequenceMemoryModule().challengeModule]);
+
+  factory ChallengeCatalog.selectiveAttention() =>
+      ChallengeCatalog([const SelectiveAttentionModule().challengeModule]);
 
   ChallengeModule? findById(String id) => _modules[id];
 
