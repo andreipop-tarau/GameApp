@@ -26,6 +26,14 @@ void main() {
     return MvpConfig(
       schemaVersion: 1,
       contentVersion: 'test-v1',
+      progression: const MvpProgressionConfig(
+        xpByDifficulty: {
+          MvpDifficulty.easy: 10,
+          MvpDifficulty.medium: 20,
+          MvpDifficulty.hard: 35,
+        },
+        levelXpThresholds: [0, 100],
+      ),
       modules: modules.toList(growable: false),
     );
   }

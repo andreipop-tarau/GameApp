@@ -8,6 +8,7 @@ import '../../core/mvp_config.dart';
 import '../ai_director/ai_director.dart';
 import '../brain_profile/brain_profile_provider.dart';
 import '../brain_profile/brain_profile_updater.dart';
+import '../progression/progression.dart';
 import 'challenge.dart';
 import 'challenge_catalog.dart';
 import 'challenges/logic_choice/logic_choice.dart';
@@ -38,6 +39,7 @@ final class GameSessionState {
     this.plan,
     this.module,
     this.evaluation,
+    this.xpDelta,
   });
 
   const GameSessionState.idle() : this._(status: GameSessionStatus.idle);
@@ -53,11 +55,13 @@ final class GameSessionState {
     required RoundPlan plan,
     required ChallengeModule module,
     required RoundEvaluation evaluation,
+    required int xpDelta,
   }) : this._(
          status: GameSessionStatus.result,
          plan: plan,
          module: module,
          evaluation: evaluation,
+         xpDelta: xpDelta,
        );
 
   const GameSessionState.failure() : this._(status: GameSessionStatus.failure);
@@ -66,6 +70,7 @@ final class GameSessionState {
   final RoundPlan? plan;
   final ChallengeModule? module;
   final RoundEvaluation? evaluation;
+  final int? xpDelta;
 }
 
 final class GameSessionController extends Notifier<GameSessionState> {
@@ -167,13 +172,26 @@ final class GameSessionController extends Notifier<GameSessionState> {
                 evaluation.metrics.actionCount > 0,
           ),
         );
-    if (profileUpdate.wasApplied) {
+    final progressionUpdate = ref
+        .read(progressionProvider.notifier)
+        .applyOutcome(
+          outcome: ProgressionOutcome(
+            id: 'classic:$_sessionSeed:${lifecycle.plan.seed}',
+            difficulty: lifecycle.plan.difficulty,
+            isEligible:
+                !evaluation.metrics.responseTime.isNegative &&
+                evaluation.metrics.actionCount > 0,
+          ),
+          config: _config!.progression,
+        );
+    if (profileUpdate.wasApplied || progressionUpdate.wasApplied) {
       _persistCompletedOutcomes();
     }
     state = GameSessionState.result(
       plan: lifecycle.plan,
       module: state.module!,
       evaluation: evaluation,
+      xpDelta: progressionUpdate.xpDelta,
     );
   }
 
@@ -193,6 +211,7 @@ final class GameSessionController extends Notifier<GameSessionState> {
         .toList();
     final save = LocalGameSave(
       brainProfile: ref.read(brainProfileProvider),
+      progression: ref.read(progressionProvider),
       recentOutcomes: outcomes,
     );
     unawaited(

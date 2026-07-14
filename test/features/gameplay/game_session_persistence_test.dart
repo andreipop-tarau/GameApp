@@ -12,6 +12,7 @@ import 'package:mindtrap_ai/features/gameplay/challenges/selective_attention/sel
 import 'package:mindtrap_ai/features/gameplay/challenges/sequence_memory/sequence_memory.dart';
 import 'package:mindtrap_ai/features/gameplay/challenges/timing_stop/timing_stop.dart';
 import 'package:mindtrap_ai/features/gameplay/game_session_controller.dart';
+import 'package:mindtrap_ai/features/progression/progression.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -73,6 +74,7 @@ void main() {
         loaded.save.brainProfile.totalSampleCount,
         LocalGameSave.historyLimit + 1,
       );
+      expect(loaded.save.progression.totalXp, greaterThan(0));
       expect(
         loaded.save.recentOutcomes.map((outcome) => outcome.id).toSet(),
         hasLength(LocalGameSave.historyLimit),
@@ -84,12 +86,17 @@ void main() {
             loaded.save.brainProfile,
           ),
           initialLocalGameSaveProvider.overrideWithValue(loaded.save),
+          initialProgressionProvider.overrideWithValue(loaded.save.progression),
         ],
       );
       addTearDown(restored.dispose);
       expect(
         restored.read(brainProfileProvider).totalSampleCount,
         LocalGameSave.historyLimit + 1,
+      );
+      expect(
+        restored.read(progressionProvider).totalXp,
+        loaded.save.progression.totalXp,
       );
     },
   );

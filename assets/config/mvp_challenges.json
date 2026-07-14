@@ -1,6 +1,10 @@
 {
   "schemaVersion": 1,
-  "contentVersion": "1.0.0",
+  "contentVersion": "1.1.0",
+  "progression": {
+    "xpByDifficulty": { "easy": 10, "medium": 20, "hard": 35 },
+    "levelXpThresholds": [0, 100, 250, 450, 700]
+  },
   "modules": [
     {
       "id": "reaction_tap",

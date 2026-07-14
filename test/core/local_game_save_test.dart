@@ -5,6 +5,7 @@ import 'package:mindtrap_ai/core/local_game_save.dart';
 import 'package:mindtrap_ai/features/brain_profile/brain_profile.dart';
 import 'package:mindtrap_ai/features/brain_profile/brain_profile_updater.dart';
 import 'package:mindtrap_ai/features/gameplay/challenge.dart';
+import 'package:mindtrap_ai/features/progression/progression.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -23,6 +24,11 @@ void main() {
         .profile;
     return LocalGameSave(
       brainProfile: profile,
+      progression: Progression(
+        totalXp: 10,
+        level: 1,
+        appliedOutcomeIds: {'classic:1009:1009'},
+      ),
       recentOutcomes: const [
         LocalRoundOutcome(
           id: 'classic:1009:1009',
@@ -44,6 +50,7 @@ void main() {
       isTrue,
     );
     expect(decoded.save.recentOutcomes.single.wasSuccessful, isTrue);
+    expect(decoded.save.progression.totalXp, 10);
   });
 
   test('recovers safely from empty, corrupt, and unsupported saves', () async {

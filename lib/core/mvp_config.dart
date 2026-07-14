@@ -6,12 +6,26 @@ final class MvpConfig {
   const MvpConfig({
     required this.schemaVersion,
     required this.contentVersion,
+    required this.progression,
     required this.modules,
   });
 
   final int schemaVersion;
   final String contentVersion;
+  final MvpProgressionConfig progression;
   final List<MvpModuleConfig> modules;
+}
+
+final class MvpProgressionConfig {
+  const MvpProgressionConfig({
+    required this.xpByDifficulty,
+    required this.levelXpThresholds,
+  });
+
+  final Map<MvpDifficulty, int> xpByDifficulty;
+  final List<int> levelXpThresholds;
+
+  int xpForDifficulty(MvpDifficulty difficulty) => xpByDifficulty[difficulty]!;
 }
 
 final class MvpModuleConfig {
@@ -89,9 +103,11 @@ MvpConfigParseResult parseMvpConfig(String source) {
     }
 
     final contentVersion = decoded['contentVersion'];
+    final progression = _parseProgression(decoded['progression']);
     final modulesValue = decoded['modules'];
     if (contentVersion is! String ||
         contentVersion.isEmpty ||
+        progression == null ||
         modulesValue is! List) {
       return const MvpConfigFailure(MvpConfigFailureReason.malformed);
     }
@@ -115,12 +131,43 @@ MvpConfigParseResult parseMvpConfig(String source) {
       MvpConfig(
         schemaVersion: schemaVersion,
         contentVersion: contentVersion,
+        progression: progression,
         modules: List.unmodifiable(modules),
       ),
     );
   } on FormatException {
     return const MvpConfigFailure(MvpConfigFailureReason.malformed);
   }
+}
+
+MvpProgressionConfig? _parseProgression(Object? value) {
+  if (value is! Map<String, dynamic>) return null;
+  final xpByDifficultyValue = value['xpByDifficulty'];
+  final thresholdsValue = value['levelXpThresholds'];
+  if (xpByDifficultyValue is! Map<String, dynamic> ||
+      thresholdsValue is! List ||
+      thresholdsValue.isEmpty) {
+    return null;
+  }
+  final xpByDifficulty = <MvpDifficulty, int>{};
+  for (final difficulty in MvpDifficulty.values) {
+    final xp = xpByDifficultyValue[difficulty.value];
+    if (xp is! int || xp <= 0) return null;
+    xpByDifficulty[difficulty] = xp;
+  }
+  if (xpByDifficultyValue.length != MvpDifficulty.values.length) return null;
+
+  final thresholds = <int>[];
+  for (final threshold in thresholdsValue) {
+    if (threshold is! int || threshold < 0) return null;
+    if (thresholds.isNotEmpty && threshold <= thresholds.last) return null;
+    thresholds.add(threshold);
+  }
+  if (thresholds.first != 0) return null;
+  return MvpProgressionConfig(
+    xpByDifficulty: Map.unmodifiable(xpByDifficulty),
+    levelXpThresholds: List.unmodifiable(thresholds),
+  );
 }
 
 MvpModuleConfig? _parseModule(Object? value) {

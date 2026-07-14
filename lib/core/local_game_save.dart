@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'mvp_config.dart';
 import '../features/brain_profile/brain_profile.dart';
+import '../features/progression/progression.dart';
 
 const localGameSavePreferenceKey = 'local_game_save';
 
@@ -66,22 +67,26 @@ final class LocalRoundOutcome {
 final class LocalGameSave {
   const LocalGameSave({
     required this.brainProfile,
+    required this.progression,
     required this.recentOutcomes,
   }) : assert(recentOutcomes.length <= historyLimit);
 
   const LocalGameSave.empty()
     : brainProfile = const BrainProfile.initial(),
+      progression = const Progression.initial(),
       recentOutcomes = const [];
 
   static const schemaVersion = 1;
   static const historyLimit = 10;
 
   final BrainProfile brainProfile;
+  final Progression progression;
   final List<LocalRoundOutcome> recentOutcomes;
 
   Map<String, Object> toJson() => {
     'schemaVersion': schemaVersion,
     'brainProfile': _profileToJson(brainProfile),
+    'progression': _progressionToJson(progression),
     'recentOutcomes': recentOutcomes
         .map((outcome) => outcome.toJson())
         .toList(),
@@ -99,12 +104,17 @@ final class LocalGameSave {
         return const LocalGameSaveLoadResult.unsupported();
       }
       final profile = _profileFromJson(decoded['brainProfile']);
+      final progression = _progressionFromJson(decoded['progression']);
       final outcomes = _outcomesFromJson(decoded['recentOutcomes']);
-      if (profile == null || outcomes == null) {
+      if (profile == null || progression == null || outcomes == null) {
         return const LocalGameSaveLoadResult.corrupt();
       }
       return LocalGameSaveLoadResult.loaded(
-        LocalGameSave(brainProfile: profile, recentOutcomes: outcomes),
+        LocalGameSave(
+          brainProfile: profile,
+          progression: progression,
+          recentOutcomes: outcomes,
+        ),
       );
     } on FormatException {
       return const LocalGameSaveLoadResult.corrupt();
@@ -112,6 +122,38 @@ final class LocalGameSave {
       return const LocalGameSaveLoadResult.corrupt();
     }
   }
+}
+
+Map<String, Object> _progressionToJson(Progression progression) => {
+  'totalXp': progression.totalXp,
+  'level': progression.level,
+  'appliedOutcomeIds': progression.appliedOutcomeIds.toList(),
+};
+
+Progression? _progressionFromJson(Object? value) {
+  if (value == null) return const Progression.initial();
+  if (value is! Map<String, dynamic>) return null;
+  final totalXp = value['totalXp'];
+  final level = value['level'];
+  final ids = value['appliedOutcomeIds'];
+  if (totalXp is! int ||
+      totalXp < 0 ||
+      level is! int ||
+      level < 1 ||
+      ids is! List) {
+    return null;
+  }
+  final appliedOutcomeIds = <String>{};
+  for (final id in ids) {
+    if (id is! String || id.trim().isEmpty || !appliedOutcomeIds.add(id)) {
+      return null;
+    }
+  }
+  return Progression(
+    totalXp: totalXp,
+    level: level,
+    appliedOutcomeIds: appliedOutcomeIds,
+  );
 }
 
 final class LocalGameSaveStore {

@@ -13,6 +13,8 @@ void main() {
     final config = (result as MvpConfigLoaded).config;
     expect(config.schemaVersion, 1);
     expect(config.modules, hasLength(5));
+    expect(config.progression.xpForDifficulty(MvpDifficulty.hard), 35);
+    expect(config.progression.levelXpThresholds, [0, 100, 250, 450, 700]);
   });
 
   test('returns a typed failure for malformed configuration', () {

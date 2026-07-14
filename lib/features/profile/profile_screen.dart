@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../brain_profile/brain_profile.dart';
 import '../brain_profile/brain_profile_provider.dart';
+import '../progression/progression.dart';
 
 final class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -10,12 +11,33 @@ final class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profile = ref.watch(brainProfileProvider);
+    final progression = ref.watch(progressionProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Profile')),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
+          Semantics(
+            container: true,
+            label: 'Progression',
+            value: 'Level ${progression.level}, ${progression.totalXp} XP',
+            readOnly: true,
+            child: ExcludeSemantics(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Expanded(child: Text('Level ${progression.level}')),
+                      Text('${progression.totalXp} XP'),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
           Text(
             'Brain Profile',
             style: Theme.of(context).textTheme.headlineMedium,

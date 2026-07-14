@@ -85,6 +85,7 @@ class _GameplayScreenState extends ConsumerState<GameplayScreen> {
             ),
             GameSessionStatus.result => ResultPanel(
               evaluation: session.evaluation!,
+              xpDelta: session.xpDelta!,
               onAgain: _startRound,
               onHome: _goHome,
             ),

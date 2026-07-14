@@ -5,6 +5,7 @@ import 'package:mindtrap_ai/features/brain_profile/brain_profile_provider.dart';
 import 'package:mindtrap_ai/features/brain_profile/brain_profile_updater.dart';
 import 'package:mindtrap_ai/features/gameplay/challenge.dart';
 import 'package:mindtrap_ai/features/profile/profile_screen.dart';
+import 'package:mindtrap_ai/features/progression/progression.dart';
 
 void main() {
   testWidgets('shows five accessible skills and an honest sparse-data state', (
@@ -65,5 +66,27 @@ void main() {
     expect(find.text('Confidence: 10%'), findsOneWidget);
     expect(find.text('Samples: 1'), findsOneWidget);
     expect(find.text('Not enough data yet'), findsOneWidget);
+  });
+
+  testWidgets('shows the stored level and XP', (tester) async {
+    final container = ProviderContainer(
+      overrides: [
+        initialProgressionProvider.overrideWithValue(
+          Progression(totalXp: 120, level: 2, appliedOutcomeIds: {}),
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+
+    await tester.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: const MaterialApp(home: ProfileScreen()),
+      ),
+    );
+
+    expect(find.text('Level 2'), findsOneWidget);
+    expect(find.text('120 XP'), findsOneWidget);
+    expect(find.bySemanticsLabel('Progression'), findsOneWidget);
   });
 }
