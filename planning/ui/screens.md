@@ -1,97 +1,72 @@
-# Screen specifications
+# Screen and interaction specifications
 
-Unless stated otherwise, every networked screen retains last-known data, exposes retry, avoids raw errors, and records one `screen_view` through the centralized analytics adapter. M0 screens are Home, Gameplay/Result, and Profile (basic). Splash, Onboarding, Settings, and all networked screens are pre-launch.
+## Existing UI disposition
 
-## Splash / bootstrap
+| Screen/component | Current state | Action |
+|---|---|---|
+| `MaterialApp.router`, GoRouter routes, Riverpod ownership | Small and functional | **Keep** boundaries; add mode routes incrementally |
+| Home | Generic AppBar and two buttons | **Restructure** around Troll Gauntlet, Calm, Rush, recent best, progression |
+| Gameplay screen/controller wiring | Owns ticker, lifecycle, result state | **Adapt** ownership to v2 runtime; replace AppBar/padded quiz layout |
+| Result panel | Card with `Again`/`Home` | **Replace** presentation; keep state-local immediate replay concept |
+| Profile | Accessible but card-heavy five-skill dashboard | **Restyle** and subordinate Brain Profile to mastery/progression |
+| Challenge widgets | Button/grid/text quiz presentation | **Replace or migrate** per catalog audit; preserve rules/tests where named |
+| Theme | Minimal indigo seed | **Replace** with semantic light/dark tokens |
+| Settings/onboarding/cosmetics/runners | Not implemented | **Defer** until assigned milestones |
 
-- **Purpose:** Prepare local config/save and choose the first route.
-- **Components:** Brand mark, static progress indicator, optional recovery message.
-- **Actions/navigation:** Automatic to Onboarding or Home; retry failed local initialization.
-- **Loading/offline/error:** Local bootstrap has a bounded timeout; network is not required. Corrupt optional cache falls back safely; unrecoverable save errors offer retry/reset with confirmation.
-- **Analytics:** `app_open`, `bootstrap_failed` with safe reason code.
-- **Acceptance:** No artificial delay; Classic play is reachable offline; no navigation loop or blank frame.
+## Launch and bootstrap
 
-## Onboarding
+Static brand mark/Trapling and bounded local progress only; no artificial delay. Load versioned config/save and route to first-session interaction or Home. Corrupt save recovery never silently resets data. Network is not required.
 
-- **Purpose:** Explain play, adaptation/privacy, and accessibility controls in at most three short pages.
-- **Components:** Illustrated instruction, page progress, Skip/Next/Play, audio/haptics toggles.
-- **Actions/navigation:** Skip or complete to Home; settings remain editable later.
-- **Loading/offline/error:** Fully bundled; save failure reports and retries without trapping the user.
-- **Analytics:** `onboarding_started`, `onboarding_completed`, `onboarding_skipped` with page index.
-- **Acceptance:** Finish/skip in under 30 seconds; no account request; screen reader and large text usable.
+## First-session onboarding
 
-## Home
+Teach by play, not pages. Start with an unmodified forgiving Stop the Machine round, a visible tap demonstration, immediate feedback, and one short failure explanation. Introduce the full genuine-tell pattern only after basic success, then show one fake signal that cannot copy the whole pattern. No feature carousel, account gate, permission wall, or complete-system tour.
 
-- **Purpose:** Put the player one tap from Classic play and expose current goals.
-- **Components:** Primary Play button, level/XP summary, daily card (when available), Profile, Leaderboards, Shop, Settings.
-- **Actions/navigation:** Routes from the graph in `navigation.md`; Play starts immediately.
-- **Loading/offline/error:** Local progress renders first. Offline hides/marks network content and keeps Play active. Remote card failures are non-blocking.
-- **Analytics:** `play_tapped`, destination intent events.
-- **Acceptance:** Play is the strongest and thumb-reachable action; no modal/store interstitial interrupts it; initial content does not jump excessively.
+## Home and mode access
 
-## Gameplay and result overlay
+One prominent `Play Troll Gauntlet` action is reachable from launch. Calm Run and Rush Run are distinct secondary actions. Show recent personal best and one progression summary without a card dashboard. Profile, cosmetics, statistics, settings, and accessibility are accessible but secondary. Offline state never disables core modes.
 
-- **Purpose:** Present the active challenge and resolve/retry with minimum friction.
-- **Components:** Instruction, progress/timer when relevant, module play area, pause/exit affordance, feedback layer; result state shows outcome, explanation, XP/profile delta, Again/Home.
-- **Actions/navigation:** Module-specific one-handed input; Again replaces round state; Home ends session; back confirms only during active play.
-- **Loading/offline/error:** Generation is local and near-instant. Invalid plan regenerates once then uses a known-safe fallback. Persistence failure keeps the outcome visible and prevents duplicate rewards.
-- **Analytics:** `round_started`, exactly one `round_completed` or `round_abandoned`, `retry_tapped`; properties follow the event contract, never raw instruction text.
-- **Acceptance:** Active input is accepted only in lifecycle `active`; result appears under one second; retry target under 500 ms; interruption and rapid double-tap tests pass; feedback is not color/audio-only.
+An optional mode-selection sheet may explain duration/control once; returning players start the selected mode directly. Do not add an extra mandatory screen between Home and Troll Gauntlet.
 
-## Daily challenge
+## Troll Gauntlet
 
-- **Purpose:** Explain today’s common challenge, attempt rule, reward, and standing.
-- **Components:** Date/UTC reset, rules, reward, prior result/rank, Start, practice option if enabled.
-- **Actions/navigation:** Start obtains attempt token then opens daily play; leaderboard link; back Home.
-- **Loading/offline/error:** Cached prior result may display as stale. Offline disables scored Start and points to Classic. Token failures offer retry without consuming an attempt.
-- **Analytics:** `daily_viewed`, `daily_start_requested`, `daily_start_failed`, `daily_result_submitted`.
-- **Acceptance:** Rules and whether the attempt counts are visible before Start; date comes from server; no attempt consumed before acknowledged token.
+Full-screen portrait scene with minimal permanent UI: short instruction at top, small lives/round pressure indicator, central interaction, and pause/exit affordance outside active regions. No persistent panels or analytics. Input-open, active, accepted/rejected, success/failure, troll reveal, and transition use the shared framework.
 
-## Leaderboards
+### Microgame introduction
 
-- **Purpose:** Show fair daily and all-time ranking plus the player’s nearby position.
-- **Components:** Board selector, paginated rows, player row, privacy/name prompt, refresh timestamp.
-- **Actions/navigation:** Switch board, paginate/refresh, open own Profile; no arbitrary user profile at launch.
-- **Loading/offline/error:** Skeleton on first load; cached board is marked stale offline; empty and privacy-disabled states are explicit.
-- **Analytics:** `leaderboard_viewed` with board type, `leaderboard_page_loaded`.
-- **Acceptance:** Stable order/tie display; no duplicate rows while paging; rank is server supplied; blocked/deleted display names use safe fallback.
+First exposure is unmodified and forgiving. Show one gesture demonstration in the play area; dismiss it on first valid input. It is clearly practice if failure will not cost a life.
+
+### Active input and troll reveal
+
+The object under touch responds immediately. Genuine changes use the full central tell. Fake content never reproduces it. Reveal names the trick only after resolution and disappears automatically or on immediate continuation.
+
+### Success, failure, transition
+
+Success is satisfying but under 450 ms. Failure freezes relevant state, states the cause, uses a short funny Trapling reaction, then continues/retries without a dialog. Transitions stay under 350 ms. Boss entry may use a distinct but short title beat; `The App Is Broken` remains inside the game scene and never imitates system UI.
+
+## End-of-run results and retry
+
+Prioritize score, personal-best comparison, furthest round, one insight, and the dominant `Play Again` action. Show one progression/cosmetic unlock only when meaningful. Home/share/details are secondary. Do not show a large analytics dashboard or a store offer after failure.
+
+## Calm Run
+
+Open composition, automatic movement, minimal text, soft density changes, predictable obstacles, and gradual visual cooldown. Collision uses a non-aggressive rewind/bounce/slowdown with no death screen. Pause, sound/music/haptic controls, and reduced motion remain reachable; score pressure is absent.
+
+## Rush Run
+
+Clear obstacle silhouettes, stronger speed/rhythm feedback, compact distance/combo, controlled camera response, and immediate restart after a terminal collision. Effects cannot hide collision boundaries. Results emphasize distance and personal-best delta.
+
+## Progression and cosmetics
+
+Progression shows one clear level/mastery path and focused unlocks. Cosmetic inventory uses large previews and direct Trapling manipulation/equip where practical. Avoid multiple currencies, overlapping bars, notification badges, fake urgency, or dominant store placement.
 
 ## Profile
 
-- **Purpose:** Show level, Brain Profile, personal bests, cosmetics, and sync status.
-- **Components:** Identity summary, XP bar, five skill cards with confidence, Brain Type when eligible, bests, equipped cosmetics, sign-in/sync prompt.
-- **Actions/navigation:** Equip owned cosmetics, open Account, optional share after launch scope permits.
-- **Loading/offline/error:** Local profile appears immediately; stale cloud state is labeled; incomplete data shows “not enough data”; sync failures are retryable.
-- **Analytics:** `profile_viewed`, `cosmetic_equipped`, `brain_type_viewed`.
-- **Acceptance:** No diagnostic/intelligence claims; private details are not shared by default; equipped state persists; skill values match repository snapshot.
+Show identity/Trapling, level, key personal bests, per-game mastery/tell familiarity, then optional historical Brain Profile detail with honest confidence. Use whitespace and grouped rows/visuals rather than one card per metric. No diagnostic or intelligence claims.
 
-## Shop
+## Settings and accessibility
 
-- **Purpose:** Browse and acquire cosmetics transparently.
-- **Components:** Chip balance, offer/catalog cards, filters only if needed, preview, buy/restore entry, owned state.
-- **Actions/navigation:** Preview, confirm Chip spend, initiate platform purchase, restore, back Home.
-- **Loading/offline/error:** Cached catalog is view-only when authority cannot be confirmed; no offline spend. Separate pending, canceled, failed, and completed purchase states.
-- **Analytics:** `shop_viewed`, `offer_viewed`, `purchase_started/completed/failed`, `chip_spend_completed` using product/offer IDs.
-- **Acceptance:** Exact contents/price shown before confirmation; owned/expired offers cannot be purchased; repeated taps do not duplicate transactions; restore is reachable.
+Provide theme/system choice, reduced motion, haptics, separate music/effects, text/accessibility guidance, contrast-safe mode if needed, pause behavior, privacy/legal/version, and reset/recovery with confirmation. Changes apply immediately and persist. Controls have clear labels, focus order, and 44x44 minimum targets.
 
-## Settings
+## Generic loading, empty, and error behavior
 
-- **Purpose:** Control experience, privacy, and support behavior.
-- **Components:** Audio, haptics, reduced motion/system preference, notifications when implemented, analytics consent where required, privacy/terms/support links, app version, Account.
-- **Actions/navigation:** Toggle/save locally, open system/app links, Account route.
-- **Loading/offline/error:** Core settings are local and instant; external links explain offline failure; notification permission is requested only from contextual action.
-- **Analytics:** `setting_changed` with setting key and coarse value; never track sensitive account actions as generic settings.
-- **Acceptance:** Changes apply immediately and survive restart; defaults are safe; legal/version information is available offline where required.
-
-## Account and authentication
-
-- **Purpose:** Explain guest/cloud state and support sign-in, linking, recovery, export, sign-out, and deletion.
-- **Components:** Current status, benefits, Apple/Google sign-in as platform-appropriate, sync status, destructive action confirmations.
-- **Actions/navigation:** Authenticate/link, retry sync, sign out, request export/deletion, return to initiating route.
-- **Loading/offline/error:** Offline preserves guest play and disables server actions. Account collision/link conflicts show explicit choices without overwriting data. Deletion has re-authentication and final confirmation.
-- **Analytics:** `auth_started/completed/failed` by provider and safe reason; `account_deletion_requested`. Do not log identifiers.
-- **Acceptance:** Cancel returns safely; guest progress is preserved through successful linking; sign-out does not silently delete local data; deletion workflow meets store/backend policy.
-
-## Generic empty/error standards
-
-An empty state explains why it is empty and the next useful action. An error includes a stable user-safe message and retry/escape route. Full-screen blocking errors are reserved for data needed to render that screen; Home and Classic gameplay degrade instead of blocking.
+Core play uses bundled content and near-instant generation. Loading indicators appear only for real bounded work. Empty states explain the next useful action. Errors use safe stable wording, retry/escape, and preserve prior data. Invalid plans retry once with a known-safe eligible plan, then stop the run without granting or losing progress.

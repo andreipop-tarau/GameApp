@@ -1,4 +1,6 @@
-# Task 015 — Add interruption-safe round lifecycle
+# Task 015 — Add interruption-safe round lifecycle (superseded active assignment)
+
+**Status:** Implementation landed, but final widget/manual verification is uncertain. This task is no longer active. Preserve its code and reverify equivalent behavior in Tasks 047, 050, and 052. Do not resume this prompt unless the developer explicitly reopens it.
 
 ## Objective
 

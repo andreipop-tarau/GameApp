@@ -40,7 +40,7 @@ Before launch define alerts for daily publication failure, purchase webhook erro
 
 ## Security and recovery
 
-Only service/admin roles publish configuration. Validate payload size and fields, audit every state change, and require a safe rollback. Back up published config separately. An unavailable or malformed remote config must never block bundled Classic play.
+Only service/admin roles publish configuration. Validate payload size and fields, audit every state change, and require a safe rollback. Back up published config separately. An unavailable or malformed remote config must never block bundled local core play.
 
 ## Future extensions
 
@@ -51,5 +51,5 @@ Weekly events, missions, seasons, community goals, feature experiments, and an a
 - Staging publish, activation, invalid-config rejection, client fallback, and rollback are tested.
 - Scheduled daily creation is idempotent and UTC-correct.
 - Config/version used for a round is recorded.
-- Kill switch degrades the affected network feature without blocking Classic play.
+- Kill switch degrades the affected network feature without blocking local core play.
 - Logs and audit rows identify failures without sensitive player data.

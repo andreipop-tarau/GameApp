@@ -1,217 +1,220 @@
-# M0 implementation backlog
+# Optimized implementation backlog
 
-Each task is one logical commit and one focused Codex session. A task may touch no more than 5–8 hand-authored files and should stay below roughly 400–600 implementation lines. Task 001 is the sole exception: `flutter create` produces an atomic generated platform baseline, not a hand-authored cross-cutting change.
+This is the only active implementation task index. Product rules live in `planning/product/vision.md`, architecture/contracts in `planning/architecture/` and `planning/gameplay/`, visual rules in `planning/ui/design-system.md`, and measurable gates in `milestones.md`. Tasks reference those decisions instead of restating them.
 
-## Task 001 — Scaffold Flutter app
+Use one task at a time. Reuse a coding chat only where the task explicitly recommends it and only after the current-task pointer is advanced externally. Stop at each task boundary.
 
-- **Objective:** Create a runnable iOS/Android Flutter baseline with no gameplay architecture.
-- **Scope:** Generate the project; set app/package identifiers and display name; add Riverpod and GoRouter dependencies; replace the counter demo with a minimal `ProviderScope` app.
-- **Dependencies:** None.
-- **Files likely affected:** Generated Flutter root/platform files (atomic generator output), `pubspec.yaml`, `pubspec.lock`, `lib/main.dart`, `test/`.
-- **Acceptance Criteria:** Package is `mindtrap_ai`; Android/iOS identifier is `com.mindtrapai.game`; display name is MindTrap AI; only iOS/Android targets exist; no counter demo remains; app opens under `ProviderScope`.
-- **Definition of Done:** Generated baseline is clean, dependencies are limited to this task, and all stated checks pass.
-- **Verification:** `flutter pub get`; format check for `lib`/`test`; `flutter analyze`; `flutter test`; inspect identifiers.
-- **Estimated effort:** S.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, `AGENTS.md`, `README.md`.
-- **Implementation prompt:** `planning/tasks/prompts/001-scaffold-flutter-app.md`.
+## Foundation history
 
-## Task 002 — Add minimal app shell and routes
+Tasks 001-014 are implemented and preserved. Task 015 lifecycle work landed but is verification-uncertain. Historical prompts remain under `planning/tasks/prompts/` and are inactive unless `current-task.md` points to them.
 
-- **Objective:** Establish a stable Home → Play/Profile route shell and small visual token set.
-- **Scope:** Add `MaterialApp.router`, named GoRouter routes for Home, Play placeholder, and Profile placeholder; add only color/spacing/text tokens needed by those screens; make Home’s Play action prominent.
-- **Dependencies:** 001.
-- **Files likely affected:** `lib/main.dart`, `lib/app/app.dart`, `lib/app/router.dart`, `lib/app/app_theme.dart`, `lib/features/home/home_screen.dart`, route/widget tests.
-- **Acceptance Criteria:** Back behavior is predictable; Home renders without network; Play/Profile routes work; UI uses tokens rather than scattered raw styling; text-scale and semantic labels work on Home.
-- **Definition of Done:** Routes and widgets are tested; no onboarding, settings, persistence, or challenge logic is added.
-- **Verification:** Format changed Dart; `flutter analyze`; targeted router/Home widget tests.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, backend/platform files, dependency list.
-- **Implementation prompt:** `planning/tasks/prompts/002-app-shell-and-routes.md`.
+## Superseded repath task map
 
-## Task 003 — Add deterministic primitives and bundled challenge config
+The original unimplemented repath Tasks 016-046 are superseded, not completed.
 
-- **Objective:** Supply reproducible time/random inputs and one validated local challenge configuration.
-- **Scope:** Add injected clock and seeded-random abstractions; add one MVP JSON config asset and parser/validator; expose a typed config snapshot to gameplay. Do not persist or remotely fetch configuration.
-- **Dependencies:** 001.
-- **Files likely affected:** `lib/core/clock.dart`, `lib/core/seeded_random.dart`, `lib/core/mvp_config.dart`, `assets/config/mvp_challenges.json`, `pubspec.yaml`, core tests.
-- **Acceptance Criteria:** Same seed produces the same random sequence; malformed/unsupported config fails with a typed safe error; supported bundled config loads in tests; no module-specific game rules live in core.
-- **Definition of Done:** Config schema/version is explicit; asset declaration and all boundary tests pass.
-- **Verification:** Format changed Dart; `flutter analyze`; targeted core unit tests.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, router/UI, dependencies other than asset declaration.
-- **Implementation prompt:** `planning/tasks/prompts/003-deterministic-primitives-and-config.md`.
+| Original task(s) | Revised disposition |
+|---|---|
+| 016 contract + 017 runtime | Merged into 047 |
+| 018 visual foundation | Narrowed into 048 |
+| 019 mode routes + 024 slice integration | Merged/narrowed into 052; Calm/Rush routes deferred |
+| 020 Stop the Machine | Retained as 049 |
+| 021 Hold It | Retained as 050 |
+| 022 Director + 023 run model | Merged into 051 |
+| 025 Don't Press It | Retained as 053 |
+| 026 Escape Button | Deferred to R4 after Gate G2 |
+| 027 Protect the Egg | Retained as 054 |
+| 028 Feed the Idiot | Deferred to R4 after Gate G2 |
+| 029 Wrong Way | Retained as 055 |
+| 030 Keep Inside, 031 Parking Disaster, 032 Clean the Screen, 033 boss | Deferred to R4 after Gate G2 |
+| 034 full catalog cutover + 035 legacy cleanup | Representative integration in 056; cleanup in 061; full catalog deferred |
+| 036 save migration | Retained as 057 |
+| 037 mastery/PBs | Retained and presentation-coupled in 058 |
+| 038 onboarding | Retained as 060 |
+| 039 settings/feedback | Narrowed into 059; production feedback deferred |
+| 040 shell/results/profile/cosmetics | Slice shell in 052; results/profile in 058; cosmetics deferred |
+| 041-044 Flow Run/Calm/Rush/integration | Deferred to R4 after Gate G2 and stable R3 boundaries |
+| 045 production assets | Deferred to R4 |
+| 046 beta gate | Replaced by Gate G1, Gate G2, and R3 exit criteria |
 
-## Task 004 — Define the challenge contract and catalog
+## R1 — Two-game Troll Gauntlet vertical slice
 
-- **Objective:** Create the minimal typed contract every challenge module uses.
-- **Scope:** Define module metadata, round plan, player action, outcome/metrics, lifecycle, validator/evaluator interfaces, and an explicit catalog. Include one fake module used only by tests. Do not add session orchestration or module UI.
-- **Dependencies:** 003.
-- **Files likely affected:** `lib/features/gameplay/challenge.dart`, `lib/features/gameplay/challenge_catalog.dart`, `lib/features/gameplay/round_lifecycle.dart`, gameplay test fixture, unit tests.
-- **Acceptance Criteria:** Plans carry module/config/seed/version data; evaluation resolves once; invalid plans are rejected; a test module registers without changing catalog internals.
-- **Definition of Done:** Contract is pure Dart, narrowly typed, and covered by deterministic unit tests.
-- **Verification:** Format changed Dart; `flutter analyze`; targeted challenge-contract tests.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, app router, persistence, Riverpod controllers.
-- **Implementation prompt:** `planning/tasks/prompts/004-challenge-contract-and-catalog.md`.
+### Task 047 — Add the minimal microgame v2 foundation
 
-## Task 005 — Implement Reaction Tap module
+- **Objective:** Add the pure contract, modifier data contract, and smallest runtime needed by Stop the Machine and Hold It in one pass.
+- **Dependencies:** Tasks 003-004 and ADR 0002.
+- **Scope:** `microgame.dart`, `troll_modifier.dart`, `microgame_runtime.dart`, one fake fixture, and focused tests. Define stable metadata/plan identity, gesture/event types, normalized required regions, resolution/reason data, one-major-modifier validation, phases, monotonic event ordering, timeout/inactivity hooks, abandon, and idempotent resolution.
+- **Constraints:** Pure Dart. Keep the legacy challenge/session path unchanged. Do not add catalog UI, Riverpod, persistence, generic physics/path solvers, executable modifier pipelines, seed-random consumption, or abstractions without an immediate test consumer.
+- **Acceptance:** Fake-clock tests cover phase legality, tap and hold event order, cancel/abandon, timeout/inactivity, invalid regions/modifiers, and duplicate terminal events; existing legacy behavior is untouched.
+- **Minimum context:** ADR 0002, `challenge-engine.md`, architecture state/lifecycle sections, `challenge.dart`, `round_lifecycle.dart`, `clock.dart`, and their focused tests. Expand only for a concrete type collision.
+- **Reasoning/chat:** High. New chat.
+- **Stop:** Pure foundation and focused tests only; no real microgame or UI.
 
-- **Objective:** Add the reaction-tap module to the shared challenge contract.
-- **Scope:** Implement seeded plan generation, validation, evaluation, accessibility labels/cues, and module widget for cue, target, distractors, and timeout. Register only this module in the catalog.
-- **Dependencies:** 004.
-- **Files likely affected:** `lib/features/gameplay/challenges/reaction_tap/**`, `lib/features/gameplay/challenge_catalog.dart`, reaction-tap unit/widget tests.
-- **Acceptance Criteria:** Early tap, correct tap, wrong tap, and timeout resolve once; difficulty parameters stay within config bounds; same seed gives the same plan; no cue depends only on color.
-- **Definition of Done:** Module is independently testable and does not navigate, persist, or update profile/progression.
-- **Verification:** Format changed Dart; `flutter analyze`; reaction-tap unit and widget tests.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, session controller, router, local save.
-- **Implementation prompt:** `planning/tasks/prompts/005-reaction-tap.md`.
+### Task 048 — Implement slice-only visual and troll-tell primitives
 
-## Task 006 — Implement Sequence Memory module
+- **Objective:** Implement only the visual/interaction pieces consumed by Home, Stop the Machine, Hold It, and the slice result.
+- **Dependencies:** 047 contracts for instruction state names.
+- **Scope:** Semantic light/dark colors, minimal type/spacing/radius tokens, primary/secondary actions, gameplay safe area, genuine/fake instruction frame and broken-circle symbol, immediate pressed/held feedback, and reduced-motion substitutions; add focused widget/semantics tests.
+- **Constraints:** No general component library, audio/haptic service, asset pipeline, particles, full screen family, cosmetic theming, broad motion framework, or third-party package.
+- **Acceptance:** Tell uses shape/icon/placement plus semantics; fake state cannot request the full genuine pattern; 44x44 targets, 200% shell text, light/dark contrast, and reduced-motion meaning are verified.
+- **Minimum context:** `planning/ui/design-system.md`, current `app_theme.dart`, and the current Home/Gameplay widgets only to confirm immediate consumers.
+- **Reasoning/chat:** Medium. New chat; 049 may reuse it after pointer advancement if context remains clear.
+- **Stop:** Shared slice primitives only; do not restyle unrelated screens.
 
-- **Objective:** Add an accessible sequence-memory module.
-- **Scope:** Implement seeded sequence generation, presentation/input phases, evaluation, and module widget. Register it in the existing catalog only.
-- **Dependencies:** 004.
-- **Files likely affected:** `lib/features/gameplay/challenges/sequence_memory/**`, `lib/features/gameplay/challenge_catalog.dart`, sequence-memory tests.
-- **Acceptance Criteria:** Input is disabled during presentation; correct, wrong, and timeout paths resolve once; bounds for sequence length/symbols/pacing validate; symbols have non-color identity; seed replay is stable.
-- **Definition of Done:** Module remains isolated from navigation, persistence, profile, and progression.
-- **Verification:** Format changed Dart; `flutter analyze`; sequence-memory unit and widget tests.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, session controller, router, local save.
-- **Implementation prompt:** `planning/tasks/prompts/006-sequence-memory.md`.
+### Task 049 — Migrate Stop the Machine to v2
 
-## Task 007 — Implement Selective Attention module
+- **Objective:** Deliver the first real v2 tap microgame by adapting Timing Stop's proven elapsed-time generator/evaluator.
+- **Dependencies:** 047-048.
+- **Scope:** One v2 module/scene, registration fixture, deterministic and widget tests. Preserve or extract Timing Stop logic without altering the legacy module.
+- **Acceptance:** Same seed/time reproduces motion and zone; boundary tap and terminal paths resolve once; target/control regions are visible and accessible; input-open, failure explanation, reduced motion, and 200% instruction behavior use Task 048 primitives.
+- **Minimum context:** v2 public types, slice primitives, `timing_stop.dart`, and its unit/widget tests.
+- **Reasoning/chat:** Medium. Reuse the 048 chat if still focused; otherwise new chat.
+- **Stop:** Independently testable module/scene only; no session integration.
 
-- **Objective:** Add a target-filtering module with guaranteed valid layouts.
-- **Scope:** Implement seeded item/rule generation, plan validation, evaluation, and module widget. Register it in the existing catalog only.
-- **Dependencies:** 004.
-- **Files likely affected:** `lib/features/gameplay/challenges/selective_attention/**`, `lib/features/gameplay/challenge_catalog.dart`, selective-attention tests.
-- **Acceptance Criteria:** Every plan has exactly one valid target; generated items are reachable and non-overlapping; correct/wrong/timeout resolve once; target rule is understandable without color alone.
-- **Definition of Done:** A multi-seed generation test protects layout and target invariants; no session/profile/persistence code changes.
-- **Verification:** Format changed Dart; `flutter analyze`; targeted unit/widget tests across multiple seeds.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, session controller, router, local save.
-- **Implementation prompt:** `planning/tasks/prompts/007-selective-attention.md`.
+### Task 050 — Implement Hold It v2
 
-## Task 008 — Implement Timing Stop module
+- **Objective:** Prove continuous down/hold/up/cancel and lifecycle-safe abandonment with the second slice gesture.
+- **Dependencies:** 047-048.
+- **Scope:** One v2 module/scene, deterministic/widget tests, and only the minimal harmless visual distraction needed to exercise held feedback; no major modifier.
+- **Acceptance:** Fake-clock tests cover required duration, early release, pointer cancel, background-equivalent abandon, duplicate events, target bounds, semantic hold alternative, failure explanation, and reduced motion.
+- **Minimum context:** v2 runtime tests, Task 048 primitives, Reaction Tap timing concepts, and current lifecycle tests.
+- **Reasoning/chat:** High because input cancellation/lifecycle are correctness boundaries. Prefer the 049 chat if its runtime/module context remains compact.
+- **Stop:** Independently testable Hold It only; no session integration.
 
-- **Objective:** Add a timing module whose result is independent of frame rate.
-- **Scope:** Implement plan generation/validation, elapsed-time position calculation, evaluation, and module widget. Register it in the existing catalog only.
-- **Dependencies:** 003, 004.
-- **Files likely affected:** `lib/features/gameplay/challenges/timing_stop/**`, `lib/features/gameplay/challenge_catalog.dart`, timing-stop tests.
-- **Acceptance Criteria:** Position derives from injected monotonic elapsed time, not frames; zone boundaries are deterministic; speed/zone/direction validate; one tap resolves once; target is not color-only.
-- **Definition of Done:** Fake-clock boundary tests cover timing behavior; no lifecycle/session/persistence handling is added yet.
-- **Verification:** Format changed Dart; `flutter analyze`; timing-stop unit and widget tests.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, session controller, router, local save.
-- **Implementation prompt:** `planning/tasks/prompts/008-timing-stop.md`.
+### Task 051 — Adapt the Director and add the pure Gauntlet run model
 
-## Task 009 — Implement Logic Choice module
+- **Objective:** Make one deterministic pure policy select v2 metadata and advance the approved three-life/24-round run without building UI or persistence.
+- **Dependencies:** 049-050 metadata.
+- **Scope:** Adapt Director request/history/selection and difficulty policy; add pure Gauntlet run state for lives, the provisional documented score/combo formula, within-run unmodified introduction tracking, recovery, round cap, abandonment, and duplicate-result protection; focused policy/run tests.
+- **Constraints:** Retain the legacy Director API only while the old route needs it. The slice ends at the round cap; boss scheduling is implemented in R4 with the real boss rather than through an unused hook. No profile/save/UI mutation.
+- **Acceptance:** Deterministic replay, no immediate game repeat, gesture limit, unmodified introduction, two-failure recovery, bounded difficulty/modifier cost, exact provisional lives/combo/score behavior, abandon, and 24-round completion pass.
+- **Minimum context:** `ai-director.md`, `gameplay-loop.md`, v2 metadata, current Director/policy/tests, and progression operation-ID behavior only.
+- **Reasoning/chat:** High. New chat because it joins two tightly coupled pure policies.
+- **Stop:** Pure selection/run model and tests only.
 
-- **Objective:** Add a deterministic, readable logic-choice module.
-- **Scope:** Implement a small set of seeded rule templates, provable answer generation, validation, evaluation, and module widget. Register it in the existing catalog only.
-- **Dependencies:** 004.
-- **Files likely affected:** `lib/features/gameplay/challenges/logic_choice/**`, `lib/features/gameplay/challenge_catalog.dart`, logic-choice fixtures/tests.
-- **Acceptance Criteria:** Each generated plan has one correct answer and distinct plausible distractors; answer order is seeded; text remains usable at 200% scale; correct/wrong/timeout resolve once.
-- **Definition of Done:** Template/boundary tests prove answer uniqueness; no generic puzzle framework or content-management system is added.
-- **Verification:** Format changed Dart; `flutter analyze`; targeted unit/widget tests.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, session controller, router, local save.
-- **Implementation prompt:** `planning/tasks/prompts/009-logic-choice.md`.
+### Task 052 — Integrate Home-to-Gauntlet vertical slice and record Gate G1
 
-## Task 010 — Add offline gameplay session and result flow
+- **Objective:** Deliver the two-game playable path and verify the architecture/design on a real device.
+- **Dependencies:** 048-051.
+- **Scope:** Gauntlet controller/screen/result state, Home primary action and one Gauntlet route, two-module scene factory, minimal existing progression adapter, integration/widget tests, and Gate G1 record. Keep the edit within 5-8 hand-authored files; split only a measured defect, not planned scope.
+- **Constraints:** No Calm/Rush placeholders, save schema change, onboarding, settings, cosmetics, profile redesign, production assets, or missing-content/boss stubs.
+- **Acceptance:** Automated checks cover two gestures, lives, round/replay, one-result/progress, generation failure, active/result back, background/foreground/cancel, large text, reduced motion, and themes. Every Gate G1 item in `milestones.md` is recorded pass/fail on a real Android device.
+- **Minimum context:** Public APIs from 048-051, current Home/router/Gameplay/controller/result/lifecycle tests, `navigation.md`, and Gate G1 only.
+- **Reasoning/chat:** High. New integration chat.
+- **Stop:** Report Gate G1 and narrow blockers; do not start R2 automatically.
 
-- **Objective:** Make the catalog playable through Home → round → result → retry.
-- **Scope:** Add one Riverpod session controller, choose a valid catalog module using a simple seeded rotation, render the active module, freeze resolution, show compact result, retry without route replacement, and exit to Home. Keep state in memory only.
-- **Dependencies:** 002, 004–009.
-- **Files likely affected:** `lib/features/gameplay/game_session_controller.dart`, `lib/features/gameplay/gameplay_screen.dart`, `lib/features/gameplay/result_panel.dart`, `lib/app/router.dart`, session/widget tests.
-- **Acceptance Criteria:** Home Play starts a round; only active rounds accept input; a result is emitted once; Again starts a new valid round without a network call or route replacement; Home ends safely; invalid generation retries once then shows a safe error.
-- **Definition of Done:** All five modules are reachable in a deterministic rotation; no persistence, Brain Profile, XP, adaptive difficulty, or lifecycle policy is added.
-- **Verification:** Format changed Dart; `flutter analyze`; targeted session/widget tests; manual play/retry smoke through all five modules.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, local persistence, profile/progression features, dependency list.
-- **Implementation prompt:** `planning/tasks/prompts/010-gameplay-session-and-results.md`.
+## R2 — Representative catalog proof
 
-## Task 011 — Add Brain Profile and basic Profile screen
+### Task 053 — Implement Don't Press It with genuine/fake instruction behavior
 
-- **Objective:** Derive a gradual five-skill player profile and show its in-memory state on the existing Profile route.
-- **Scope:** Add pure profile models and update policy for reaction, memory, attention, logic, and timing; integrate one post-resolution update in the session controller; replace the Profile placeholder with five skills, confidence, and an honest sparse-data state. Do not persist or add XP.
-- **Dependencies:** 002, 010.
-- **Files likely affected:** `lib/features/brain_profile/brain_profile.dart`, `lib/features/brain_profile/brain_profile_updater.dart`, `lib/features/profile/profile_screen.dart`, `lib/features/gameplay/game_session_controller.dart`, profile tests, session test update.
-- **Acceptance Criteria:** Updates are bounded and deterministic; invalid/abandoned/duplicate outcomes do not update; category mapping is explicit; sparse data exposes confidence/sample count; Profile is accessible and makes no diagnostic claim.
-- **Definition of Done:** Pure update policy has boundary, convergence, and duplicate-outcome tests; session integration updates exactly once per eligible result; Profile accurately renders current in-memory state.
-- **Verification:** Format changed Dart; `flutter analyze`; targeted Brain Profile, session, and Profile widget tests.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, local save, XP/progression, router, dependency files.
-- **Implementation prompt:** `planning/tasks/prompts/011-brain-profile.md`.
+- **Objective:** Add intentional inactivity/deception and the first real troll modifier using the validated tell language.
+- **Dependencies:** Gate G1 passes.
+- **Scope:** One v2 module/scene and focused tests; adapt Reaction Tap timing concepts. The base round is forgiving and unmodified; the modified variant may imitate only one genuine-tell signal.
+- **Acceptance:** Early touch, genuine change, valid post-change tap, timeout/inactivity, fake/genuine pattern, color/sound-independent recognition, seed replay, and stable explanations pass.
+- **Minimum context:** v2 runtime, tell primitives/tests, Reaction Tap timing code/tests, and modifier contract.
+- **Reasoning/chat:** High because timing and deception fairness interact. New chat or reuse the compact R1 microgame chat.
+- **Stop:** Module only; no run-wide policy changes.
 
-## Task 012 — Add initial AI Director
+### Task 054 — Implement Protect the Egg
 
-- **Objective:** Replace fixed rotation with a deterministic, varied difficulty-aware selection policy.
-- **Scope:** Add pure candidate filtering/scoring and simple difficulty step selection; integrate it before next-round creation. Use existing profile and recent session history only.
-- **Dependencies:** 003, 004–011.
-- **Files likely affected:** `lib/features/ai_director/ai_director.dart`, `lib/features/ai_director/difficulty_policy.dart`, `lib/features/gameplay/game_session_controller.dart`, director tests, session test update.
-- **Acceptance Criteria:** Same inputs/seed return same selection; recent duplicate is avoided when alternatives exist; cold start rotates categories; three failures produce an easier valid recovery round; director is synchronous and offline.
-- **Definition of Done:** Decision reason/policy version are carried in the round record; simulation/table tests cover disabled, single-candidate, recovery, and bounds cases.
-- **Verification:** Format changed Dart; `flutter analyze`; targeted AI Director and session tests.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, remote config, persistence, Profile UI, dependency list.
-- **Implementation prompt:** `planning/tasks/prompts/012-ai-director.md`.
+- **Objective:** Validate direct drag tracking and visible collision fairness with the smallest representative drag game.
+- **Dependencies:** Gate G1 passes.
+- **Scope:** One module/scene with seeded hazards, shield drag, visible collision shapes, one deterministic beatability/clearance validator, and focused tests. No decoy-hazard modifier yet.
+- **Acceptance:** Multi-seed clearance, deterministic collision, drag offset, cancel/abandon, one-handed reach, semantic alternative, and reduced motion pass.
+- **Minimum context:** v2 drag events/regions, fairness invariants, and the slice scene pattern. Do not inspect unrelated modules.
+- **Reasoning/chat:** High because geometry is gameplay correctness. New chat.
+- **Stop:** Base module only; no general physics engine.
 
-## Task 013 — Persist the local M0 game state
+### Task 055 — Implement Wrong Way
 
-- **Objective:** Survive restart with a small versioned local save.
-- **Scope:** Add `shared_preferences`; persist the current Brain Profile and a bounded recent round history through one versioned JSON document; load safely at app/session startup; expose reset-on-corruption recovery. Do not add settings, cloud sync, or a database.
-- **Dependencies:** 010–012.
-- **Files likely affected:** `pubspec.yaml`, `lib/core/local_game_save.dart`, `lib/app/app.dart`, `lib/features/gameplay/game_session_controller.dart`, `lib/features/brain_profile/brain_profile.dart`, persistence tests.
-- **Acceptance Criteria:** Save/load round trip is deterministic; absent save starts cleanly; malformed/unsupported data fails safely with reset option; one completed round is persisted once; save size/history cap are explicit.
-- **Definition of Done:** No repository abstraction or generic storage framework is introduced; unit tests cover version, corrupt data, cap, and duplicate save.
-- **Verification:** `flutter pub get`; format changed Dart; `flutter analyze`; targeted persistence/session tests.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, router/UI except startup wiring, backend files.
-- **Implementation prompt:** `planning/tasks/prompts/013-local-m0-save.md`.
+- **Objective:** Add the representative swipe mechanic with an explicit same/opposite rule.
+- **Dependencies:** Gate G1 passes.
+- **Scope:** One module/scene and focused tests for cardinal direction, distance/tolerance, same/opposite rule, cancel, and semantic alternatives. Use the genuine tell only for a real rule change; no mid-swipe inversion.
+- **Acceptance:** Threshold boundaries, deterministic rule selection, pre-open input, success/failure explanation, large text, reduced motion, and color/sound independence pass.
+- **Minimum context:** v2 swipe event, tell primitives, and one existing v2 module pattern.
+- **Reasoning/chat:** Medium. May reuse the 054 catalog chat after pointer advancement.
+- **Stop:** Module only.
 
-## Task 014 — Add XP and levels
+### Task 056 — Integrate the five-game catalog and record Gate G2
 
-- **Objective:** Add non-power XP/level progression and result feedback.
-- **Scope:** Add config-driven XP/level calculation, persist it in the existing save, show the latest XP delta on the result panel, and add level/XP to the existing Profile screen.
-- **Dependencies:** 002, 003, 010–013.
-- **Files likely affected:** `lib/features/progression/progression.dart`, `lib/core/local_game_save.dart`, `lib/features/profile/profile_screen.dart`, `lib/features/gameplay/result_panel.dart`, `lib/features/gameplay/game_session_controller.dart`, progression/persistence tests.
-- **Acceptance Criteria:** XP is idempotent per outcome; level is monotonic; config owns numeric values; result and Profile clearly show the latest progression; no diagnostic claims, cosmetics, account, or network UI appears.
-- **Definition of Done:** Progression survives restart and is covered by calculation, persistence, result-panel, and focused Profile widget tests.
-- **Verification:** Format changed Dart; `flutter analyze`; targeted progression, persistence, result-panel, and Profile widget tests.
-- **Estimated effort:** M.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, router structure, backend files, shop/cosmetic/account features.
-- **Implementation prompt:** `planning/tasks/prompts/014-xp-and-levels.md`.
+- **Objective:** Test the actual replay/session proposition before funding the rest of the catalog or Flow Run.
+- **Dependencies:** 053-055.
+- **Scope:** Register five games, add the minimal typed Gauntlet snapshot for run-policy values and module enable/version references, update Director eligibility/history for proven metadata only, integrate scenes, run focused catalog/session tests, record Gate G2, and make v2 the primary Gauntlet route. Do not delete legacy code yet.
+- **Acceptance:** Multi-seed selection proves game/gesture repetition, introduction/modifier/recovery, accessibility fallback, deterministic run replay, and safe no-candidate behavior. Every Gate G2 item is recorded pass/fail.
+- **Minimum context:** Five module metadata, Director/run public APIs, catalog/config seam, Gauntlet scene factory, and Gate G2 only.
+- **Reasoning/chat:** High. New integration chat.
+- **Stop:** If G2 fails, create one focused correction task; do not expand catalog or begin R3/Flow Run.
 
-## Task 015 — Add interruption-safe round lifecycle
+## R3 — Local product compatibility
 
-- **Objective:** Ensure active timed rounds cannot be corrupted or exploited by app lifecycle changes.
-- **Scope:** Pause/abandon or safely resolve active rounds on app lifecycle transitions according to the existing round lifecycle; prevent background/foreground double resolution; add a minimal exit confirmation only during active play.
-- **Dependencies:** 010, 012, 013.
-- **Files likely affected:** `lib/features/gameplay/game_session_controller.dart`, `lib/features/gameplay/gameplay_screen.dart`, `lib/app/app.dart`, lifecycle/session widget tests.
-- **Acceptance Criteria:** Backgrounding never improves a score or creates a phantom result; returning is deterministic; active back action confirms exit; resolved/result states do not show an unnecessary confirmation; Classic remains offline.
-- **Definition of Done:** Lifecycle transitions are tested with fake/injected lifecycle state and manual device smoke instructions are recorded in the task result.
-- **Verification:** Format changed Dart; `flutter analyze`; targeted lifecycle/session widget tests; manual background/foreground and active-back smoke test.
-- **Estimated effort:** S.
-- **Estimated Codex sessions:** 1.
-- **Do Not Modify:** `Docs/**`, `planning/**`, persistence schema, AI Director policy, dependencies.
-- **Implementation prompt:** `planning/tasks/prompts/015-round-lifecycle.md`.
+### Task 057 — Migrate local save v1 to additive v2
 
-## M0 exit gate
+- **Objective:** Preserve every valid existing Brain Profile/progression/outcome while adding typed defaults only for Gauntlet run history, mastery, personal bests, and settings that have active consumers.
+- **Dependencies:** Gate G2 passes and v2 IDs/outcomes are frozen.
+- **Scope:** Save/data models, frozen v1 fixture, v2 migration/round-trip/failure tests; no UI or progression policy.
+- **Acceptance:** Valid v1 data is retained exactly; v2 defaults and round trip work; corrupt/unsupported/failed-write/dedup/cap cases remain non-destructive; no reset is required.
+- **Minimum context:** Architecture persistence section, current save/tests, Brain Profile/progression serialization, and final v2 outcome identifiers.
+- **Reasoning/chat:** High. New migration chat.
+- **Stop:** Storage/data boundary only.
 
-This is a milestone check, not an implementation task. Run the full M0 verification only after Task 015: formatted Dart, `flutter analyze`, `flutter test`, one offline session across all five modules, restart persistence, active-round interruption, large-text check, and device smoke where available. Fixes found here become separate narrowly scoped tasks; do not reopen a generic hardening task.
+### Task 058 — Add mastery/PBs and concise results/profile presentation
+
+- **Objective:** Apply valid v2 outcomes idempotently and show the minimum useful run result/profile evidence.
+- **Dependencies:** 057.
+- **Scope:** Mastery/PB policy, Gauntlet result integration, concise result and profile updates, focused persistence/widget tests. Preserve historical Brain Profile as secondary data.
+- **Constraints:** No cosmetic inventory/store, broad dashboard, currency, or reinterpretation of old values.
+- **Acceptance:** Bounded/idempotent updates, deterministic PB ties, sparse state, restart persistence, dominant `Play Again`, one meaningful insight, 200% text, semantics, and light/dark pass.
+- **Minimum context:** `progression.md`, v2 save API, current progression/profile/result models and tests.
+- **Reasoning/chat:** Medium. Prefer reuse of the 057 chat if migration context remains manageable.
+- **Stop:** Progress/result/profile only.
+
+### Task 059 — Implement minimal persistent accessibility/settings controls
+
+- **Objective:** Expose only settings consumed by validated gameplay: theme/system choice, reduced motion, and accessible local defaults.
+- **Dependencies:** 057 and Task 048 primitives.
+- **Scope:** Settings model/provider/screen, app application, save integration, focused tests.
+- **Acceptance:** Changes apply immediately, survive restart, remain usable at 200% text with logical focus/44x44 targets, and preserve gameplay meaning under reduced motion.
+- **Minimum context:** Design-system accessibility sections, app theme/bootstrap, v2 settings fields, and current router.
+- **Reasoning/chat:** Medium. New UI/settings chat; 060 may reuse it.
+- **Stop:** Settings only; no haptic/music/sound toggles before those systems exist, audio assets/services, analytics, permissions, or broad preferences.
+
+### Task 060 — Implement interaction-led first-session onboarding
+
+- **Objective:** Teach Stop the Machine and the genuine tell through play without pages or account/permission gates.
+- **Dependencies:** 052, 053, 057, 059.
+- **Scope:** Minimal onboarding state/screen, router/bootstrap hook, persistence, focused widget/manual checks.
+- **Acceptance:** First launch enters a forgiving practice interaction; returning launch skips it; complete/skip/failure recovery work offline; genuine/fake tell remains clear with sound off, reduced motion, screen reader, and 200% text.
+- **Minimum context:** `screens.md` onboarding section, Stop the Machine scene API, tell primitives, router/bootstrap, and onboarding save field.
+- **Reasoning/chat:** Medium. Reuse the 059 chat if still focused.
+- **Stop:** First-session path only.
+
+### Task 061 — Retire the legacy primary-session path and close R3
+
+- **Objective:** Remove runtime/session duplication proven unreachable after v2 cutover while retaining pure legacy rules/IDs required by v1 compatibility or later secondary-content decisions.
+- **Dependencies:** 056-060.
+- **Scope:** Remove/isolate old Gameplay/session/result route adapters and update focused reference/navigation/lifecycle tests; record R3 exit evidence.
+- **Constraints:** No deletion by filename, broad cleanup, legacy save-ID removal, remaining catalog work, Flow Run, cosmetics, or production assets. Stop if an old controller still owns behavior not migrated.
+- **Acceptance:** Reference search shows one primary Gauntlet session owner; v2 route/profile/progression/lifecycle and frozen v1 migration remain valid; R3 exit criteria are recorded.
+- **Minimum context:** Task 056 reachability report, old/new route/session/result symbols, tests importing removal candidates, and v1 decoder references.
+- **Reasoning/chat:** High for ownership/lifecycle cleanup. New focused cleanup chat.
+- **Stop:** Report removed/retained legacy pieces and any blocker; do not detail or implement R4.
+
+## R4 — Conditional approved queue, no active task IDs
+
+After Gate G2 and stable R3 boundaries, create one focused prompt at a time in this order:
+
+1. Escape Button.
+2. Feed the Idiot.
+3. Keep Inside.
+4. Parking Disaster.
+5. Clean the Screen.
+6. Boss: The App Is Broken and full-catalog boss/balance validation.
+7. Flow Run deterministic segment/physics foundation.
+8. Calm Run.
+9. Rush Run and runner persistence integration.
+10. Local cosmetic presentation, original production assets/audio, then release-quality cross-mode validation.
+
+These outcomes are retained, not canceled. Their exact file/task boundaries depend on the validated five-game runtime and should not be guessed now.
+
+## Deferred infrastructure
+
+Cloud accounts/sync, daily competition, leaderboards, server currency/inventory, purchases, remote LiveOps, social, notifications, landscape runner support, and online AI remain outside this backlog until separately approved.

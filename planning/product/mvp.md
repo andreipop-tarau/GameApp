@@ -1,41 +1,27 @@
 # Scope definition
 
-## MVP: prove the core loop
+## Current proof target
 
-The MVP is an internal, playable vertical slice—not the store launch.
+The active work proves Troll Gauntlet before expanding the whole product:
 
-- Flutter iOS/Android shell, theme, navigation, accessibility baseline.
-- Guest player with local versioned save data.
-- Classic play with five challenge modules: reaction tap, sequence memory, selective attention, timing stop, and simple logic choice.
-- Deterministic seeded challenge generation and immediate result/retry.
-- Initial adaptive difficulty, repetition control, and recovery rounds.
-- Local Brain Profile, XP, level, and session history.
-- Offline-first play with bundled configuration.
-- Unit/widget tests for the challenge contract, director, progression, and core navigation.
+1. A two-game vertical slice validates the deterministic v2 runtime, premium interaction language, lifecycle safety, and replay loop.
+2. A five-game representative catalog adds tap, hold, drag, swipe, inactivity/deception, and a genuine troll modifier.
+3. Measured player/device evidence decides whether to expand the remaining approved catalog and begin Flow Run.
 
-MVP excludes onboarding, preference screens, Supabase, accounts, leaderboards, shop, purchases, social, LiveOps tooling, push notifications, and production analytics. Those do not validate the core game.
+The authoritative product direction and ethical boundaries are in `vision.md`; runtime/catalog rules are in `planning/gameplay/challenge-engine.md`; milestone gates and task order are in `planning/development/milestones.md` and `backlog.md`.
 
-## Required before public launch
+## Included foundation
 
-- Supabase environments, anonymous auth with account upgrade, cloud save, RLS, and migrations.
-- Server-validated daily challenge and global daily/all-time leaderboards.
-- Cosmetics inventory, Brain Chips ledger, shop rotation, and restored purchases.
-- RevenueCat-backed StoreKit/Google Play purchase validation, subject to a checkpoint before integration.
-- Firebase Analytics and Crashlytics with consent/privacy handling.
-- Versioned remote configuration with bundled safe fallback.
-- Onboarding, settings, account deletion/export path, legal links, and offline/error recovery.
-- Accessibility, localization readiness, performance/device QA, security review, store assets, beta, monitoring, backup and rollback procedures.
+Preserve Tasks 001-014: Flutter/Riverpod/GoRouter, deterministic primitives and legacy modules, local session/lifecycle ownership, AI Director, Brain Profile, versioned local save, XP, progression, and focused tests. Task 015 remains implemented but verification-uncertain and is reverified by the v2 integration gate.
 
-## Post-launch
+## Deferred until primary-loop evidence
 
-- Weekly events and leaderboards, expanded challenges and cosmetics.
-- Friends, friend challenges, referrals, profile sharing, notifications.
-- Seasons and community goals only after retention and operational capacity justify them.
+- Remaining approved microgames: Escape Button, Feed the Idiot, Keep Inside, Parking Disaster, Clean the Screen, and Boss: The App Is Broken.
+- Calm Run and Rush Run on the approved Flow Run foundation.
+- Broad screen redesign, cosmetic inventory presentation, production audio/assets, cloud accounts/sync, daily competition, leaderboards, purchases, remote LiveOps, social, and notifications.
 
-## Future ideas
+Deferral changes sequence, not the approved product. Purchases remain outside the repath; core play stays unlimited, local-first, and cosmetics-only.
 
-Clans, tournaments, battle pass, creator/community packs, replay/spectator modes, AI-generated events, and cross-platform expansion remain uncommitted options.
+## Public-launch boundary
 
-## Scope rule
-
-A feature enters a milestone only when its player value, data ownership, failure behavior, analytics, tests, and operating cost are understood. See `planning/development/milestones.md`; do not use the source roadmap as a task queue.
+Public launch still requires complete accessibility and low-end device validation, original licensed assets, privacy/consent, stability and analytics review, localization readiness, release automation, beta evidence, store/legal materials, monitoring, backup, and rollback. These are outcome-level requirements, not active implementation tasks until the primary game passes its validation gates.

@@ -1,6 +1,6 @@
 # ADR 0001: Initial architecture and scope boundaries
 
-- **Status:** Accepted for M0; review purchase provider before M4.
+- **Status:** Accepted foundation; product scope and milestone order superseded by ADR 0002.
 - **Date:** 2026-07-14.
 
 ## Context
@@ -26,6 +26,7 @@ MindTrap AI must be built and operated by one developer using AI coding agents w
 - Remote config can tune shipped modules but cannot deliver executable mechanics.
 - Feature boundaries stay maintainable without generating large amounts of boilerplate.
 - RevenueCat adds vendor cost/dependency; the explicit checkpoint prevents an unreviewed commitment.
+- The Flutter/Riverpod/GoRouter, deterministic offline, feature-first, and server-authority boundaries remain active after the repath. References to Classic as the primary product and the old M1-M5 order are superseded by ADR 0002 and current planning documents.
 
 ## References
 

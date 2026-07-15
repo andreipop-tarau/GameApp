@@ -1,45 +1,57 @@
-# AI Director, Brain Profile, and difficulty
+# AI Director, mastery, and difficulty
 
-## AI Director
+## Director v2
 
-**Purpose:** Select the next fair round to sustain variety and an approximate 60–70% success band without fixed levels.
+The existing director is deterministic, synchronous, offline, tested for recent-module avoidance and recovery, and should be adapted rather than replaced. Its `MvpModuleId` coupling and five-category rotation are legacy constraints that must move to v2 metadata.
 
-**Requirements:** Use a deterministic scoring policy over eligible modules. Inputs are recent outcomes, per-category skill estimates, session length, streaks, recent module history, requested mode, config, and a fatigue proxy. Filter invalid/disabled candidates; score target fit and variety; apply recovery-round rules; break ties with the seeded random source; return the selection plus non-sensitive reason codes.
+Each candidate exposes:
 
-**Dependencies:** Challenge catalog/config, Brain Profile snapshot, session history, seeded random source.
+- identifier/version and primary gesture;
+- skill category and base difficulty;
+- compatible modifiers with difficulty costs;
+- estimated duration;
+- mechanic-introduction and recent-use state;
+- local success rate, confidence, and recent failure reasons;
+- accessibility compatibility for the active settings/viewport;
+- boss/recovery eligibility.
 
-**Acceptance criteria:** Same inputs and seed return the same selection; no recent duplicate when alternatives exist; three consecutive failures force an easier recovery candidate; cold-start players receive a balanced rotation; selection completes synchronously without network access; policy behavior is unit tested across bounds.
+The selection request contains run seed/round index, remaining lives, recent microgames and gestures, consecutive failures, per-game mastery, introduced mechanics/modifiers, current intensity, session duration, accessibility settings, and validated catalog/config snapshots.
 
-**Future extensions:** remotely tuned weights, contextual bandit experiments after sufficient trustworthy data, event policies. Launch does not include ML training or an LLM.
+## Selection order
 
-## Brain Profile
+1. Filter disabled, invalid, inaccessible, duration-incompatible, and boss-ineligible candidates.
+2. Enforce no immediate microgame repeat and no gesture more than twice consecutively when alternatives exist.
+3. Force an unmodified introduction before a mechanic's modified form.
+4. After two consecutive failures, prefer an easier unmodified recovery candidate in a demonstrated gesture.
+5. Increase difficulty or modifier cost only after demonstrated competence and minimum samples.
+6. Permit at most one major modifier in a normal round.
+7. Schedule one eligible discovery boss in rounds 20-24; never use discovery bosses in consecutive runs.
+8. Score close-but-beatable fit, variety, underused content, duration budget, and intensity curve; seeded tie-break selects deterministically.
 
-**Purpose:** Provide a gradual, private summary of player performance and inputs for adaptation; it never grants power.
+An initial 65-75% normal-round target is a tunable design hypothesis. It is not a scientific constant and must not become a hidden losing-streak controller. The director may simplify after failure; it may never choose unavoidable failure or secretly alter an active plan.
 
-**Requirements:** MVP tracks normalized 0–100 estimates for reaction, memory, attention, logic, and timing. Update only from completed eligible rounds using bounded exponential smoothing plus a confidence/sample count. Retain per-category recent aggregates and personal bests. Show “not enough data” rather than false precision. Brain Type is derived presentation, not stored authority.
+## Deterministic replay
 
-**Dependencies:** Valid round metrics, category mapping, local persistence; cloud sync later.
+The same run seed, catalog/config/policy versions, profile snapshot, accessibility settings, and ordered prior outcomes must reproduce every selection and modifier. Store stable reason codes. Derive independent random streams for selection, microgame generation, modifiers, and cosmetics so presentation changes cannot alter rules.
 
-**Acceptance criteria:** One round cannot move a skill by more than the configured cap; invalid/abandoned rounds do not update it; repeated identical input produces predictable convergence; profile remains private by default; upgrades can migrate stored profile versions.
+## Mastery profile
 
-**Future extensions:** prediction, reading accuracy, risk, patience, impulsiveness, pattern recognition, learning speed, adaptability, trends and shareable insights only after enough data exists.
+Preserve the current five stored Brain Profile estimates and applied-outcome IDs. During migration they remain local, private adaptation evidence and are displayed secondarily as historical skill data. New v2 state adds per-microgame mastery, gesture familiarity, modifier/tell familiarity, samples, success rate, and personal bests with additive defaults.
+
+Do not call the model intelligence, diagnosis, mental health, or treatment. Sparse data remains explicit. A single round has bounded influence; abandoned, practice, duplicate, invalid, or inaccessible rounds do not update ranked mastery.
 
 ## Difficulty
 
-**Purpose:** Translate player state into safe module parameters.
+Difficulty combines base mechanic parameters plus modifier cost. Change at most one configured step or one cost point between comparable rounds. Minimum visible target, reaction-time, movement-speed, path-clearance, and instruction-display bounds override adaptation. Reduced motion may select an equivalent static/short-translation plan and must not silently make ranked play easier or harder; if equivalence cannot be guaranteed, mark the variant non-ranked.
 
-**Requirements:** Maintain a hidden skill estimate per category, select a target difficulty within module bounds, and change by at most one configured step per round. Difficulty changes use recent success, response quality, confidence, streaks, and recovery state. Never silently change the rules during an active round.
+## Required tests
 
-**Dependencies:** Brain Profile, module parameter bands, director policy.
-
-**Acceptance criteria:** Cold start begins at accessible baseline; success gradually raises and failure gradually lowers challenge; impossible parameter combinations are rejected; recovery rounds are visibly normal and award normal base progress; simulations remain within configured success targets using test fixtures.
-
-**Future extensions:** cohort-informed tuning and experiments with server-delivered weight sets.
-
-## Reference policy (initial)
-
-For candidate `c`, calculate a simple weighted score:
-
-`fit + variety + underplayed + mode_bonus - repetition - fatigue_cost - failure_risk`
-
-Weights and caps are named configuration values. Keep the formula small until measured data justifies change. Store policy version with every round for diagnosis.
+- identical request/seed replay;
+- microgame and gesture repetition constraints;
+- introduction before modifier;
+- two-failure recovery;
+- difficulty/cost step bounds;
+- boss window and rarity;
+- accessibility filtering with a valid fallback;
+- no valid-candidate failure behavior;
+- deterministic reason codes and random-stream independence.

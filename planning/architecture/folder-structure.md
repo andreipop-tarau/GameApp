@@ -1,30 +1,47 @@
 # Folder structure
 
-Create directories only when a task adds their first real file.
+Create a directory only when its first assigned task adds real code.
 
 ```text
 assets/
   config/
+  audio/                    # only when production feedback assets are assigned
+  cosmetics/                # only with the local cosmetic catalog
 lib/
   app/
   core/
   features/
     gameplay/
-      challenges/<challenge_name>/
+      microgame.dart        # v2 pure contract
+      microgame_runtime.dart
+      troll_modifier.dart
+      gauntlet/
+      microgames/<microgame_name>/
+      challenges/           # legacy pure rules/IDs retained for v1 compatibility after Task 061
+    flow_run/
+      segments/
+      calm/
+      rush/
     ai_director/
     brain_profile/
     progression/
-  shared/                 # only after two real uses
+    cosmetics/
+    settings/
+  shared/
+    design_system/          # tokens/components with central ownership
+    feedback/               # sound/haptic hooks when implemented
 test/
   fixtures/
-planning/                 # implementation source of truth
-Docs/                     # immutable historical source
+planning/                   # implementation source of truth
+Docs/                       # immutable historical source; never implementation input
 ```
 
 ## Conventions
 
 - Files/directories use `snake_case`; types use `UpperCamelCase`; members/providers use `lowerCamelCase`; tests end in `_test.dart`.
-- Keep a small feature's model, controller, widget, and local helper together. Do not force `domain`, `application`, `data`, and `presentation` directories.
-- Challenge-specific rules and widgets live together under `gameplay/challenges/<challenge_name>/`; the shared challenge contract stays directly under `gameplay/`.
-- Add `data/` inside a feature only when that feature first has a real persistence/API implementation. Add `supabase/` only when the backend milestone begins.
-- Tests mirror source paths where that makes discovery easier; fixtures stay in `test/fixtures/` when shared.
+- Keep pure rules free of Flutter/vendor imports. Scene widgets live beside their microgame when they are not shared.
+- A microgame directory owns generator, validator/reducer/evaluator, scene adapter, and focused tests. Do not build a generic physics/content framework for one game.
+- Shared gameplay framework owns phase/instruction/feedback only; it does not switch on every microgame ID. Catalog registrations provide factories/adapters.
+- Flow Run remains separate from Troll Gauntlet runtime; share only proven primitives such as clock, seeded random, settings, feedback, and design tokens.
+- Add `data/` only when a feature first has real persistence/API work. Add backend/vendor directories only in an assigned future milestone.
+- Tests mirror source paths when useful. Frozen save/config fixtures live under `test/fixtures/`.

@@ -1,53 +1,28 @@
-# Economy and monetization
+# Cosmetics and ethical monetization
 
-## Brain Chips economy
+## Direction
 
-**Purpose:** Fund cosmetic collection without selling gameplay strength.
+Monetization is cosmetics-first and is architecture-only during the repath. Unlimited Troll Gauntlet, Calm Run, and Rush Run remain free. No implementation task before the post-validation monetization milestone may add purchases, store SDKs, paid currency, offers, or failure-triggered selling.
 
-**Requirements:** Brain Chips are a premium cosmetic currency. Server balance is derived from an append-only ledger; every grant/spend has a unique operation ID, reason, amount, related object, and timestamp. Initial earn sources are bounded achievements, daily rewards/events, and verified purchases. Classic grinding does not yield unlimited Chips. Prices are config-driven; balance cannot be negative.
+Potential cosmetics are Trapling characters and skins, trails, Flow Run environments, sound packs, reaction animations, result-screen styles, profile decorations, and transparent bundles. They cannot modify stats, lives, director difficulty, collision, timing, visibility, ranked eligibility, or accessibility.
 
-**Dependencies:** Auth, economy ledger, inventory, remote config, analytics.
+## Local cosmetic foundation
 
-**Acceptance criteria:** Duplicate operations have no effect; client cannot set balance; purchase/spend is atomic with inventory change; transaction history supports support investigation; free play remains unlimited at zero Chips.
+Before purchases, a versioned shipped catalog may support free unlocks, ownership, preview, and equip state. Stable cosmetic IDs and explicit compatibility let future cloud inventory migrate without changing gameplay code. Unknown/missing assets fall back to the default Trapling/theme and never block play.
 
-**Future extensions:** referrals only with abuse protection, community rewards, additional earn sinks after economy review.
+## Future authority boundary
 
-## Progression rewards
+If monetization is approved after retention and ethics review:
 
-**Purpose:** Connect play to cosmetic goals without power gain.
+- server inventory and an append-only ledger become authoritative for paid currency and entitlements;
+- every grant/spend/purchase uses an idempotent operation ID;
+- platform price and exact bundle contents appear before confirmation;
+- restore/refund/revocation and offline read-only behavior are explicit;
+- purchases are never promoted immediately after failure;
+- no loot boxes, hidden odds, fake discounts/scarcity, paid lives, stat boosts, difficulty reduction affecting rankings, or exclusive competitive advantage.
 
-**Requirements:** XP/levels remain separate from Chips. Reward definitions reference immutable cosmetic IDs and config versions. Owned non-consumables cannot be re-granted without an explicit duplicate policy.
+RevenueCat remains a possible provider, not an approved dependency. Recheck cost, exportability, webhook/recovery behavior, privacy, and current platform rules in a future ADR before integration.
 
-**Dependencies:** Progression, cosmetics catalog, inventory.
+## Deferred currency
 
-**Acceptance criteria:** Rewards are idempotent, previewed accurately, and recoverable after reconnect; no reward changes challenge parameters or score.
-
-**Future extensions:** achievements, collections, seasonal tracks.
-
-## Shop
-
-**Purpose:** Offer transparent cosmetic choices.
-
-**Requirements:** Launch catalog may contain avatars, frames, themes, and effects that do not obscure gameplay. Offers show exact contents, currency/real price, ownership, and availability. Rotation comes from versioned server config with a cached fallback. No loot boxes or free spin at launch.
-
-**Dependencies:** Catalog, config, economy, purchases, inventory, asset delivery.
-
-**Acceptance criteria:** Owned items cannot be bought again accidentally; expired offers fail safely; cosmetic preview is accurate; unavailable network never spends local currency; gameplay-critical contrast is preserved.
-
-**Future extensions:** collections, event cosmetics, ethical bundles.
-
-## Purchases
-
-**Purpose:** Sell Brain Chip packs and/or direct cosmetics with store-compliant server verification.
-
-**Requirements:** Use RevenueCat unless the decision checkpoint rejects vendor cost/lock-in. The app initiates platform purchase and restores; trusted webhook/Edge Function maps verified store transaction to one ledger grant. Product IDs are environment-specific. Pending/canceled/failed states are distinct. Never grant from client callback alone.
-
-**Dependencies:** Store accounts/products, RevenueCat, Edge Function webhook, purchase and ledger tables, auth account linkage.
-
-**Acceptance criteria:** Sandbox purchase and restore pass on both stores; replayed webhook is idempotent; refunds/revocations are recorded and handled; no receipt/token is logged; failure never traps the player or charges twice.
-
-**Future extensions:** direct cosmetic products and regional offer tests; no gameplay boosts.
-
-## Monetization rule
-
-Anything purchasable must be cosmetic or currency used only for cosmetics. Ads, subscriptions, battle pass, limited scarcity, and randomized paid rewards are outside launch scope and require a new decision record.
+The previously planned Brain Chips economy is deferred. Adding a premium currency before cosmetics and retention are validated would add ledger, pricing, support, and trust costs without improving the core game. If reintroduced, it must remain server-derived, non-negative, auditable, and separate from XP.

@@ -1,73 +1,33 @@
 # Progression and retention
 
+## Retention principles
+
+Retention comes from mastery, learned troll tells, personal-best improvement, faster sequences, funny but informative failures, new deterministic variations, and cosmetic collection. It must not come from waiting, energy, paid lives, streak punishment, fake scarcity, mandatory ads, or hidden odds.
+
 ## XP and levels
 
-**Purpose:** Make every valid round contribute to long-term progress without affecting competitive power.
+Keep the implemented idempotent XP and monotonic level system. Rebalance values only through versioned config after the new run scoring exists. XP grants cosmetic access and presentation only; it never changes hitboxes, timing, lives, director fairness, runner physics, or ranking eligibility.
 
-**Requirements:** Award base XP by resolved difficulty (initial reference: easy 10, medium 20, hard 35; daily 50) through one progression service. Use a monotonic level curve stored in versioned configuration. Failed rounds may grant a small, capped participation amount only if abuse tests allow it. Level unlocks cosmetic access or presentation only.
+Round and run reward operation IDs remain deterministic and deduplicated. Practice/introduction rounds may grant a small explicitly configured amount but cannot be farmed by restart. Abandoned and invalid rounds grant nothing.
 
-**Dependencies:** Valid outcome, difficulty, config version, local save/cloud sync.
+## Mastery and personal bests
 
-**Acceptance criteria:** Identical outcome IDs never grant twice; level never decreases; offline awards reconcile safely; UI explains XP change; numeric rules are test fixtures, not scattered constants.
+Add per-microgame mastery, gesture familiarity, learned modifier/tell state, best Gauntlet score/furthest round, best Rush distance/combo, and Calm completion history. Defaults for old saves are empty/zero; no existing Brain Profile or XP is discarded.
 
-**Future extensions:** achievements, missions, season progress.
+Personal-best tie rules are deterministic. Results show one meaningful insight, such as a new furthest round or a troll tell learned, rather than a dashboard. `Play Again` is always the strongest result action.
 
-## Brain Profile presentation
+## Brain Profile migration
 
-**Purpose:** Turn the private model defined in `ai-director.md` into understandable progress.
+Keep the five existing estimates, confidence, samples, and applied IDs for compatibility and possible secondary presentation. Adapt the screen away from a clinical card grid and make it subordinate to game mastery. Do not reset or silently translate old values into new mastery. New microgame outcomes may map to an existing skill category for director evidence while maintaining separate per-game mastery.
 
-**Requirements:** Show five MVP skills, confidence, recent direction, personal bests, and a clearly labeled descriptive Brain Type when enough data exists. Avoid medical, intelligence, or diagnostic claims.
+## Cosmetic progression
 
-**Dependencies:** Brain Profile repository, profile screen, localization.
+Cosmetics include Trapling characters/skins, trails, runner environments, sound packs, reaction animations, result styles, and profile decorations. Unlock/equip state is separate from XP and competitive results. Cosmetic assets can change presentation only; collision, timing, interaction regions, tell language, and accessibility remain invariant.
 
-**Acceptance criteria:** Sparse data is represented honestly; screen works offline; values match the stored snapshot; no detail is public without opt-in.
+## Persistence compatibility
 
-**Future extensions:** weekly/monthly trends and optional share cards.
+The implemented local save is schema v1 and strictly accepts only the five current module IDs. Task 057 must decode v1, retain Brain Profile, progression, and recent outcomes, then write an additive v2 document with explicit defaults for new run stats, mastery, and settings that already have consumers. Cosmetic state is added only with the cosmetic feature. Unknown future versions remain unsupported with a non-destructive recovery path. Tests must cover v1 fixtures, v2 round trips, default values, corrupt data, deduplication, history caps, and failed writes. No task may reset existing saves merely to simplify the repath.
 
-## Daily challenge
+## Future competition
 
-**Purpose:** Give all eligible players a comparable daily objective.
-
-**Requirements:** One UTC-dated, server-published seed/config/module sequence; practice may be unlimited but only the first scored attempt (or another explicitly configured rule) enters ranking; attempt token is acquired before the scored run; server validates submission and returns rank/reward. If offline, show prior cached result and allow Classic mode, not a fake scored attempt.
-
-**Dependencies:** Auth, Edge Function/RPC validation, daily tables, challenge engine compatible versions, leaderboard.
-
-**Acceptance criteria:** Same date/version yields equivalent content; duplicate submissions are idempotent; device clock cannot select a future challenge; failed upload can retry the same signed attempt; rules are visible before play.
-
-**Future extensions:** weekly sets, friend comparison, event modifiers.
-
-## Leaderboards
-
-**Purpose:** Provide fair asynchronous competition.
-
-**Requirements:** Launch supports daily and global/all-time boards only. Store server-validated best scores with deterministic tie-breakers: score descending, completion time ascending where relevant, achieved timestamp ascending. Paginate and show the player’s nearby rank. Participation/profile display obeys privacy settings.
-
-**Dependencies:** Auth, validated submissions, profiles, moderation-safe display names.
-
-**Acceptance criteria:** Clients cannot write rank or arbitrary score; repeated lower submissions do not replace a best; pagination has stable order; blocked/deleted users are handled; offline screen shows cached data marked stale.
-
-**Future extensions:** country, friends, weekly/monthly/seasonal boards.
-
-## Social
-
-**Purpose:** Increase friendly competition without making launch dependent on a moderation-heavy system.
-
-**Requirements:** No social graph in MVP or initial launch. Launch may support OS share sheets for a non-sensitive result card only. Sharing is explicit and excludes private Brain Profile detail by default.
-
-**Dependencies:** Results/profile privacy and platform sharing.
-
-**Acceptance criteria:** Canceling share has no side effect; shared text/image contains no account identifier; game works fully without sharing.
-
-**Future extensions:** friends, challenges, referrals, blocks/reports, public profiles after moderation and abuse controls exist.
-
-## LiveOps gameplay
-
-**Purpose:** Keep challenge selection and goals fresh without making core play depend on an online event.
-
-**Requirements:** Launch LiveOps may schedule daily definitions, enable compatible shipped modules, tune bounded parameters/rewards, and rotate cosmetics. Every round records its config version. Event failure or expiry falls back to normal Classic play. No event may introduce paid power, forced waiting, or an executable mechanic not shipped in the app.
-
-**Dependencies:** Versioned remote config, challenge catalog, AI Director, daily challenge, economy, bundled fallback, operational audit/rollback.
-
-**Acceptance criteria:** Activation and expiry are UTC-correct and deterministic; unsupported/invalid config is rejected; cached/bundled fallback works offline; rollback restores a known-good version; event rewards are idempotent and do not alter competitive fairness.
-
-**Future extensions:** Weekly events, seasons, missions, community goals, and themed challenge packs only after launch operations are stable.
+Daily challenges and leaderboards remain deferred until the three-mode local product proves retention and fair reproducibility. If activated, scored attempts and rankings become server-authoritative while unlimited local play remains free and offline.

@@ -1,40 +1,66 @@
-# Gameplay loop
+# Gameplay loop and modes
 
-## Core loop
+## Troll Gauntlet core loop
 
-**Purpose:** Deliver a complete, fair challenge in 5–30 seconds and make replay immediate.
+Home opens Troll Gauntlet with one prominent action. A seeded run creates a deterministic round sequence. Each round presents a one-to-four-word objective, signals when input opens, accepts one primary gesture, resolves once, gives immediate layered feedback, and transitions in no more than 350 ms unless a short failure explanation is needed. `Play Again` starts a new deterministic run in no more than 500 ms and never waits for a network.
 
-**Requirements**
+### Selected run model: three lives with a finite gauntlet
 
-1. Home `Play` creates a session and requests a round plan from the AI Director.
-2. The challenge shows a short, unambiguous instruction before or as play begins, depending on the mechanic.
-3. Input is evaluated locally against explicit success/failure rules.
-4. Resolution freezes input, records the outcome, updates local profile/progression, and shows a compact result.
-5. `Again` starts the next generated round without a route transition or network wait; `Home` ends the session.
-6. Target: play begins within 2 seconds of `Play`, restart within 500 ms, and supported devices sustain 60 FPS.
+The run starts with three lives and ends when all lives are lost or the player clears the late boss. It contains at most 24 rounds; the director schedules a boss in rounds 20-24 after enough eligible normal rounds. Expected successful runs are approximately 4-6 minutes because normal games last 5-15 seconds and transitions are brief.
 
-**Dependencies:** Challenge Engine, AI Director, Brain Profile, progression, local persistence; feedback preferences are added before launch.
+Why this model:
 
-**Acceptance criteria**
+- Three lives creates a clear survival/retry loop and is the smallest safe change from the existing per-round session controller.
+- A shared time bank would make instruction reading and accessibility accommodations feel punitive and would complicate pause/lifecycle behavior.
+- A score-only fixed run would guarantee duration but weaken survival tension.
 
-- A player completes every MVP challenge with one hand in portrait orientation.
-- Win and loss are understandable without relying only on color, sound, or haptics.
-- App backgrounding pauses or safely resolves time-sensitive state; returning never creates a phantom score.
-- No network loss prevents Classic play or retry.
-- Each round records one deduplicated outcome and one analytics event when telemetry is enabled.
+The consequence is that weak runs may end early. First exposure to a mechanic is unmodified and forgiving; two consecutive failures force an easier recovery round when one is valid. Recovery does not secretly restore lives or reduce rewards. A mechanic-introduction round may be explicitly marked as practice and not consume a life, but only once per newly introduced mechanic and never invisibly.
 
-**Future extensions:** modes, event modifiers, multi-step and audio challenges; none may change the core challenge contract casually.
+### Sequence rules
+
+- Never select the same microgame consecutively when another eligible game exists.
+- Never use the same primary gesture more than twice consecutively.
+- Introduce a microgame without a major modifier before selecting modified variants.
+- Apply at most one major modifier in a normal round.
+- Raise difficulty only after demonstrated competence; simplify after repeated failures.
+- Reserve combined modifiers and discovery interactions for rare bosses.
+- Store run seed, policy version, microgame/modifier versions, and ordered outcomes for deterministic diagnosis and replay.
+
+Initial selection tuning aims for close-but-beatable normal rounds and an approximate 65-75% success band after onboarding. This is a product hypothesis to tune through playtesting, not a scientific constant or a promise to manipulate outcomes.
+
+### Score and progression
+
+Score combines cleared rounds, speed within mechanic-safe bounds, and a visible success combo. Failure removes one life and resets combo; it never changes a past result. Personal best records score and furthest round with deterministic tie rules. XP, mastery, tell familiarity, and cosmetic unlocks are applied idempotently after a resolved eligible round/run.
+
+For R1/R2 validation, use one explicit provisional formula: a success grants `100 + 10 * min(previousConsecutiveSuccesses, 10)` points; a failure grants zero, removes one life, and resets combo. Speed bonus is deferred until at least five games expose comparable validated metrics. The separate onboarding practice round in Task 060 grants no run score, XP, life loss, mastery, or personal-best progress. Numeric values are tunable design hypotheses, not permanent balance claims.
 
 ## Round lifecycle
 
-`created → briefing → active → resolved → persisted → result`
+`created -> briefing -> inputOpen -> active -> resolved -> feedback -> transition`
 
-Only `active` accepts gameplay input. Resolution is idempotent. A round record contains: round ID, session ID, seed, challenge ID/version/category, config version, difficulty parameters, start/end timestamps, outcome, response metrics, reward preview, and source (`classic`, `daily`, `event`).
+Only `inputOpen`/`active` accept the gestures declared by the plan. Resolution is idempotent. Backgrounding or confirmed exit abandons an active round without profile, progression, score, or reward mutation. Resume never restarts the same timer silently; the session either resumes a safely paused non-competitive state or creates the documented replacement round. Task 015 behavior is verification-uncertain and must be retested against this lifecycle.
 
-## Session rules
+A resolved record contains run/round IDs, seed, mode, microgame and modifier IDs/versions, config/policy versions, difficulty, input-open time, terminal time, outcome, failure reason, response metrics, accessibility settings relevant to reproduction, and reward operation IDs.
 
-A session starts on Play and ends on explicit exit or after 30 minutes idle. Fatigue is a selection signal, not a penalty. The app may offer a break but never blocks play. Results appear in under one second; celebratory motion respects reduced-motion settings.
+## Calm Run
 
-## Offline and failure behavior
+Calm Run uses automatic forward movement and tap-to-jump, with optional hold for a longer jump. A run lasts about 60-90 seconds, uses predictable seeded handcrafted segment sequences, contains no lives or competitive countdown, and gradually lowers movement density and feedback intensity near the end. Collision causes a bounded rewind, bounce, or slowdown and play continues without a death screen. Score pressure is absent by default.
 
-Bundled challenge configuration is always valid. Failed local persistence keeps the result visible, reports a non-fatal error, and prevents duplicate rewards on retry. Competitive modes clearly state that a connection is required before an attempt begins.
+## Rush Run
+
+Rush Run uses the same one-touch runner contract with faster pacing, seeded handcrafted segment combinations, increasing difficulty, visible combos, personal-best distance, instant restart, and cosmetic presentation. Collision ends the scored attempt under an explicit rule; it must never alter collision boundaries with cosmetics or effects.
+
+## Shared runner constraints
+
+Flow Run is the internal runtime shared by Calm Run and Rush Run. Initial orientation is portrait only: it matches the app, supports one-handed use, avoids a costly orientation transition, and lets the first implementation validate readable obstacle silhouettes on existing devices. Supporting landscape or both orientations is deferred until portrait playtesting shows a real gameplay need.
+
+## Failure and feedback
+
+Failure is clear, brief, and slightly funny. It names the action and the learnable tell, for example:
+
+```text
+Too early.
+The real signal uses the broken-circle mark.
+```
+
+Feedback layers are: response under the finger, object/environment reaction, optional haptic, optional sound, score/progress update, then Trapling reaction. Meaning must remain available without color, audio, haptics, or large motion.

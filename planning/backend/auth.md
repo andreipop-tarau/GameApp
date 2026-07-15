@@ -2,7 +2,7 @@
 
 ## Model
 
-Classic play begins with an app-local guest identity so network/auth never blocks the first round. Before cloud sync, daily ranking, shop currency, or purchases, create/sign into a Supabase user. Prefer Supabase anonymous auth for server-bound guests, then link Apple/Google identity rather than creating a second account.
+Local Troll Gauntlet, Calm Run, and Rush Run begin with an app-local guest identity so network/auth never blocks play. Before cloud sync, daily ranking, shop currency, or purchases, create/sign into a Supabase user. Prefer Supabase anonymous auth for server-bound guests, then link Apple/Google identity rather than creating a second account.
 
 At launch:
 
@@ -36,7 +36,7 @@ RLS is mandatory; authenticated identity is never accepted from request payload.
 
 ## Acceptance criteria
 
-- Offline first launch reaches Classic play.
+- Offline first launch reaches local core play.
 - Guest upgrade preserves eligible local progress and is idempotent.
 - A user cannot read or mutate another user’s private rows under RLS tests.
 - Expired sessions recover or return to guest-capable UI without a loop.

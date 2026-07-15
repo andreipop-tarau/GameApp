@@ -2,7 +2,7 @@
 
 Pin versions when a dependency is first introduced; do not add a package for a future milestone.
 
-| Concern | M0 choice | Later choice |
+| Concern | Current/repath choice | Deferred choice |
 |---|---|---|
 | Client | Flutter/Dart, iOS and Android | unchanged |
 | State | Riverpod | unchanged |
@@ -11,7 +11,7 @@ Pin versions when a dependency is first introduced; do not add a package for a f
 | Backend | none | Supabase Auth, PostgreSQL, Edge Functions, Storage when needed |
 | Purchases | none | RevenueCat, subject to ADR checkpoint |
 | Telemetry | none | Firebase Analytics and Crashlytics |
-| CI | none | GitHub Actions after M0 |
+| CI | none during gameplay repath | GitHub Actions before beta/release |
 
 ## Excluded until a task needs them
 

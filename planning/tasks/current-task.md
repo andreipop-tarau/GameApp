@@ -1,11 +1,9 @@
 # Current task
 
-Repository maintenance task.
+Task 047 — Add the minimal microgame v2 foundation.
 
-Update README.md and .gitignore only.
+Implementation prompt: `planning/tasks/prompts/047-microgame-v2-foundation.md`.
 
-Do not modify application code.
+Use a new AI coding-agent chat with high reasoning. Implement the pure contract, modifier data contract, minimal runtime, and focused tests only. Do not modify application behavior, UI, persistence, config, dependencies, assets, or planning files.
 
-When finished, report only the changed files.
-
-Do not load the backlog or any other planning document. Stop after the prompt's verification; do not advance the task.
+Tasks 016 and 017 are superseded by this compressed task. Task 015 lifecycle code remains in place and is reverified during Tasks 050 and 052.

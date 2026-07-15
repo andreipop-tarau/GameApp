@@ -2,6 +2,8 @@
 
 `current-task.md` is the only active implementation assignment. It points to one self-contained prompt under `prompts/` and is replaced when the developer advances the backlog; do not append completed task history.
 
+Prompts not referenced by `current-task.md` are historical or future handoff material, not active assignments. A prompt marked superseded must not be resumed without explicit developer direction.
+
 A coding session should load only:
 
 1. `/AGENTS.md`.
